@@ -1,19 +1,10 @@
-import { Injectable } from "@angular/core";
-import { Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { SelectionService } from "../admin/selection.service";
+import { inject } from "@angular/core";
+import { ResolveFn } from "@angular/router";
 import { ISelectionStatus } from "../shared/models/admin/selectionStatus";
+import { SelectionService } from "../shared/services/hr/selection.service";
 
 
-@Injectable({
-     providedIn: 'root'
- })
- export class SelectionStatusResolver implements Resolve<ISelectionStatus[]> {
- 
-     constructor(private selectionService: SelectionService) {}
- 
-     resolve(): Observable<ISelectionStatus[]> {
-        return this.selectionService.getSelectionStatus();
-     }
-
- }
+export const SelectionStatusResolver: ResolveFn<ISelectionStatus[]> = (
+    ) => {
+          return inject(SelectionService).getSelectionStatus();
+    };

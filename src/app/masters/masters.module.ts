@@ -22,8 +22,8 @@ import { CustomerEditComponent } from './customer-edit/customer-edit.component';
     IndustryTypesComponent,
     MasterEditModalComponent,
     QualificationsComponent,
-    PagingHeaderComponent,
-    PagingComponent,
+    //PagingHeaderComponent,
+   //PagingComponent,
     CustomerItemComponent,
     CustomerListComponent,
     MasterIndexComponent,
@@ -33,7 +33,8 @@ import { CustomerEditComponent } from './customer-edit/customer-edit.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    SharedModule
   ]
 })
 export class MastersModule { }

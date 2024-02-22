@@ -3,7 +3,9 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { IUser } from 'src/app/shared/models/admin/user';
 import { IUserHistory } from 'src/app/shared/models/admin/userHistory';
-import { IUserHistoryItem } from 'src/app/shared/models/admin/userHistoryItem';
+import { IUserHistoryItem, UserHistoryItem } from 'src/app/shared/models/admin/userHistoryItem';
+import { CallRecordsService } from 'src/app/shared/services/call-records.service';
+import { ConfirmService } from 'src/app/shared/services/confirm.service';
 
 @Component({
   selector: 'app-call-modal',
@@ -44,7 +46,7 @@ export class CallModalComponent {
   getHistory() {
     this.service.getHistoryWithItems(this.historyId).subscribe({
       next: (response: IUserHistory)=> this.cHistory = response,
-      error: error => this.toastr.error('Error in modal getting api values')
+      error: () => this.toastr.error('Error in modal getting api values')
     })
 
   }
@@ -77,7 +79,7 @@ export class CallModalComponent {
       var response = this.confirmService.confirm("Confirm Delete Transaction", 
       "Press 'Delete' to delete following transaction:'" + item.gistOfDiscussions.substring(0,15) + '...',
       'Delete', 'Cancel').subscribe({
-        next: response => {
+        next: (response: any) => {
           if(response) {
             this.service.deleteHistoryItem(item.id).subscribe({
               next: response => {
@@ -95,7 +97,7 @@ export class CallModalComponent {
             this.toastr.info('deletion aborted');
           }
         },
-        error: error => this.toastr.error('Error encountered', error)
+        error: (error: any) => this.toastr.error('Error encountered', error)
       });
   }
 
@@ -117,7 +119,7 @@ export class CallModalComponent {
     
     if(this.cHistItem !== undefined ) {
       this.service.updateHistoryItem(this.cHistItem).subscribe({
-        next: response => {
+        next: (response: any) => {
           if(response !== null) {
             this.toastr.success('record updated');
             if(this.cHistItem?.id==0) this.cHistory?.userHistoryItems.push(response);
@@ -126,7 +128,7 @@ export class CallModalComponent {
             this.toastr.info('failed to insert the record');
           }
         },
-        error: error => this.toastr.error('Error:', error)
+        error: (error: any) => this.toastr.error('Error:', error)
       });
   
     }

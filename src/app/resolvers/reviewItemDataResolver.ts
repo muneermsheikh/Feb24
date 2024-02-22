@@ -1,18 +1,9 @@
-import { Injectable } from "@angular/core";
-import { Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { ReviewService } from "../orders/review.service";
-import { IReviewItemData } from "../shared/models/reviewItemData";
+import { inject } from "@angular/core";
+import { ResolveFn } from "@angular/router";
+import { IReviewItemData } from "../shared/models/admin/reviewItemData";
+import { ReviewService } from "../shared/services/admin/review.service";
 
-@Injectable({
-     providedIn: 'root'
- })
- export class ReviewItemDataResolver implements Resolve<IReviewItemData[]> {
- 
-     constructor(private service: ReviewService) {}
- 
-     resolve(): Observable<IReviewItemData[]> {
-        return this.service.getReviewData();
-     }
- 
- }
+export const ReviewItemDataResolver: ResolveFn<IReviewItemData[] > = (
+    ) => {
+          return inject(ReviewService).getReviewData();
+    };

@@ -25,17 +25,39 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SectionHeaderComponent } from '../core/section-header/section-header.component';
 import { BreadcrumbModule } from 'xng-breadcrumb';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { ReviewItemStatusNamePipe } from './pipes/review-item-status-name.pipe';
+import { ReviewStatusNamePipe } from './pipes/review-status-name.pipe';
+import { CategoryRefCodePipe } from './pipes/category-ref-code.pipe';
+import { RefDecisionPipe } from './pipes/ref-decision.pipe';
+import { IdsModalComponent } from './components/modal/ids-modal/ids-modal.component';
 
 
 @NgModule({
   declarations: [
+    PagingComponent,
+    PagingHeaderComponent,
+    TextInputComponent,
+    DateInputComponent,
+    ConfirmModalComponent,
+    HelpModalComponent,
+    CustomerStatusPipe,
+    DepStatusPipe,
+    InputModalComponent,
+    DateInputRangeModalComponent,
+    ReviewItemStatusNamePipe,
+    ReviewStatusNamePipe,
+    CategoryRefCodePipe,
+    RefDecisionPipe,
+    IdsModalComponent
+    /*
     DateInputRangeModalComponent,
     InputModalComponent,
     ConfirmModalComponent,
     DateInputComponent,
     HelpModalComponent,
     TextInputComponent,
-    NavComponent,
+    //NavComponent,
     PagingHeaderComponent,
     PagingComponent,
     
@@ -43,8 +65,22 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
     CustomerStatusPipe,
     DepStatusPipe,
     //SectionHeaderComponent
+    */
   ],
   imports: [
+    CommonModule,
+    PaginationModule.forRoot(),
+    CarouselModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    ModalModule.forRoot(),
+    RouterModule,
+    NgSelectModule,
+    TabsModule
+    
+    /*
     CommonModule,
     PaginationModule.forRoot(),
     CarouselModule.forRoot(),
@@ -61,8 +97,26 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
     }),
     NgxSpinnerModule,
     BreadcrumbModule
+    */
   ],
   exports: [
+    CommonModule,
+    PagingComponent,
+    PagingHeaderComponent,
+    PaginationModule,
+    CarouselModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BsDropdownModule,
+    TextInputComponent,
+    DateInputComponent,
+    BsDatepickerModule,
+    NgSelectModule,
+    ModalModule,
+    TabsModule,
+    CustomerStatusPipe,
+    DepStatusPipe
+    /*
     CommonModule,
     PagingComponent,
     PagingHeaderComponent,
@@ -80,9 +134,10 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
     CustomerStatusPipe,
     DepStatusPipe,
     RouterModule,
-    NavComponent,
+    //NavComponent,
     NgxSpinnerModule,
     BreadcrumbModule
+    */
   ]
 })
 export class SharedModule { }

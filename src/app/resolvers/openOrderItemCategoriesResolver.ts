@@ -1,19 +1,10 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { OrderService } from "../orders/order.service";
+import { inject } from "@angular/core";
 import { IOpenOrderItemCategoriesDto } from "../shared/dtos/admin/openOrderItemCategriesDto";
+import { ResolveFn } from "@angular/router";
+import { OrderService } from "../shared/services/admin/order.service";
 
-
-@Injectable({
-     providedIn: 'root'
- })
- export class OpenOrderItemCategoriesResolver implements Resolve<IOpenOrderItemCategoriesDto[]|undefined> {
- 
-     constructor(private orderService: OrderService) {}
- 
-     resolve(): Observable<IOpenOrderItemCategoriesDto[]|undefined> {
-        return this.orderService.getOpenOrderItemCategoriesDto();
-     }
- 
- }
+ export const OpenOrderItemCategoriesResolver: ResolveFn<IOpenOrderItemCategoriesDto[] | undefined> = (
+    ) => {
+    
+    return inject(OrderService).getOpenOrderItemCategoriesDto();
+  };

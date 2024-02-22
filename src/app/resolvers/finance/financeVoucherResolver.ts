@@ -1,30 +1,14 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
-import { Observable, of } from "rxjs";
-import { VouchersService } from "../../finance/vouchers.service";
+import { inject } from "@angular/core";
+import { ActivatedRouteSnapshot, ResolveFn } from "@angular/router";
+import { of } from "rxjs";
 import { IFinanceVoucher } from "../../shared/models/finance/financeVoucher";
+import { VouchersService } from "src/app/shared/services/finance/vouchers.service";
 
-
-
-@Injectable({
-	providedIn: 'root'
-  })
-  export class FinanceVoucherResolver implements Resolve<IFinanceVoucher | any> {
+export const FinanceVoucherResolver: ResolveFn<IFinanceVoucher|any> = (
+	route: ActivatedRouteSnapshot,
+  ) => {
+	var id = route.paramMap.get('id');
+	if (id==='' || id=== null || id===undefined) return of(null);
+	return inject(VouchersService).getVoucherFromId(+id);
+  };
   
-	constructor(private service: VouchersService) {}
-  
-	resolve(route: ActivatedRouteSnapshot): Observable<IFinanceVoucher | any> {
-		
-		var id = route.paramMap.get('id');
-		//console.log('voucherresolver: ', id);
-		if(id==='') return of(undefined);
-
-	   	if (id !== undefined && id !== '' && id !== null) {
-			return this.service.getVoucherFromId(+id);
-		} else {
-			return of(undefined);
-		}
-		
-	}
-  
-  }

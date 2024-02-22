@@ -1,14 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TaskListComponent } from './task-list/task-list.component';
-import { UserTaskResolver } from '../resolvers/userTaskResolver';
-import { EmployeeIdsAndKnownAsResolver } from '../resolvers/employeeIdsAndKnownAsResolver';
-import { TaskTypeResolver } from '../resolvers/contactResultResolver';
-import { ContactResultsResolver } from '../resolvers/contactResultsResolver';
-
+import { LoggedInUserTaskResolver } from '../resolvers/admin/loggedInUserTaskResolver';
 
 const routes = [
-  {path: '', component: TaskListComponent, resolve: {paginatedTask: UserTaskResolver}},
+  {path: '', component: TaskListComponent, resolve: {paginatedTask: LoggedInUserTaskResolver}},
   /*{path: 'add', component: UserTaskEditComponent,
     resolve: {
       employees: EmployeeIdsAndKnownAsResolver,

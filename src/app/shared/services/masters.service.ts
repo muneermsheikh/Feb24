@@ -5,11 +5,12 @@ import { IUser } from '../models/admin/user';
 import { paramsMasters } from '../params/masters/paramsMasters';
 import { IEmployeeIdAndKnownAs } from '../models/admin/employeeIdAndKnownAs';
 import { IPagination } from '../models/pagination';
-import { IIndustryType, IProfession } from '../models/masters/profession';
 import { IQualification } from '../models/hr/qualification';
 import { ICustomerNameAndCity } from '../models/admin/customernameandcity';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { IVendorFacility } from '../models/admin/vendorFacility';
+import { IProfession } from '../models/masters/profession';
+import { IIndustryType } from '../models/admin/industryType';
 
 @Injectable({
   providedIn: 'root'

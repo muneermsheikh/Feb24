@@ -1,20 +1,14 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { OrderService } from "../orders/order.service";
-import { IOrderBriefDto } from "../shared/models/orderBriefDto";
+import { inject } from "@angular/core";
+import { ActivatedRouteSnapshot, ResolveFn } from "@angular/router";
+import { of } from "rxjs";
+import { IOrderBriefDto } from "../shared/dtos/admin/orderBriefDto";
+import { OrderService } from "../shared/services/admin/order.service";
 
-@Injectable({
-     providedIn: 'root'
- })
- export class OrderBriefDtoResolver implements Resolve<IOrderBriefDto> {
- 
-     constructor(private orderService: OrderService) {}
- 
-     resolve(route: ActivatedRouteSnapshot): Observable<IOrderBriefDto> {
-        var orderid = route.paramMap.get('orderid');
-        if(orderid===undefined || orderid==='') return;
-        return this.orderService.getOrderBrief(+orderid);
-     }
- 
- }
+
+ export const OrderBriefDtoResolver: ResolveFn<IOrderBriefDto | null> = (
+    route: ActivatedRouteSnapshot,
+  ) => {
+    var id = route.paramMap.get('orderid');
+    if (id===null) return of(null);
+    return inject(OrderService).getOrderBrief(+id!);
+  };

@@ -1,19 +1,11 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { SelectionService } from "../admin/selection.service";
+import { inject } from "@angular/core";
+import { ResolveFn } from "@angular/router";
 import { IPagination } from "../shared/models/pagination";
 import { ISelPendingDto } from "../shared/dtos/admin/selPendingDto";
+import { SelectionService } from "../shared/services/hr/selection.service";
 
-@Injectable({
-     providedIn: 'root'
- })
- export class PendingSelectionsResolver implements Resolve<IPagination<ISelPendingDto[]> | undefined> {
  
-     constructor(private selservice: SelectionService) {}
- 
-     resolve(route: ActivatedRouteSnapshot): Observable<IPagination<ISelPendingDto[]> | undefined>{
-        return this.selservice.getPendingSelections(false);
-     }
- 
- }
+export const PendingSelectionsResolver: ResolveFn<IPagination<ISelPendingDto[]> | null | undefined> = (
+  ) => {
+    return inject(SelectionService).getPendingSelections(false);
+  };

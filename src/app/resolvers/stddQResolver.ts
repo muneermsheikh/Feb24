@@ -1,21 +1,13 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { StddqsService } from "../hr/stddqs.service";
-import { IAssessmentStandardQ } from "../shared/models/assessmentStandardQ";
-
-
-@Injectable({
-     providedIn: 'root'
- })
- export class StddQResolver implements Resolve<IAssessmentStandardQ> {
+import { inject } from "@angular/core";
+import { ActivatedRouteSnapshot, ResolveFn } from "@angular/router";
+import { of } from "rxjs";
+import { IAssessmentStandardQ } from "../shared/models/admin/assessmentStandardQ";
+import { StddqsService } from "../shared/services/hr/stddqs.service";
  
-     constructor(private service: StddqsService) {}
- 
-     resolve(route: ActivatedRouteSnapshot): Observable<IAssessmentStandardQ> {
-        var routeid = route.paramMap.get('id');
-        if (routeid === '') return null;
-        return this.service.getStddQ(+routeid);
-     }
- 
- }
+export const StddQResolver: ResolveFn<IAssessmentStandardQ | null | undefined> = (
+    route: ActivatedRouteSnapshot,
+    ) => {
+        var id = route.paramMap.get('id');
+        if (id===null) return of(null);
+          return inject(StddqsService).getStddQ(+id);
+    };

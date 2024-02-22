@@ -7,7 +7,7 @@ import { IIndustryType } from 'src/app/shared/models/admin/industryType';
 import { IUser } from 'src/app/shared/models/admin/user';
 import { IPagination } from 'src/app/shared/models/pagination';
 import { paramsCustomer } from 'src/app/shared/params/admin/paramsCustomer';
-import { CustomersService } from 'src/app/shared/services/customers.service';
+import { CustomersService } from 'src/app/shared/services/admin/customers.service';
 import { MastersService } from 'src/app/shared/services/masters.service';
 import { BreadcrumbService } from 'xng-breadcrumb';
 

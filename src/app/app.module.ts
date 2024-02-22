@@ -9,14 +9,13 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ToastrModule } from 'ngx-toastr';
-import { AdminIndexComponent } from './admin/admin-index/admin-index.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminIndexComponent
+    //AdminIndexComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +23,8 @@ import { CoreModule } from './core/core.module';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     NgxSpinnerModule,
-    CoreModule
+    CoreModule,
+    HttpClientModule
     //SharedModule
   ],
   providers: [

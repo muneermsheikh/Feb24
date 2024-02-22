@@ -1,18 +1,11 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { HrService } from "../hr/hr.service";
-import { IAssessmentQBank } from "../shared/models/assessmentQBank";
+import { inject } from "@angular/core";
+import { ActivatedRouteSnapshot, ResolveFn } from "@angular/router";
+import { IAssessmentQBank } from "../shared/models/admin/assessmentQBank";
+import { HrService } from "../shared/services/hr/hr.service";
 
-@Injectable({
-     providedIn: 'root'
- })
- export class QBankByCategoryIdResolver implements Resolve<IAssessmentQBank> {
- 
-     constructor(private qBankService: HrService) {}
- 
-     resolve(route: ActivatedRouteSnapshot): Observable<IAssessmentQBank> {
-        return this.qBankService.getQBankByCategoryId(+route.paramMap.get('id'));
-     }
- 
- }
+export const QBankByCategoryIdResolver: ResolveFn<IAssessmentQBank> = (
+    route: ActivatedRouteSnapshot,
+  ) => {
+        var routeid = route.paramMap.get('id');    
+        return inject(HrService).getQBankByCategoryId(+routeid!);
+  };

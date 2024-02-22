@@ -4,21 +4,34 @@ import { SectionHeaderComponent } from './section-header/section-header.componen
 import { NavComponent } from '../shared/components/nav/nav.component';
 import { SharedModule } from '../shared/shared.module';
 import { BreadcrumbModule } from 'xng-breadcrumb';
-
+import { NgSelectModule } from '@ng-select/ng-select';
+import { RouterModule } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
   declarations: [
+    NavComponent,
     SectionHeaderComponent,
-    NavComponent
   ],
+
   imports: [
     CommonModule,
-    BreadcrumbModule
+    RouterModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true
+    }),
+    BreadcrumbModule,
+    NgxSpinnerModule,
+    SharedModule
+    
   ],
   exports: [
     SectionHeaderComponent,
-    NavComponent
+    NavComponent,
+    NgSelectModule
   ]
 })
 export class CoreModule { }

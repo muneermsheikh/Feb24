@@ -1,20 +1,10 @@
-import { Injectable } from "@angular/core";
-import { Resolve } from "@angular/router";
-import { Observable } from "rxjs";
+import { inject } from "@angular/core";
+import { ResolveFn } from "@angular/router";
 import { ITaskType } from "../shared/models/admin/taskType";
-import { UserTaskService } from "../userTask/user-task.service";
+import { TaskService } from "../shared/services/task.service";
 
-
-@Injectable({
-     providedIn: 'root'
- })
- export class TaskTypeResolver implements Resolve<ITaskType[]> {
  
-     constructor(private service: UserTaskService) {}
- 
-     resolve(): Observable<ITaskType[]> {
-     
-        return this.service.getTaskTypes();
-     }
- 
- }
+export const TaskTypeResolver: ResolveFn<ITaskType[] > = (
+    ) => {
+        return inject(TaskService).getTaskTypes();
+    };

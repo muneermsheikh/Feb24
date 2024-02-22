@@ -1,19 +1,9 @@
-import { Injectable } from "@angular/core";
-import { Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { CoaService } from "src/app/finance/coa.service";
+import { inject } from "@angular/core";
+import { ResolveFn } from "@angular/router";
 import { ICOA } from "src/app/shared/models/finance/coa";
+import { COAService } from "src/app/shared/services/finance/coa.service";
 
-
-@Injectable({
-	providedIn: 'root'
-  })
-  export class COAListResolver implements Resolve<ICOA[]> {
-  
-	constructor(private service: CoaService) {}
-  
-	resolve(): Observable<ICOA[]> {
-	   return this.service.getGroupOfCOAs('Banks');
-	}
-  
-  }
+export const COAsBankResolver: ResolveFn<ICOA[]|null> = (
+  ) => {
+	return inject(COAService).getGroupOfCOAs('Banks');
+  };

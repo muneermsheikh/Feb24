@@ -1,19 +1,9 @@
-import { Injectable } from "@angular/core";
-import { Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { IIndustryType } from "../shared/models/masters/profession";
-import { MastersService } from "../masters/masters.service";
+import { inject } from "@angular/core";
+import { ResolveFn } from "@angular/router";
+import { IIndustryType } from "../shared/models/admin/industryType";
+import { MastersService } from "../shared/services/masters.service";
 
-@Injectable({
-     providedIn: 'root'
- })
- export class IndustriesResolver implements Resolve<IIndustryType[]> {
- 
-     constructor(private mastersService: MastersService) {}
- 
-     resolve(): Observable<IIndustryType[]> {
-        console.log('entered industriesresolver');
-        return this.mastersService.getIndustries();
-     }
- 
- }
+export const IndustriesResolver: ResolveFn<IIndustryType[]> = (
+  ) => {
+    return inject(MastersService).getIndustries();
+  };

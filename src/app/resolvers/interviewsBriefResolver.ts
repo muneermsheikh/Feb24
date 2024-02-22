@@ -1,19 +1,10 @@
-import { Injectable } from "@angular/core";
-import { Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { InterviewService } from "../interview/interview.service";
-import { IPaginationInterview } from "../shared/pagination/paginationInterview";
+import { inject } from "@angular/core";
+import { ResolveFn } from "@angular/router";
+import { IPagination } from "../shared/models/pagination";
+import { IInterview } from "../shared/models/hr/interview";
+import { InterviewService } from "../shared/services/hr/interview.service";
 
-@Injectable({
-     providedIn: 'root'
- })
- export class InterviewsBriefResolver implements Resolve<IPaginationInterview> {
- 
-     constructor(private interviewService: InterviewService) {}
- 
-     resolve(): Observable<IPaginationInterview> {
-        console.log('etered interviewsbriefresolver');
-        return this.interviewService.getInterviews(false);
-     }
- 
- }
+ export const CustomerReviewResolver: ResolveFn<IPagination<IInterview[]> | null | undefined> = (
+  ) => {
+     return inject(InterviewService).getInterviews(false);
+  };

@@ -3,12 +3,12 @@ import { Navigation, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { IUser } from 'src/app/shared/models/admin/user';
-import { IIndustryType } from 'src/app/shared/models/masters/profession';
 import { paramsMasters } from 'src/app/shared/params/masters/paramsMasters';
 import { ConfirmService } from 'src/app/shared/services/confirm.service';
 import { MastersService } from 'src/app/shared/services/masters.service';
 import { BreadcrumbService } from 'xng-breadcrumb';
 import { MasterEditModalComponent } from '../master-edit-modal/master-edit-modal.component';
+import { IIndustryType } from 'src/app/shared/models/admin/industryType';
 
 @Component({
   selector: 'app-industry-types',

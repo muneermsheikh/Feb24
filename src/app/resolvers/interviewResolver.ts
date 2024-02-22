@@ -1,20 +1,15 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { InterviewService } from "../interview/interview.service";
-import { IInterview } from "../shared/models/hr/interview";
+import { Injectable, inject } from "@angular/core";
+import { ActivatedRouteSnapshot, ResolveFn } from "@angular/router";
+import { Observable, of } from "rxjs";
 
-@Injectable({
-     providedIn: 'root'
- })
- export class InterviewResolver implements Resolve<IInterview> {
- 
-     constructor(private interviewService: InterviewService) {}
- 
-     resolve(route: ActivatedRouteSnapshot): Observable<IInterview> {
-        //if it exists in DB, returns Interview Object; else creates just an Object and returns it
-        //this object then is meant to be edited and saved back to the DB
-        return this.interviewService.getOrCreateInterview(+route.paramMap.get('orderid'));
-     }
- 
- }
+import { IInterview } from "../shared/models/hr/interview";
+import { InterviewService } from "../shared/services/hr/interview.service";
+
+
+ export const InterviewResolver: ResolveFn<IInterview | null> = (
+    route: ActivatedRouteSnapshot,
+  ) => {
+    var id = route.paramMap.get('orderid');
+    if (id===null) return of(null);
+    return inject(InterviewService).getOrCreateInterview(+id!);
+  };

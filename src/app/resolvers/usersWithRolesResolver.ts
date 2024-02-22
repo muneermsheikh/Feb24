@@ -1,25 +1,13 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { AdminService } from "../account/admin.service";
-import { IUser } from "../shared/models/user";
-import { IPaginationUser } from "../shared/pagination/paginationUser";
-import { UserParams } from "../shared/params/userParams";
+import { inject } from "@angular/core";
+import { ResolveFn } from "@angular/router";
+import { IUser } from "../shared/models/admin/user";
+import { AdminService } from "../shared/services/admin/admin.service";
+import { of } from "rxjs";
 
-@Injectable({
-     providedIn: 'root'
- })
- export class UsersWithRolesResolver implements Resolve<IPaginationUser> {
- 
-     constructor(private adminService: AdminService) {}
- 
-     resolve(route: ActivatedRouteSnapshot): Observable<IPaginationUser> {
-        var userParams = new UserParams();
-        var userType = route.paramMap.get('userType');
-        userParams.userType = userType;
-        this.adminService.setParams(userParams);
+ export const UsersWithRolesResolver: ResolveFn<IUser[] | undefined | null> = (
+  ) => {
+    var users = inject(AdminService).getUsersWithRoles();
+    if(users !== null) return users;
 
-        return this.adminService.getUsersWithRolesPaginated(false);
-     }
- 
- }
+    return of(undefined);
+  };

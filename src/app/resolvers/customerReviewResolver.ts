@@ -1,18 +1,12 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { ClientReviewService } from "../client/client-review.service";
-import { ICustomerReview } from "../shared/models/customerReview";
+import { Injectable, inject } from "@angular/core";
+import { ActivatedRouteSnapshot, Resolve, ResolveFn } from "@angular/router";
+import { Observable, of } from "rxjs";
+import { ICustomerReview } from "../shared/models/admin/customerReview";
 
-@Injectable({
-     providedIn: 'root'
- })
- export class CustomerReviewResolver implements Resolve<ICustomerReview> {
- 
-     constructor(private service: ClientReviewService) {}
- 
-     resolve(route: ActivatedRouteSnapshot): Observable<ICustomerReview> {
-        return this.service.getCustomerReview(+route.paramMap.get('id'));
-     }
- 
- }
+ export const CustomerReviewResolver: ResolveFn<ICustomerReview> = (
+    route: ActivatedRouteSnapshot,
+  ) => {
+    var id = route.paramMap.get('id');
+    if (id===null) return of(null);
+    return inject(CuReviewService).getCustomerReview(+id!);
+  };

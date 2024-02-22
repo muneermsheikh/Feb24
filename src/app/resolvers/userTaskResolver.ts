@@ -1,20 +1,9 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
-import { Observable } from "rxjs";
+import { inject } from "@angular/core";
+import { ResolveFn } from "@angular/router";
 import { IApplicationTaskInBrief } from "../shared/models/admin/applicationTaskInBrief";
-import { UserTaskService } from "../userTask/user-task.service";
-
-@Injectable({
-     providedIn: 'root'
- })
- export class UserTaskResolver implements Resolve<IApplicationTaskInBrief[]> {
+import { TaskService } from "../shared/services/task.service";
  
-     constructor(private taskService: UserTaskService) {}
- 
-     resolve(route: ActivatedRouteSnapshot): Observable<IApplicationTaskInBrief[]> {
-
-         return this.taskService.getTasks(false);  //defauls pageIndex and pageSize
-         
-     }
- 
- }
+export const QBankByCategoryIdResolver: ResolveFn<IApplicationTaskInBrief[]> = (
+  ) => {
+        return inject(TaskService).getTasks(false);
+  };

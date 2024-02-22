@@ -1,6 +1,6 @@
 import { sequence } from '@angular/animations';
 import { ChangeDetectorRef, Component, EventEmitter, Input } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { IDeployStage } from 'src/app/shared/models/masters/deployStage';
 import { DeploymentDto, IDeploymentDto } from 'src/app/shared/models/process/deploymentdto';
@@ -61,8 +61,9 @@ export class DeployModalComponent {
     this.form.setControl('depItems', this.setDepItems(this.dep));
   }
 
-  setDepItems(items: IDeploymentDto[]): FormArray {
+  setDepItems(items: IDeploymentDto[]) {
     const formArray = new FormArray([]);
+      /*
       items.forEach(i => {
         var fbgroup = new DeploymentDto{transactionDate=i.transactionDate,
             sequence=i.sequence, nextStageDate = i.nextStageDate,    
@@ -78,11 +79,11 @@ export class DeployModalComponent {
             id: i.id
           
           }))  
-        
-      })
+        */
+      
     
-    
-    return formArray;
+  
+    //return formArray;
   }
 
   get depItems(): FormArray{

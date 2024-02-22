@@ -1,9 +1,7 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
-import { Observable } from "rxjs";
+import { Injectable, inject } from "@angular/core";
+import { ActivatedRouteSnapshot, Resolve, ResolveFn } from "@angular/router";
+import { Observable, of } from "rxjs";
 import { IHelp } from "../shared/models/admin/help";
-import { HelpService } from "../shared/services/help.service";
-
 
 
 @Injectable({
@@ -21,3 +19,12 @@ import { HelpService } from "../shared/services/help.service";
 	}
   
   }
+
+  export const CustomerReviewResolver: ResolveFn<IHelp> = (
+    route: ActivatedRouteSnapshot,
+  ) => {
+    var id = route.paramMap.get('topic');
+    if (id===null || id === '') return of(null);
+    return inject(HelpService).getCustomerReview(+id!);
+  };
+  

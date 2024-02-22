@@ -1,19 +1,12 @@
-import { Injectable } from "@angular/core";
-import { Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { CoaService } from "src/app/finance/coa.service";
+import { inject } from "@angular/core";
+import { ResolveFn } from "@angular/router";
 import { ICOA } from "src/app/shared/models/finance/coa";
 import { IPagination } from "src/app/shared/models/pagination";
+import { COAService } from "src/app/shared/services/finance/coa.service";
 
-@Injectable({
-	providedIn: 'root'
-  })
-  export class COAsPagedResolver implements Resolve<IPagination<ICOA[]>> {
-  
-	constructor(private service: CoaService) {}
-  
-	resolve(): Observable<IPagination<ICOA[]>> {
-	   return this.service.getCoas(false);
-	}
-  
-  }
+
+export const COAsPagedResolver: ResolveFn<IPagination<ICOA[]|null>> = (
+  ) => {
+	
+	return inject(COAService).getCoas(false);
+  };

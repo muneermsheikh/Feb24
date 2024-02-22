@@ -1,19 +1,13 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
-import { Observable, of } from "rxjs";
-import { VouchersService } from "../../finance/vouchers.service";
+import { inject } from "@angular/core";
+import { ActivatedRouteSnapshot, ResolveFn } from "@angular/router";
+import { of } from "rxjs";
 import { IStatementofAccountDto } from "../../shared/dtos/finance/statementOfAccountDto";
+import { VouchersService } from "src/app/shared/services/finance/vouchers.service";
 
+export const StatementOfAccountResolver: ResolveFn<IStatementofAccountDto|null|undefined> = (
+    route: ActivatedRouteSnapshot
+  ) => {
 
-@Injectable({
-     providedIn: 'root'
- })
- export class StatementOfAccountResolver implements Resolve<IStatementofAccountDto | undefined> {
- 
-     constructor(private service: VouchersService) {}
- 
-     resolve(route: ActivatedRouteSnapshot): Observable<IStatementofAccountDto | undefined> {
-        
         var id = route.paramMap.get('id');
         if(id==='') return of(undefined);
         
@@ -25,23 +19,11 @@ import { IStatementofAccountDto } from "../../shared/dtos/finance/statementOfAcc
         var dt1 = new Date(fromdate!);
         var dt2 = new Date(uptodate!);
         
-        console.log('reached resolver', dt1.toDateString(), dt2.toDateString());
         if(dt1 !== undefined && dt2 !== undefined) {
-            return this.service.getStatementOfAccount(+id!, dt1.toDateString(), dt2.toDateString());
+            return inject(VouchersService).getStatementOfAccount(+id!, dt1.toDateString(), dt2.toDateString());
         } else {
-         return of(undefined);
+        return of(undefined);
         }
-        
-     }
- 
-     convertStringToDate(dateStr: string): Date{
-        // dateStr = '20200408';
-        let year = dateStr.slice(0,4);
-        let month = dateStr.slice(4, 6);
-        let day = dateStr.slice(6, 8);
+    
 
-        let date = new Date(+year, +month, +day);
-
-        return date;
-     }
- }
+  };

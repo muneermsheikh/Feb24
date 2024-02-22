@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { EmployeeService } from "../employee/employee.service";
-import { IEmployee } from "../shared/models/employee";
+import { Injectable, inject } from "@angular/core";
+import { ActivatedRouteSnapshot, Resolve, ResolveFn } from "@angular/router";
+import { Observable, of } from "rxjs";
+import { IEmployee } from "../shared/models/admin/employee";
+import { MastersService } from "../shared/services/masters.service";
 
 @Injectable({
      providedIn: 'root'
@@ -20,3 +20,11 @@ import { IEmployee } from "../shared/models/employee";
      }
  
  }
+
+ export const CandidateResolver: ResolveFn<IEmployee|null> = (
+    route: ActivatedRouteSnapshot,
+  ) => {
+    var id = route.paramMap.get('id');
+    if (id===null) return of(null);
+    return inject(MastersService).gete .getEmployee(+id!);
+  };

@@ -1,19 +1,9 @@
-import { Injectable } from '@angular/core';
-import {Resolve} from '@angular/router';
-import { Observable } from 'rxjs';
-import { OrderService } from '../orders/order.service';
+import { inject } from '@angular/core';
+import {ResolveFn} from '@angular/router';
 import { IOrderItemBriefDto } from '../shared/dtos/admin/orderItemBriefDto';
+import { OrderService } from '../shared/services/admin/order.service';
 
-
-@Injectable({
-  providedIn: 'root'
-})
-export class OpenRequirementsResolver implements Resolve<IOrderItemBriefDto[]> {
-
-  constructor(private orderService: OrderService){}
-
-  resolve(): Observable<IOrderItemBriefDto[]> {
-    
-      return this.orderService.getOrderItemsBriefDto();
-  }
-}
+export const OpenRequirementsResolver: ResolveFn<IOrderItemBriefDto[]> = (
+) => {
+  return inject(OrderService).getOrderItemsBriefDto();
+};

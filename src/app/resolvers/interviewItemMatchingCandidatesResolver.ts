@@ -1,20 +1,14 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
-import { Observable } from "rxjs";
-import { InterviewService } from "../interview/interview.service";
-import { ICandidateBriefDto } from "../shared/models/candidateBriefDto";
-import { IInterview } from "../shared/models/hr/interview";
+import { inject } from "@angular/core";
+import { ActivatedRouteSnapshot, ResolveFn } from "@angular/router";
+import { of } from "rxjs";
+import { InterviewService } from "../shared/services/hr/interview.service";
+import { IInterviewItemDto } from "../shared/models/hr/interviewItemDto";
 
-@Injectable({
-     providedIn: 'root'
- })
- export class interviewItemMatchingCandidatesdResolver implements Resolve<ICandidateBriefDto[]> {
- 
-     constructor(private interviewService: InterviewService) {}
- 
-     resolve(route: ActivatedRouteSnapshot): Observable<ICandidateBriefDto[]> {
-        var interviewid = +route.paramMap.get('interviewitemid')
-        return this.interviewService.getCandidatesMatchingInterviewCategoryId(+interviewid);
-     }
- 
- }
+
+ export const InterviewItemMatchingCandidatesdResolver: ResolveFn<IInterviewItemDto[] | null> = (
+    route: ActivatedRouteSnapshot,
+  ) => {
+    var id = route.paramMap.get('interviewitemid');
+    if (id===null) return of(null);
+    return inject(InterviewService).getInterviewItemCatAndCandidates(+id!);
+  };
