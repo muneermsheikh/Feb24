@@ -1,5 +1,6 @@
 using core.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace infra.Identity
 {
