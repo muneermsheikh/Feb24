@@ -8,12 +8,16 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ServerErrorComponent } from './server-error/server-error.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
   declarations: [
     NavComponent,
     SectionHeaderComponent,
+    ServerErrorComponent,
+    NotFoundComponent,
   ],
 
   imports: [

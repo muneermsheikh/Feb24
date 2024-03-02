@@ -31,6 +31,8 @@ import { ReviewStatusNamePipe } from './pipes/review-status-name.pipe';
 import { CategoryRefCodePipe } from './pipes/category-ref-code.pipe';
 import { RefDecisionPipe } from './pipes/ref-decision.pipe';
 import { IdsModalComponent } from './components/modal/ids-modal/ids-modal.component';
+import { ChooseAgentsModalComponent } from './components/modal/choose-agents-modal/choose-agents-modal.component';
+
 
 
 @NgModule({
@@ -49,7 +51,8 @@ import { IdsModalComponent } from './components/modal/ids-modal/ids-modal.compon
     ReviewStatusNamePipe,
     CategoryRefCodePipe,
     RefDecisionPipe,
-    IdsModalComponent
+    IdsModalComponent,
+    ChooseAgentsModalComponent,
     /*
     DateInputRangeModalComponent,
     InputModalComponent,
@@ -78,10 +81,9 @@ import { IdsModalComponent } from './components/modal/ids-modal/ids-modal.compon
     ModalModule.forRoot(),
     RouterModule,
     NgSelectModule,
-    TabsModule
-    
-    /*
+    TabsModule,
     CommonModule,
+    /*
     PaginationModule.forRoot(),
     CarouselModule.forRoot(),
     ReactiveFormsModule,

@@ -6,6 +6,13 @@ import { LogInComponent } from './log-in/log-in.component';
 import { RegisterComponent } from './register/register.component';
 import { UserAddressComponent } from './user-address/user-address.component';
 import { SharedModule } from '../shared/shared.module';
+import { RolesComponent } from './roles/roles.component';
+import { RolesModalComponent } from './roles-modal/roles-modal.component';
+import { UsersWithRolesComponent } from './users-with-roles/users-with-roles.component';
+import { UsersManagementComponent } from './users-management/users-management.component';
+import { UsersTransactionComponent } from './users-transaction/users-transaction.component';
+import { SearchHistoryComponent } from './search-history/search-history.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -15,12 +22,19 @@ import { SharedModule } from '../shared/shared.module';
     UserPhonesComponent,
     LogInComponent,
     RegisterComponent,
-    UserAddressComponent
+    UserAddressComponent,
+    RolesComponent,
+    RolesModalComponent,
+    UsersWithRolesComponent,
+    UsersManagementComponent,
+    UsersTransactionComponent,
+    SearchHistoryComponent
 
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ]
 })
 export class AccountsModule { }

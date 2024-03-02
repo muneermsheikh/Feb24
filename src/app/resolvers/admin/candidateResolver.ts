@@ -8,6 +8,8 @@ export const CandidateResolver: ResolveFn<ICandidate|null> = (
     route: ActivatedRouteSnapshot,
   ) => {
     var id = route.paramMap.get('id');
-    if (id===null) return of(null);
+    if (id===null ||  id === '' || id === '0') {
+      return of(null);
+    }
     return inject(CandidateService).getCandidate(+id!);
   };

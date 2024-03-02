@@ -1,0 +1,28 @@
+<br>
+<div class="container" style="margin-top: 20px;">
+     <div *ngIf="!stddqs">
+          No standard assessment questions on record
+     </div>
+     <button type="button" class="btn btn-primary d-flex float-right fa fa-window-close" (click)="close()" ></button>
+     <div class="b">Standard Assessment Questions</div>
+     <label class="lbl mx-2 w75">Q. No.</label>
+     <label class="lbl mx-2 w150">Parameter</label>
+     <label class="lbl mx-2 w400">Question</label>
+     <label class="lbl mx-2 w75">Max Points</label>
+
+     <div *ngIf="stddqs">
+          <div *ngFor="let q of stddqs">
+               <div class="row stdd mx-2 w75" style="text-align: center;">{{q.questionNo}}</div>
+               <div class="stdd mx-2 w150" >{{q.subject}}</div>
+               <div class="stdd mx-2 w400" title="edit this question" 
+                    (click)="editstddQ(q)"
+               >{{q.question}}</div>
+               <div class="stdd mx-2 w75">{{q.maxPoints}}</div>
+               <div class="stdd m-2 w75 fa fa-pencil alignR" (click)="editstddQ(q)"></div>
+               <div class="stdd m-2 w75 fa fa-trash alignR red" (click)="deletestddq(q.id)"></div>
+               
+          </div>
+          <div style="margin-left: 625px;" class="stdd w75 alignR"><strong>total: </strong>{{totalPoints}}</div>
+     </div>
+     
+</div>

@@ -1,6 +1,7 @@
 
 export interface IInterviewItemDto {  
      id: number;
+     interviewItemId: number;
      interviewId: number;
      orderItemId: number;
      categoryId: number;

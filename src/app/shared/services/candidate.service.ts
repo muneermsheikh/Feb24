@@ -57,6 +57,7 @@ export class CandidateService {
     params = params.append('pageIndex', this.cvParams.pageNumber.toString());
     params = params.append('pageSize', this.cvParams.pageSize.toString());
     console.log('candparams:', params );
+    
     return this.http.get<IPagination<ICandidateBriefDto[]>>(this.apiUrl + 
         'candidate/candidatepages', {params}).pipe(
       map(response => {

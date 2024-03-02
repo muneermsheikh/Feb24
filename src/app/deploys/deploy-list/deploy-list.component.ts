@@ -157,7 +157,7 @@ export class DeployListComponent implements OnInit{
     this.editedReferrals.forEach(dto => {
       var dep = new Deployment();
       dep.id=dto.id;
-      dep.deployCVRefId=dto.deployCVRefId;
+      dep.cVRefId=dto.deployCVRefId;
       dep.sequence=dto.deploySequence;
       dep.transactionDate=dto.deployStageDate;
       //dep.nextStageId=dep.nextStageId;
@@ -258,7 +258,6 @@ export class DeployListComponent implements OnInit{
 
   addNewDeployment(dto: IDeploymentPendingDto)
   {
-
     this.service.getCVReferredDto(dto.deployCVRefId).subscribe({
       next: (ref: ICVReferredDto) => {
         console.log('ref:', ref);

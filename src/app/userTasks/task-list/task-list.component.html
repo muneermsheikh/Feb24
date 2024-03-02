@@ -3,9 +3,9 @@
      <ng-container>
           <div class="d-flex justify-contents-between align-items-center">
                <div class="d-flex justify-content-between align-items-center mt-2" *ngIf="totalCount > 0">
-                    <app-paging-header [totalCount]="totalCount" [pageNumber]="oParams.pageNumber" [pageSize]="oParams.pageSize"></app-paging-header>
+                    <app-paging-header [totalCount]="totalCount" [pageNumber]="oParams.pageIndex" [pageSize]="oParams.pageSize"></app-paging-header>
                     <app-paging 
-                         [pageSize]="oParams.pageSize" [totalCount]="totalCount" [pageNumber]="oParams.pageNumber" (pageChanged)="onPageChanged($event)"  >
+                         [pageSize]="oParams.pageSize" [totalCount]="totalCount" [pageNumber]="oParams.pageIndex" (pageChanged)="onPageChanged($event)"  >
                     </app-paging>
                </div>
           
@@ -29,15 +29,12 @@
                <input (keyup.enter)="onSearch()" type="text" class="stdd w300 form-control ml-15" #search style="width: 300px;" placeholder="Search">
                <button (click)="onSearch()" class="stdd fontSmall mx-2 btn btn-outline-primary my-1">Search</button>
                <button (click)="onReset()" class="stdd mx-2 fontSmall btn btn-outline-success ml-2 my-1">Reset</button>
-               <button class="stdd btn btn-outline-success pull-right my-1 fa fa-plus" title="click to add a new task"  routerLink="/userTask/add"></button>
+               <button class="stdd btn btn-outline-success pull-right my-1 fa-solid fa-plus" title="click to add a new task"  routerLink="/userTask/add"></button>
           </div>
      
      </ng-container>
 </div>
 
-<div *ngIf="!tasks">
-     No tasks on record
-</div>
 <div *ngIf="tasks">
      <div class="ml-5 form-inline" style="font-weight: bold;">
           <div class="stdd w100 mx-2 b" >Assigned To</div>
@@ -48,8 +45,12 @@
           <div class="stdd w100 b">Status</div>
      </div>
 </div>
+
+<div *ngIf="!tasks || totalCount === 0 ||  tasks === undefined" style="font-size: large; font-weight: bold; color: red; text-align: center;">
+     No tasks on record for the user
+</div>
+
 <div *ngIf="tasks">
-    
      <div class="row" *ngFor="let task of tasks" >
           <app-task-line 
                (deleteEvent)="deleteTaskR($event)"  

@@ -1,0 +1,75 @@
+<div *ngIf="order===null">
+    No Order data available
+</div>
+<div *ngIf="order!==null && order !== undefined">
+    <div style="display: inline-block; width: max-content;" >
+         <div class="stdd w70" title="click to View this order"  
+              (click)="viewClicked()"
+         >{{order.orderNo}}</div>
+         
+         <div class="stdd w100" >{{order.orderDate | date: 'dd-MMM-yy'}}</div>
+
+         <div *ngIf="order.status != 'concluded' "
+              class="stdd w200" title="this order cannot be edited as it is concluded"  
+              (click)="editClicked()" 
+         >
+              {{order.customerName}}
+         </div>
+         
+         <div class="stdd w100" 
+         >
+              {{order.cityOfWorking}}
+         </div>
+         
+         <div class="stdd w150"
+              [ngClass]="order.contractReviewStatusId===4?'green':order.contractReviewStatusId===2?'blue': 'red'" 
+         >
+              {{order.contractReviewStatusId | reviewStatusName }}
+         </div>
+         
+         <div class="stdd w100" title="click for technical & commercial review of this order" 
+              (click)="contractReviewClicked()"     
+         >
+              {{order.reviewStatus===null ? 'Not Reviewed' : order.reviewedOn | date: 'dd-MMM-yy'}}
+         </div>
+         <div class="stdd w100 fontSmall" *ngIf="order.forwardedToHRDeptOn === null"> Not forwarded</div>
+         <div class="stdd w100" *ngIf="order.forwardedToHRDeptOn !== null">
+              {{order.forwardedToHRDeptOn | date: 'dd-MMM-yy'}}
+         </div>
+         <div class="stdd w150 fontSmall" title="click to forward this order to associates"
+              (click)="dlForwardToAssociatesClicked()"
+              title="click to forward this order to associates (to be selected)" >
+              {{order.status}}
+         </div>
+         
+         <div class="stdd w150 fontSmall" 
+              title="click to forward this order to associates (to be selected)" >
+              {{order.status}}
+         </div>
+
+         <button class="stdd w15 fa fa-envelope" (click)="AcknowledgeClicked()" 
+              title="compose email message of acknowldgement to client" ></button>
+         
+         <div style="display: inline-block; width: 250px;"> 
+              <button class="stdd w15 fa fa-pencil" title="edit this DL" type="button"
+                   (click)="editClicked()"
+                   
+              ></button>
+              <button class="stdd w15 fa fa-check fa-sm" title="edit this DL" type="button"
+                   title="DLs already forwardED to associates"
+                   (click)="dlForwardedToAssociatesClicked()"
+              ></button> 
+              
+              <button class="stdd w15 fa fa-circle" title="cvs forwarded" type="button"
+                   title="CVs already referrED to clients for this Order"
+                   (click)="cvReferredClicked()"
+              ></button>
+              <button class="stdd w15 fa fa-bell" title="Remind for decision on CVs forwarded" type="button"
+                   title="cvs referred to clients for this Order"
+                   (click)="remindForSelDecisions()"
+              ></button>
+
+              <button class="stdd fa fa-trash red" title="delete the DL" type="button" (click)="deleteClicked()"></button>
+         </div>
+    </div>
+</div>

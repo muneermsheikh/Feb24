@@ -37,37 +37,6 @@ export class StddqsService {
   }
 
   getStddQs() {   //useCache: boolean=false) {
-    /*
-    if (useCache === false) this.cache = new Map();
-
-    if(this.cache.size > 0 && useCache === true) {
-      if(this.cache.has(Object.values(this.qParams).join('-'))) {
-        this.stddqs=this.cache.get(Object.values(this.qParams).join('-'));
-        return of(this.stddqs);
-      }
-    }
-
-    let params = new HttpParams();
-    if(this.qParams.id !== 0) {
-      params = params.append('id', this.qParams.id!.toString());
-    }
-    if(this.qParams.parameter !== '') {
-      params = params.append('parameter', this.qParams.parameter);
-    }
-    if (this.qParams.search) {
-      params = params.append('search', this.qParams.search);
-    }
-
-    return this.http.get<IAssessmentStandardQ[]>(this.apiUrl + 'assessmentstddq', {observe: 'response', params})
-      .pipe(
-        map(response => {
-          this.cache.set(Object.values(this.qParams).join('-'), response.body);
-          this.stddqs = response.body!;
-
-          return response.body;
-        })
-      )
-    */
       return this.http.get<IAssessmentQ[]>(this.apiUrl + 'assessmentstddq');
   }
 

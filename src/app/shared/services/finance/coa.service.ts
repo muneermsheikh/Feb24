@@ -75,7 +75,6 @@ export class COAService {
     params = params.append('pageIndex', this.sParams.pageNumber.toString());
     params = params.append('pageSize', this.sParams.pageSize.toString());
 
-    console.log('params:', params);
     return this.http.get<IPagination<ICOA[]>>(this.apiUrl + 'finance/coas', {params})
       .pipe(
         map((response: any) => {
@@ -86,7 +85,7 @@ export class COAService {
       )
     }
 
-  editCOA(coa : ICOA)
+  editCOA(coa : ICOA | undefined)
   {
       return this.http.put<ICOA>(this.apiUrl + 'finance/coa', coa);
   }

@@ -15,10 +15,12 @@ export interface IOrderBriefDto
      reviewedBy: number;
      reviewedOn: Date;
      forwardedToHRDeptOn: Date;
-     
+     orderItemsDto: IOrderItemDto[];
 }
 
 export interface IOrderItemDto{
+     id: number;
+     srNo: number;
      checked: boolean;
      orderId: number;
      orderItemId: number;

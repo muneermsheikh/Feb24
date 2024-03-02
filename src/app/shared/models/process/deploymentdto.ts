@@ -1,7 +1,7 @@
 export interface IDeploymentDto
 {
 	id: number;
-	deployCVRefId: number;
+	cVRefId: number;
 	transactionDate: Date;
 	sequence: number;
 	//stageName: string;
@@ -13,7 +13,7 @@ export interface IDeploymentDto
 export class DeploymentDto implements IDeploymentDto
 {
 	id=0;
-	deployCVRefId = 0;
+	cVRefId = 0;
 	transactionDate = new Date();
 	sequence = 0;
 	//stageName = '';

@@ -12,7 +12,7 @@ export class userTaskParams {
      orderId? = 0;
      
      sort = "taskDate";
-     pageNumber = 1;
+     pageIndex = 1;
      pageSize = 15;
      search: string='';
 }

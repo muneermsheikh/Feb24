@@ -66,7 +66,7 @@ export class DeployEditComponent implements OnInit {
     const config = {
         class:'modal-dialog-centered modal-lg',
         initialState: {
-          cvRefId : record.cvRefId,
+          cvRefId : record.cVRefId,
           transactionDate: new Date(),
           stageId:iStageId,
           nextStageId: iNextStageId,

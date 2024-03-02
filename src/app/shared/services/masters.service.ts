@@ -83,7 +83,6 @@ export class MastersService {
   }
 
   getQualificationList(){
-    console.log('calling api for qlist');
     return this.http.get<IQualification[]>(this.apiUrl + 'masters/qualificationList');
   }
 

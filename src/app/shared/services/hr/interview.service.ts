@@ -4,8 +4,9 @@ import { interviewParams } from '../../params/admin/interviewParams';
 import { IPagination } from '../../models/pagination';
 import { IInterview } from '../../models/hr/interview';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, of } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { IInterviewItemDto } from '../../models/hr/interviewItemDto';
+import { IInterviewBrief } from '../../models/hr/interviewBrief';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,47 @@ export class InterviewService {
   //private currentUserSource = new ReplaySubject<IUser>(1);
   //currentUser$ = this.currentUserSource.asObservable();
   params = new interviewParams();
-  pagination?: IPagination<IInterview[]>;
+  pagination?: IPagination<IInterviewBrief[]>;
   cache = new Map();
 
   constructor(private http: HttpClient) { }
 
-  getInterviews(useCache: boolean) {
+  getInterviews(useCache: boolean=true): Observable<IPagination<IInterviewBrief[]>> { 
+    
+    if (useCache === false)  this.cache = new Map();
+    
+    if (this.cache.size > 0 && useCache === true) {
+      if (this.cache.has(Object.values(this.params).join('-'))) {
+        this.pagination = this.cache.get(Object.values(this.params).join('-'));
+        if(this.pagination) return of(this.pagination);
+      }
+    }
+
+    let params = new HttpParams();
+    if (this.params.orderNo !== 0) params = params.append('orderNo', this.params.orderNo.toString());
+    if (this.params.orderId !== 0) params = params.append('orderIdId', this.params.orderId!.toString());
+    if (this.params.customerId !== 0) params = params.append('customerId', this.params.customerId!.toString());
+    if (this.params.customerNameLike !== '') params = params.append('customerNameLike', this.params.customerNameLike);
+    if (this.params.interviewVenue !== '') params = params.append('interviewVenue', this.params.interviewVenue);
+    if (this.params.search) params = params.append('search', this.params.search);
+    
+    params = params.append('sort', this.params.sort);
+    params = params.append('pageIndex', this.params.pageNumber.toString());
+    params = params.append('pageSize', this.params.pageSize.toString());
+    
+    return this.http.get<IPagination<IInterviewBrief[]>>(this.apiUrl + 
+        'interview/interviews', {params}).pipe(
+      map(response => {
+        this.cache.set(Object.values(this.params).join('-'), response)
+        this.pagination = response;
+        return this.pagination  // response;
+      })
+    )
+
+  }
+
+  /*
+  getInterviews(useCache: boolean): Observable<IPagination<IInterviewBrief[]>> {
 
     if (useCache === false) {
        this.cache = new Map();
@@ -31,7 +67,7 @@ export class InterviewService {
     if (this.cache.size > 0 && useCache === true) {
       if (this.cache.has(Object.values(this.params).join('-'))) {
         this.pagination!.data = this.cache.get(Object.values(this.params).join('-'));
-        return of(this.pagination);
+        if(this.pagination) return of(this.pagination);
       }
     }
 
@@ -47,21 +83,19 @@ export class InterviewService {
     params = params.append('pageIndex', this.params.pageNumber.toString());
     params = params.append('pageSize', this.params.pageSize.toString());
     
-    return this.http.get<IPagination<IInterview[]>>(this.apiUrl + 'interview/interviews', {params})
-      .pipe(
-        map(response => {
-          if(response !==null) {
+    return this.http.get<IPagination<IInterviewBrief[]>>(this.apiUrl + 
+        'interview/interviews', {params}).pipe(
+        map((response: IPagination<IInterviewBrief[]> | null) => {
+         // if(response !==null) {
             this.cache.set(Object.values(this.params).join('-'), response);
-            this.pagination = response;
+            this.pagination = response!;
             return response;
-          } else {
-            return null;
-          }
+         // } else {return null}
         })
       )
     }
 
-  
+  */
   getInterviewById(id: number) {
     return this.http.get<IInterview>(this.apiUrl + 'interview/interviewById/' + id);
   }

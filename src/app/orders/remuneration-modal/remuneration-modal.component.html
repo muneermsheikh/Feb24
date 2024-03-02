@@ -1,0 +1,85 @@
+
+
+<div class="mx-2">
+    <div class="mx-2">
+         <div>
+              <strong>Customer: </strong> {{remun!.customerName}}
+         </div>
+         <div>
+              <strong>Order No.:</strong> {{remun!.orderNo}} dt {{remun!.orderDate | date}}
+         </div>
+         <div>
+              <strong>Category: </strong>{{remun!.categoryName}}
+         </div>
+    
+    </div>
+    <div *ngIf="remun !== undefined && remun !== null" class="modal-body" style="font-size: small;">
+         <form #remunForm="ngForm" id="remunForm">
+              <!-- <div>
+                   <input type="text" id="orderitemid" name="orderitemid" class="stdd w50" style="visibility: hidden;" [(ngModel)]="orderItemId" >
+                   <input type="text" id="id" name="id" class="stdd w50" style="visibility: hidden;" [(ngModel)]="id" >
+              </div>
+         -->
+              <div class="stdd col-3 b ">Salary</div>
+              <div class="stdd w50 b tAlignR">Currency </div>
+              <input class="stdd form-text-input col-1" 
+                   [(ngModel)]="remun.salaryCurrency" type="text" id="salaryCurrency" name="salaryCurrency">
+              <input class="stddR col-2 form-text-input " 
+                   [(ngModel)]="remun.salaryMin" type="text" id="salaryMin" name="salaryMin">
+              <label class="stdd col-1 b" style="text-align:center;">to</label>
+              <input class="stddR col-2 form-text-input" 
+                   [(ngModel)]="remun.salaryMax" type="text" id="salaryMax" name="salaryMax">
+           
+              <br>
+              <label class="stdd col-4 b">Work hours per day</label>
+              <input class="stddR col-1" [(ngModel)]="remun.workHours" type="text" id="workHours" name="workHours">
+              <br>
+              <label class="stdd col-4 b">Contract Period</label>
+              <input class="stddR col-1 tAlignR" [(ngModel)]="remun.contractPeriodInMonths" type="text" id="contractPeriodInMonths" name="contractPeriodInMonths">
+              <label class="stdd mx-1">months</label>
+              
+              <br>
+              <div class="stdd col-4">Leave/Year</div>
+              <input class="stddR form-text-input col-1" [(ngModel)]="remun.leavePerYearInDays" type="text" 
+                   id="leavePerYearInDays" name="leavePerYearIDays">
+              <label class="stdd col-3 mx-1 tAlignR" >days vacation, after</label>
+              <input class="stddR col-1 form-text-input" [(ngModel)]="remun.leaveAirfareEntitlementAfterMonths" type="text" 
+                   id="leaveAirfareEntitlementAfterMonths" name="leaveAirfareEntitlementAfterMonths">
+              <label class="stdd col-1">months</label>
+              <br>
+              <label class="stdd col-4">Perks</label>
+              <label class="stdd col-4" style="padding-right:10px; padding-left:10px;">Amount</label>
+              <label class="stdd col-3">Provided free</label>
+              <br>
+              <label class="stdd col-4">Accommodation</label>
+              <input class="stddR col-3" style="padding-right:10px; padding-left:10px;" 
+                   [(ngModel)]="remun.housingAllowance" type="text" id="housingAllowance" name="housingAllowance">
+              <input class="col-3" style="padding-left: 10px; padding-right:10px; text-align: center;" type="checkbox" 
+                   [(ngModel)]="remun.housingProvidedFree" id="housingProvidedFree" name="housingProvidedFree">
+              <br>
+              <label class="stdd col-4">Food</label>
+              <input class="stddR col-3" style="padding-right:10px; padding-left:10px;" 
+                   [(ngModel)]="remun.foodAllowance" type="text" id="foodAllowance" name="foodAllowance">
+              <input class="col-3" style="padding-left: 10px; padding-right:10px; text-align: center;" type="checkbox" 
+                   [(ngModel)]="remun.foodProvidedFree" id="foodProvidedFree" name="foodProvidedFree">
+              <br>
+              <label class="stdd col-4">Transport</label>
+              <input class="stddR col-3" style="padding-right:10px; padding-left:10px;" 
+                   [(ngModel)]="remun.transportAllowance" type="text" id="transportAllowance" name="transportAllowance">
+              <input class="col-3" style="padding-left: 10px; padding-right:10px; text-align: center;" type="checkbox" 
+                   [(ngModel)]="remun.transportProvidedFree" id="transportProvidedFree" name="transportProvidedFree">
+              <br>
+              <label class="stdd col-4">Other Allowance</label>
+              <input class="stddR col-3" style="padding-right:10px; padding-left:10px;" 
+                   [(ngModel)]="remun.otherAllowance" type="text" id="otherAllowance" name="otherAllowance">
+              <br>
+              
+         </form>
+    
+    </div>
+    <div class="modal-footer">
+         <button type="button" class="btn btn-success fa fa-save" (click)="confirm()"></button>
+         <button type="button" class="btn btn-danger fa fa-window-close red" (click)="decline()"></button>
+    </div>
+    
+</div>

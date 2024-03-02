@@ -5,7 +5,6 @@ import { CandidateHistoryComponent } from './candidate-history/candidate-history
 import { CandidateItemComponent } from './candidate-item/candidate-item.component';
 import { CandidateListComponent } from './candidate-list/candidate-list.component';
 import { ChecklistModalComponent } from './checklist-modal/checklist-modal.component';
-import { ProspectiveListComponent } from './prospective-list/prospective-list.component';
 import { UploadComponent } from './upload/upload.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
@@ -19,7 +18,6 @@ import { SharedModule } from '../shared/shared.module';
     CandidateItemComponent,
     CandidateListComponent,
     ChecklistModalComponent,
-    ProspectiveListComponent,
     UploadComponent
   ],
   imports: [

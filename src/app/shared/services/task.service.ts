@@ -40,7 +40,7 @@ export class TaskService {
   }
 
   getPendingTasksOfLoggedInUser() {
-    return this.http.get<IApplicationTaskInBrief[]>(this.apiUrl + 'task/pendingtasksofloggedinuser/' + this.oParams.pageNumber + '/' + this.oParams.pageSize);
+    return this.http.get<IApplicationTaskInBrief[]>(this.apiUrl + 'task/pendingtasksofloggedinuser/' + this.oParams.pageIndex + '/' + this.oParams.pageSize);
   }
 
   setOParams(params: userTaskParams) {
@@ -82,7 +82,7 @@ export class TaskService {
     }
     
     params = params.append('sort', this.oParams.sort);
-    params = params.append('pageIndex', this.oParams.pageNumber.toString());
+    params = params.append('pageIndex', this.oParams.pageIndex.toString());
     params = params.append('pageSize', this.oParams.pageSize.toString());
 
     return this.http.get<IPagination<IApplicationTaskInBrief[]>>

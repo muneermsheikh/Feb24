@@ -8,6 +8,9 @@ import { AccountsService } from '../accounts.service';
 import { HttpClient } from '@angular/common/http';
 import { IAssessment } from '../../models/admin/assessment';
 import { IAssessmentQ } from '../../models/admin/assessmentQ';
+import { IOrderItemAssessment } from '../../models/admin/orderItemAssessment';
+import { IOrderItemAssessmentQ } from '../../models/admin/orderItemAssessmentQ';
+import { ICandidateAssessment } from '../../models/hr/candidateAssessment';
 
 @Injectable({
   providedIn: 'root'
@@ -35,8 +38,12 @@ export class AssessmentService {
       return item;
     }
     
+    getOrderItemAssessmentQs(orderid: number) {
+      var item = this.http.get<IOrderItemAssessmentQ[]>(this.apiUrl + 'OrderAssessment/orderassessmentQs/' + orderid);
+      return item;
+    }
     getOrderAssessment(orderid: number) {
-      return this.http.get<IAssessment>(this.apiUrl + 'orderassessment/orderassessment/' + orderid);
+      return this.http.get<IAssessment>(this.apiUrl + 'OrderAssessment/orderassessment/' + orderid);
     }
 
     getAssessmentQBankOfCategoryId(orderitemid: number, professionId: number) {
@@ -45,6 +52,10 @@ export class AssessmentService {
         + orderitemid + '/' + professionId);
     }
 
+    updateCandidateAssessment(assessment: ICandidateAssessment) {
+      return this.http.put<ICandidateAssessment>(this.apiUrl + 'CandidateAssessment/assess', {assessment});
+    }
+    
     updateAssessment(assessment: IAssessment) {
       return this.http.put<boolean>(this.apiUrl + 'orderassessment/editassessment', assessment);
     }

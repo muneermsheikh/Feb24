@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/app/environments/environment';
-import { IChecklistHRDto } from '../../dtos/hr/checklistHRDto';
+import { ChecklistHRDto, IChecklistHRDto } from '../../dtos/hr/checklistHRDto';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -28,4 +28,8 @@ export class ChecklistService {
     return this.http.put(this.apiUrl + 'checklist/checklisthr', checklist);
   }
 
+  addNewChecklistHR(candidateId: number, orderItemId: number) {
+    return this.http.post<ChecklistHRDto>(this.apiUrl + 'Checklist/' + candidateId + '/' + orderItemId, {})
+  }
+  
 }

@@ -4,7 +4,6 @@ import { IApplicationTaskInBrief } from "src/app/shared/models/admin/application
 import { UserTaskService } from "src/app/shared/services/admin/user-task.service";
 
  export const LoggedInUserTaskResolver: ResolveFn<IApplicationTaskInBrief[]|null> = (
-    route: ActivatedRouteSnapshot,
   ) => {
     return inject(UserTaskService).getPendingTasksOfLoggedInUser()
   };

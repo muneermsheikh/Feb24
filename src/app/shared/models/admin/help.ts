@@ -7,3 +7,9 @@ export interface IHelp
 	helpItems: IHelpItem[];
 }
 
+export class Help implements IHelp
+{
+	id = 0;
+	topic = '';
+	helpItems: IHelpItem[] = [];
+}

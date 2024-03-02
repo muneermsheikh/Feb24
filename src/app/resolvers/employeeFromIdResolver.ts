@@ -21,10 +21,10 @@ import { MastersService } from "../shared/services/masters.service";
  
  }
 
- export const CandidateResolver: ResolveFn<IEmployee|null> = (
+ export const EmployeeFromIdResolver: ResolveFn<IEmployee|null> = (
     route: ActivatedRouteSnapshot,
   ) => {
     var id = route.paramMap.get('id');
     if (id===null) return of(null);
-    return inject(MastersService).gete .getEmployee(+id!);
+    return inject(Emplo).getEmployee(+id!);
   };

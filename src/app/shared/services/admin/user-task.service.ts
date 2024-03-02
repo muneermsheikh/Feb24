@@ -40,7 +40,12 @@ export class UserTaskService {
   }
 
   getPendingTasksOfLoggedInUser() {
-    return this.http.get<IApplicationTaskInBrief[]>(this.apiUrl + 'task/pendingtasksofloggedinuser/' + this.oParams.pageNumber + '/' + this.oParams.pageSize);
+    var taskParams = new userTaskParams();
+    taskParams.pageIndex=1;
+    taskParams.pageSize=15;
+    this.oParams = taskParams;
+    //return this.http.get<IApplicationTaskInBrief[]>(this.apiUrl + 'task/paginatedtasksOfloggedinuser/' + this.oParams.pageIndex + '/' + this.oParams.pageSize);
+    return this.getTasks(false);
   }
 
   setOParams(params: userTaskParams) {
@@ -56,7 +61,7 @@ export class UserTaskService {
   }
 
   getTasks(useCache: boolean): any {     //returns IPaginationAppTask
-    console.log('params in task service:', this.oParams);
+    
     if (useCache === false)  this.cache = new Map();
 
     if (this.cache.size > 0 && useCache === true) {
@@ -82,7 +87,7 @@ export class UserTaskService {
     }
     
     params = params.append('sort', this.oParams.sort);
-    params = params.append('pageIndex', this.oParams.pageNumber.toString());
+    params = params.append('pageIndex', this.oParams.pageIndex.toString());
     params = params.append('pageSize', this.oParams.pageSize.toString());
 
     return this.http.get<IPagination<IApplicationTaskInBrief[]>>

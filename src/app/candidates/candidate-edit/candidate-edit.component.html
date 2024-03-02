@@ -8,142 +8,107 @@
      autocomplete="off"
      >
      <hr>
-     <div >
-            <div class="stdd col-6" style="border-style: groove;">
-                <input type="text" style="visibility: hidden; width: 10px;" formControlName="id" class="stdd">
-                
-               <label for="applicationNo" class="stdd w150 mt-1">Application No:</label>
-               <input type="text" class="stdd w150 mt-1" formControlName="applicationNo" >
-               <div class="pull-right mt-1">
-                    <button class="btn btn-default fa fa-undo" type="button" (click)="cancel()"></button>
-                    <button [disabled]="!registerForm.valid" title="Update" 
-                         class="btn btn-success me-2 fa fa-save " type="submit"></button>
-               </div>
-                
-                <div class="mt-2">
-                    <label class="lbl w100" style="margin-left: 10px;">Gender: </label>
-                    <input type="radio" class="form-check-input" style="margin-right:25px;" value="m" formControlName="gender">
-                    <label class="lbl w75">male</label>
-                    <input type="radio" class="form-check-input" style="margin-right:25px;" value="f" formControlName="gender">
-                    <label class="lbl w75">female</label>
-               </div>    
-               <div class="mt-2">
-                    <label class="lbl w100" style="margin-left: 10px;">User Type:</label>
-                    <input type="radio" class="form-check-input" value="candidate" formControlName="userType">
-                    <div class="lbl w100">candidate</div>
-                         <input type="radio" class="form-check-input ms-3" value="official" formControlName="userType">
-                    <div class="lbl w100">Official</div>
-                         <input type="radio" class="form-check-input ms-3" value="employee" formControlName="userType">
-                    <div class="lbl">Employee</div>
-               </div>
+     <div class="stdd col-6 mt-1" style="border-style: groove;">
+          <input type="text" style="visibility: hidden; width: 10px;" formControlName="id" class="stdd">
                
-               <div class="mt-2">
-                    <div class="stdd col-3">
-                         <input type="text" class="w150" formControlName="firstName">
-                         <label for="firstName" class="stdd w150">First Name</label>
-                     </div>
-                     <div class="stdd col-3">
-                         <input type="text" class="w150" formControlName="secondName">
-                         <label for="secondName" class="stdd w150">Second Name</label>
-                     </div>
-                     <div class="stdd col-3">
-                         <input type="text" class="w150" formControlName="familyName">
-                         <label for="familyName" class="stdd w150">Family Name</label>
-                     </div>
-                     <div class="stdd col-3">
-                         <input type="text" class="w100" formControlName="knownAs">
-                         <label for="knownAs" class="stdd w100">Known As</label>
-                     </div>
-               </div>
+          <label for="applicationNo" class="lbl">Application No:</label>
+          <input type="text" class="stdd w150" formControlName="applicationNo" >
+          <div class="pull-right">
+               <button class="btn btn-default fa fa-undo" type="button" (click)="cancel()"></button>
+               <button [disabled]="!registerForm.valid" title="Update" 
+                    class="btn btn-success me-2 fa fa-save " type="submit"></button>
+          </div>
+               
+          <br> <label style="margin-left: 10px; width: 55px; display: inline-block; margin-top: 5px; font-size: small; font-weight: bold;"
+               >Gender: </label>
+               <input type="radio" style="display: inline-block; width: 20px;" 
+                    class="form-check-input inputcheck" value="m" formControlName="gender">
+               <label style="display: inline-block; width:50px;" >male</label>
+               <input type="radio" style="display: inline-block; width: 20px;" 
+                    value="f" formControlName="gender">
+               <label class="lbl w50">female</label>
+     
+                    <label class="lbls" style="margin-left: 10px;">User Type:</label>
+                         <input type="radio" style="display: inline-block; width: 20px;" 
+                         class="form-check-input inputcheck" value="candidate" formControlName="userType">
+                    <div style="display: inline-block; width: 75px; font-size: small;" >candidate</div>
+                         <input type="radio" class="form-check-input inputcheck" 
+                              value="official" formControlName="userType">
+                    <div  style="display: inline-block; width: 50px; font-size: small;" >Official</div>
+                         <input type="radio" class="form-check-input inputcheck" value="employee" formControlName="userType">
+                    <div  style="display: inline-block; width: 50px; font-size: small;" >Employee</div>
+               
+               <br> <label for="firstName" class="lbl">First Name</label>
+                    <input type="text" class="stdd w150" formControlName="firstName">
+                    <label for="secondName" class="lbl">Second Name</label>
+                    <input type="text" class="stdd w150" formControlName="secondName">
+                    
+               <br><label for="familyName" class="lbl">Family Name</label>
+                    <input type="text" class="stdd w150" formControlName="familyName">
+                    <label for="knownAs" class="lbl">Known As</label>
+                    <input type="text" class="stdd w100" formControlName="knownAs">
+                     
+               <br><label for="knownAs" class="lbl">Date of Birth</label>
+                    <input type="text" class="stdd w150"
+                         placeholder="Date of birth"
+                         formControlName="dOB"
+                         bsDatepicker
+                         [bsValue]="bsValueDate"
+                         [bsConfig]="{dateInputFormat: 'YYYY-MM-DD' }"
+                    >    
+                    <label for="placeOfBirth" class="lbl">Place of Birth</label>
+                    <input type="text" class="stdd w150" formControlName="placeOfBirth">
+                    
 
-               <div class="mt-2">
-                    <div class="stdd col-3" >
-                         <input type="text"
-                              placeholder="Date of birth"
-                              formControlName="dOB"
-                              bsDatepicker
-                              [bsValue]="bsValueDate"
-                              [bsConfig]="{dateInputFormat: 'YYYY-MM-DD' }"
-                         >
-                         <label for="Date of birth" class="stdd w100">Place of Birth</label>    
-                    </div>
-                    <div class="stdd col-3">
-                         <input type="text" class="stdd w150" formControlName="placeOfBirth">
-                         <label for="knownAs" class="stdd w150">Place of Birth</label>
-                    </div>
-                    <div class="stdd col-5">
-                         <ng-select   
+                    <div *ngIf="!agents">
+                         <label for="referredBy" class="lbl">Referred By</label>
+                         <ng-select   class="stdd w150"
                               [items]="agents" 
                               [searchable]=true 
                               bindLabel = "name"
                               bindValue = "id"
                               formControlName="referredBy"
                               (change)="getAgentValue($event)"
-                         >
+                              >
                          </ng-select>
-                         <label for="referredBy" class="stdd w150">Referred By</label>
                     </div>
-               </div>
                
-               <div class="mt-2">
-                    <div class="stdd col-3">
-                         <input type="text" class="w100" formControlName="aadharNo">
-                         <label for="aadharNo" class="stdd w100">Aadhar No</label>
-                     </div>
-                     <div class="stdd col-3">
-                         <input type="text" class="w100" formControlName="ppNo">
-                         <label for="ppNo" class="stdd w100">PP No</label>
-                     </div>
-                     <div class="stdd col-6">
-                         <label class="lbl w150" style="margin-left: 10px;">Emig Clarance: </label>
-                         <input type="radio" class="form-check-input" style="margin-right:25px;" value="ecnr" formControlName="ecnr">
-                         <label class="lbl w75">ECNR</label>
-                         <input type="radio" class="form-check-input" style="margin-right:25px;" value="ecr" formControlName="ecnr">
-                         <label class="lbl w75">ECR</label>
-     
-     
-                     </div>
-               </div>
-               <div class="mt-2">
-                    <div class="stdd col-6">
-                         <input type="text" class="w350" formControlName="address">
-                         <label for="address" class="stdd w350">Address</label>
-                     </div>
-                     <div class="stdd col-6">
-                         <input type="text" class="w350" formControlName="address2">
-                         <label for="address2" class="stdd w350">Address 2</label>
-                     </div>
-               </div>
-               <div class="mt-2">
-                    <div class="stdd col-3">
-                         <input type="text" class="w150" formControlName="city">
-                         <label for="city" class="w150">City</label>
-                     </div>
-                     <div class="stdd col-2">
-                         <input type="text" class="w75" formControlName="pin">
-                         <label for="pin" class="w75">PIN</label>
-                     </div>
-                     <div class="stdd col-3">
-                         <input type="text" class="w100" formControlName="district">
-                         <label for="district" class="w100">District</label>
-                     </div>
-               </div>
-               <div class="mt-2">
-                    <div class="stdd col-6">
-                         <input type="text" class="w150" formControlName="email">
-                         <br><label for="email" ngClass="isAddMode ? 'stdd w250' : 'stdd w350'">Email</label>
-                     </div>
-     
-                     <div class="stdd col-3" *ngIf="isAddMode">
-                         <input type="password" class="w150" formControlName="password">
-                         <label for="password" class="stdd w150">Password</label>
-                     </div>
-                     <div class="stdd col-3" *ngIf="isAddMode">
-                         <input type="password" class="w150" formControlName="password">
-                         <label for="district" class="stdd w150">Confirm Password</label>
-                     </div>
-               </div> 
-          </div>
+               <br>
+                    <label for="aadharNo" class="lbl">Aadhar No</label>
+                    <input type="text" class="stdd w150" formControlName="aadharNo">
+
+                    <label for="ppNo" class="lblS" style="margin-left: 5px;">PP No</label>
+                    <input type="text" class="stdd w100" formControlName="ppNo">
+                    
+                    <label class="lbl" style="margin-left: 10px;">Emig Clearance: </label>
+                    <input type="radio" class="form-check-input inputcheck" style="margin-left: 10px;" value="ecnr" formControlName="ecnr">
+                    <label style="display: inline-block; width: 45px; margin-left: 5px;" >ECNR</label>
+                    <input type="radio" class="form-check-input inputcheck" value="ecr" formControlName="ecnr">
+                    <label style="display: inline-block; width: 45px; margin-left: 5px;" >ECR</label>e
+               <br>
+                    <label for="address" class="lbl">Address</label>
+                    <input type="text" style="display: inline-block; width: 500px; margin-top: 5px;" formControlName="address">
+               <br>    
+                    <label for="city" class="lbl">City</label>
+                    <input type="text" class="stdd w150" formControlName="city">
+                    <label for="pin" style="margin-left: 5px; display: inline-block; width: 40px; font-weight: bold; font-size: small;">PIN</label>
+                    <input type="text" style="display: inline-block; margin-top:5px; margin-left: 5px; width: 75px;" formControlName="pin">
+                    <label for="district" style="display: inline-block; margin-left: 5px; width: 75px; font-weight: bold; font-size: small;"
+                         >District</label>
+                    <input type="text" class="stdd w125" formControlName="district">
+                    
+               <br> <label for="email"  class="lbl">Email</label>
+                    <input type="text" class="w300" formControlName="email">
+               
+                     <div *ngIf="!candidate" style="margin-bottom: 10px;">
+                         <label for="password" class="lbl">Password</label>
+                         <input type="password" class="stdd w150" id="password" #password formControlName="password">
+                         <label for="password" 
+                              style="display: inline-block; font-weight: bold; font-size: small; width: 150px; margin-left: 5px;" 
+                              >Confirm Password</label>
+                         <input type="password" style="display: inline-block; margin-left: 5px; width: 150px; font-weight: bold; font-size: small;" class="stdd w150" formControlName="password">
+                     </div> 
+     </div>
           
           <div class="stdd col-5">
                <tabset class="member-tabset" #memberTabs>
@@ -276,7 +241,6 @@
                
                </tabset>
           </div>
-     </div>    
    
       <div class="row" *ngIf="validationErrors">
          <ul class="text-danger">

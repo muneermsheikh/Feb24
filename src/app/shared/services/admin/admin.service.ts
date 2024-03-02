@@ -4,6 +4,7 @@ import { environment } from 'src/app/environments/environment';
 import { IUser } from '../../models/admin/user';
 import { ICustomerOfficialDto } from '../../models/admin/customerOfficialDto';
 import { IOrderItemsAndAgentsToFwdDto } from '../../dtos/admin/orderItemsAndAgentsToFwdDto';
+import { IEmployeeIdAndKnownAs } from '../../models/admin/employeeIdAndKnownAs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,10 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
+  getEmployeeIdAndKnownAs() {
+    return this.http.get<IEmployeeIdAndKnownAs[]>(this.baseUrl + 'employees/idandknownas');
+  }
+  
   getUsersWithRoles() {
     //console.log('calling api for getuserswithroles');
     return this.http.get<IUser[] | undefined | null>(this.baseUrl + 'admin/users-with-roles');

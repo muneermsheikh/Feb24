@@ -1,7 +1,7 @@
 export interface IDeployment
 {
 	id: number;
-	deployCVRefId: number;
+	cVRefId: number;
 	transactionDate: Date;
 	sequence: number;
 	nextSequence: number;
@@ -12,7 +12,7 @@ export interface IDeployment
 export class Deployment implements IDeployment
 {
 	id: number=0;
-	deployCVRefId: number=0;
+	cVRefId: number=0;
 	transactionDate: Date=new Date();
 	sequence: number=0;
 	nextSequence: number=0;

@@ -26,10 +26,10 @@ import { DeployListComponent } from './deploy-list/deploy-list.component';
         DeployListComponent
     ],
     imports: [
-        CommonModule,
+        //CommonModule,
         NgSelectModule,
-        FormsModule,
-        ReactiveFormsModule,
+        //FormsModule,
+        //ReactiveFormsModule,
         BsDatepickerModule.forRoot(),
         SharedModule
     ]

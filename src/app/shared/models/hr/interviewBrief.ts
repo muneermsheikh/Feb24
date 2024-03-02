@@ -1,5 +1,7 @@
 
 export interface IInterviewBrief{
+     id: number;
+     checked: boolean;
      orderId: number;
      orderNo: number;
      orderDate: Date;

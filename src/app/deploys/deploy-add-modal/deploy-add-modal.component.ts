@@ -59,7 +59,7 @@ export class DeployAddModalComponent implements OnInit {
 
   editDep(cv: ICVReferredDto) {
     this.form.patchValue({
-      cvRefId: cv.cvRefId, customerName: cv.customerName, orderNo: cv.orderNo,
+      cvRefId: cv.cVRefId, customerName: cv.customerName, orderNo: cv.orderNo,
       orderDate: cv.orderDate, categoryName: cv.categoryName, categoryRef: cv.categoryRef,
       applicationNo: cv.applicationNo, candidateName: cv.candidateName,
       selectedOn: cv.selectedOn
@@ -119,7 +119,7 @@ export class DeployAddModalComponent implements OnInit {
 
     console.log('ref:', this.ref);
 
-      var cvrefid = this.ref===null ? 0 : this.ref?.cvRefId;
+      var cvrefid = this.ref===null ? 0 : this.ref?.cVRefId;
 
       return this.fb.group({
         id:0, 

@@ -120,8 +120,7 @@ export class CandidateListComponent implements OnInit {
   }
   
   onSortSelected(sort: any) {
-    console.log('sort', sort);
-    const prms = this.service.getCVParams();
+     const prms = this.service.getCVParams();
     prms.sort = sort;
     prms.pageNumber=1;
     prms.pageSize=10;

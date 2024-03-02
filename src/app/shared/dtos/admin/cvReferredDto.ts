@@ -1,7 +1,7 @@
 export interface ICVReferredDto
 {
      checked: boolean;
-     cvRefId: number;
+     cVRefId: number;
      customerName: string;
      orderId: number;
      orderNo: number;
@@ -23,7 +23,7 @@ export interface ICVReferredDto
 export class CVReferredDto implements ICVReferredDto
 {
      checked = false;
-     cvRefId= 0;
+     cVRefId= 0;
      customerName= '';
      orderId= 0;
      orderNo= 0;
@@ -45,7 +45,7 @@ export class CVReferredDto implements ICVReferredDto
 export interface IDeployDto
 {
      id: number;
-     deployCVRefId: number;
+     cVRefId: number;
      transactionDate: Date;
      sequence: number;
      nextSequence: number;

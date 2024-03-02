@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild, inject } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Navigation, Router } from '@angular/router';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
@@ -16,6 +16,7 @@ import { IUserPhone } from 'src/app/shared/params/admin/userPhone';
 import { IUserProfession } from 'src/app/shared/params/admin/userProfession';
 import { IUserQualification } from 'src/app/shared/params/admin/userQualification';
 import { AccountsService } from 'src/app/shared/services/accounts.service';
+import { CustomersService } from 'src/app/shared/services/admin/customers.service';
 import { CandidateService } from 'src/app/shared/services/candidate.service';
 import { MastersService } from 'src/app/shared/services/masters.service';
 
@@ -28,7 +29,11 @@ export class CandidateEditComponent {
   
   @ViewChild('memberTabs', {static: true}) memberTabs: TabsetComponent | undefined;
   activeTab: TabDirective | undefined;
+
+  @ViewChild("password", { static: true }) passwordElement: ElementRef | undefined;
  
+  myPassword = '';
+
   @Output() cancelRegister = new EventEmitter();
   registerForm: FormGroup = new FormGroup({});
   maxDate: Date = new Date();
@@ -90,10 +95,12 @@ export class CandidateEditComponent {
     private activatedRoute: ActivatedRoute,
     private mastersService: MastersService,
     private candidateService: CandidateService,
-    private router: Router
+    private router: Router,
+    passwordElement: ElementRef
     ) {
       
-          this.routeId = this.activatedRoute.snapshot.params['id'];
+      this.passwordElement = passwordElement;    
+      this.routeId = this.activatedRoute.snapshot.params['id'];
           //this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user!);
 
           this.routeId = this.activatedRoute.snapshot.params['id'];
@@ -122,14 +129,14 @@ export class CandidateEditComponent {
     this.activatedRoute.data.subscribe( data => {
         this.professions = data['categories'],
         this.qualifications = data['qualifications'],
-        this.agents = data['agents'],
+        //this.agents = data['agents'],
         this.candidate = data['candidate'];
 
         this.isAddMode = this.candidate?.id===0;
 
-        if(this.candidate !== undefined) {
-          this.editCandidate(this.candidate);
-        }
+        if(this.candidate !== undefined) this.editCandidate(this.candidate);
+        if(this.user !== null)  this.mastersService.getAgents()
+          .subscribe((response: ICustomerNameAndCity[]) => this.agents = response);
     });
 
     //this.getQualifications();
@@ -142,18 +149,18 @@ export class CandidateEditComponent {
         applicationNo:0,        
         gender: ['male', Validators.required],
         nationality: ['Indian', Validators.required],
-        knownAs: ['', Validators.required],
-        username: '',
-        firstName: ['', Validators.required],
-        secondName: '',
-        familyName: '',
-        dOB: '',
-        placeOfBirth: '',
-        aadharNo: '',
+        knownAs: ['kadir', Validators.required],
+        username: 'kadir.hassan@gmail.com',
+        firstName: ['Kadir', Validators.required],
+        secondName: 'Hassan',
+        familyName: 'Shaikh',
+        dOB: '1990-10-10T12:00:00',
+        placeOfBirth: 'Latur',
+        aadharNo: '123456654321',
         photoUrl: '',
-        ppNo: '',
-        ecnr: [false],
-        referredBy: 0,
+        ppNo: 'X-3945999',
+        ecnr: [true],
+        referredBy: 9,    //direct
         referredByName: '',
         
         password: ['']  , /*[Validators.required, 
@@ -164,11 +171,11 @@ export class CandidateEditComponent {
       //userAddressForm: this.fb.group({
         address: '',
         address2: '',
-        city: ['', Validators.required],
-        pin: '',
+        city: ['Mumbai', Validators.required],
+        pin: '401107',
         district:'',
         country: ['India'],
-        email: ['', Validators.email],
+        email: ['kadir.hassan@gmail.com', Validators.email],
       //})
       
       userPhones: this.fb.array([]),
@@ -197,10 +204,11 @@ export class CandidateEditComponent {
     console.log('patching up values', cv);
 
     this.registerForm.patchValue( {
-      id: cv.id, userType: cv.userType , applicationNo: cv.applicationNo, gender: cv.gender, firstName: cv.firstName,
-      secondName: cv.secondName, familyName: cv.familyName, knownAs: cv.knownAs, referredBy: cv.referredBy, dOB: cv.dOB,
-      placeOfBirth: cv.placeOfBirth, aadharNo: cv.aadharNo, ppNo: cv.ppNo, ecnr: cv.ecnr, city: cv.city, pin: cv.pin,
-      nationality: cv.nationality, email: cv.email, companyId: cv.companyId, notificationDesired: cv.notificationDesired
+      id: cv.id ?? 0, userType: cv.userType , applicationNo: cv.applicationNo, gender: cv.gender, 
+      firstName: cv.firstName, secondName: cv.secondName, familyName: cv.familyName, knownAs: cv.knownAs, 
+      referredBy: cv.referredBy, dOB: cv.dOB, placeOfBirth: cv.placeOfBirth, aadharNo: cv.aadharNo, 
+      ppNo: cv.ppNo, ecnr: cv.ecnr, city: cv.city, pin: cv.pin, nationality: cv.nationality, 
+      email: cv.email, companyId: cv.companyId, notificationDesired: cv.notificationDesired
     });
       if(cv.photoUrl !== null) this.memberPhotoUrl = 'https://localhost:5001/api/assets/images/' + cv.photoUrl;
       
@@ -214,7 +222,7 @@ export class CandidateEditComponent {
 
   setExistingPhones(userphones: IUserPhone[]) {
 
-    userphones.forEach(ph =>{
+    userphones?.forEach(ph =>{
       var up = this.fb.group({
         id: ph.id,
         candidateId: ph.candidateId,
@@ -229,7 +237,7 @@ export class CandidateEditComponent {
 }
 
   setExistingQ(userQ: IUserQualification[]) {
-      userQ.forEach(q => {
+      userQ?.forEach(q => {
         var uq = this.fb.group({
           id: q.id,
           candidateId: q.candidateId,
@@ -513,6 +521,13 @@ export class CandidateEditComponent {
     if(nowDate < this.lastTimeCalled+ microsecondsDiff) return;
     
     this.lastTimeCalled=Date.now();
+    /*if (!this.candidate && this.passwordElement?.nativeElement === undefined) {
+      this.toastrService.error('Password not provided');
+      return;
+    }
+    */
+    //this.myPassword = this.passwordElement!.nativeElement!.value;
+
     const formData = new FormData();
     const formValue = this.registerForm.value;
 
@@ -524,9 +539,14 @@ export class CandidateEditComponent {
     }
 
     formData.append('data', JSON.stringify(this.registerForm.value));
-
-    if(this.candidate=== undefined || this.candidate?.id === 0) {   //insert new cv
+    if(!this.candidate && formData.get('password') === undefined) {
+      this.toastrService.info('Password not provided');
+      return;
+    }
+ 
+    if(!this.candidate ) {   //insert new cv
       this.toastrService.info('inserting ...');
+
         this.candidateService.registerWithFiles(formData).subscribe({
           next: (response: IApiReturnDto) => {
             
@@ -534,6 +554,7 @@ export class CandidateEditComponent {
               this.toastrService.error('failed to save the candidate data', response.errorMessage);
             } else {
               this.toastrService.success('candidate saved, with Application No. ' + response.returnInt.toString(), 'Profile successfully inserted');
+              this.registerForm.setValue({'applicationNo': response.returnInt});
             }},
           error: error => this.toastrService.error('failed to save the candidate', error)
     })} else {

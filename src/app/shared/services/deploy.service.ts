@@ -132,7 +132,7 @@ export class DeployService {
   updateSingleTransaction(deploy: IDeploymentDto) {
     let params = new HttpParams();
     
-    params = params.append('cVRefId', deploy.deployCVRefId);
+    params = params.append('cVRefId', deploy.cVRefId);
     params = params.append('id', deploy.id);
     params = params.append('nextSequence', deploy.nextSequence);
     params = params.append('sequence', deploy.sequence);

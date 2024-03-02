@@ -27,7 +27,7 @@
             <div class="stdd w75">On: </div>
             <div class="stdd w100 blue">{{chklst!.exceptionApprovedOn | date:'d-MMM-yy'}}</div>
             <div class="stdd w75 ml-20 b">By:</div> 
-            <div class="stdd w75 blue">{{chklst.exceptionApprovedBy}</div>    
+            <div class="stdd w75 blue">{{chklst!.exceptionApprovedBy}}</div>    
         </div>
     </div>
     <br>
@@ -37,10 +37,8 @@
        <span class="b">Checklist Completed:</span>
        <span class="b mx-2 blue"> {{chklst!.checklistedOk ? 'Yes' : 'No'}}</span>
    </div>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
+   <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
 
    <div class="modal-body">
      <form #checklistForm="ngForm" id="checklistForm">

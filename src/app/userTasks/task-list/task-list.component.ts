@@ -17,7 +17,6 @@ import { TaskService } from 'src/app/shared/services/task.service';
 })
 export class TaskListComponent implements OnInit{
 
-  
   routeId: string;
   user?: IUser;
   tasks: ApplicationTaskInBrief[]=[];
@@ -83,7 +82,7 @@ export class TaskListComponent implements OnInit{
   onSearch() {
     const params = this.taskService.getOParams();
     params.search = this.searchTerm!.nativeElement.value;
-    params.pageNumber = 1;
+    params.pageIndex = 1;
     this.taskService.setOParams(params);
     this.getTasks();
   }
@@ -100,7 +99,7 @@ export class TaskListComponent implements OnInit{
 
     const prms = this.taskService.getOParams();
     prms.sort = sortSelected;
-    prms.pageNumber=1;
+    prms.pageIndex=1;
     this.taskService.setOParams(prms);
     console.log('sort selected:', sortSelected);
     //this.getTasks();
@@ -111,7 +110,7 @@ export class TaskListComponent implements OnInit{
 
     const prms = this.taskService.getOParams();
     prms.taskStatus = statusSelected;
-    prms.pageNumber=1;
+    prms.pageIndex=1;
     this.taskService.setOParams(prms);
     //this.getTasks();
     console.log('status selected:', statusSelected);
@@ -119,8 +118,8 @@ export class TaskListComponent implements OnInit{
 
   onPageChanged(event: any){
     const params = this.taskService.getOParams();
-    if (params.pageNumber !== event) {
-      params.pageNumber = event;
+    if (params.pageIndex !== event) {
+      params.pageIndex = event;
       this.taskService.setOParams(params);
       this.getTasks(true);
     }
