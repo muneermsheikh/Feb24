@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace infra.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreateATS : Migration
+    public partial class initialcreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,55 +31,14 @@ namespace infra.Data.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    AssessmentParameter = table.Column<string>(type: "TEXT", nullable: false),
-                    QNo = table.Column<int>(type: "INTEGER", nullable: false),
+                    Subject = table.Column<string>(type: "TEXT", nullable: false),
+                    QuestionNo = table.Column<int>(type: "INTEGER", nullable: false),
                     Question = table.Column<string>(type: "TEXT", nullable: false),
                     MaxPoints = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AssessmentStandardQs", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Candidates",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ApplicationNo = table.Column<int>(type: "INTEGER", nullable: false),
-                    Gender = table.Column<string>(type: "TEXT", maxLength: 1, nullable: false),
-                    FirstName = table.Column<string>(type: "VARCHAR", unicode: false, maxLength: 75, nullable: false),
-                    SecondName = table.Column<string>(type: "VARCHAR", unicode: false, maxLength: 75, nullable: true),
-                    FamilyName = table.Column<string>(type: "VARCHAR", unicode: false, maxLength: 75, nullable: true),
-                    KnownAs = table.Column<string>(type: "TEXT", nullable: false),
-                    ReferredBy = table.Column<int>(type: "INTEGER", nullable: true),
-                    Source = table.Column<string>(type: "TEXT", nullable: true),
-                    DOB = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    PlaceOfBirth = table.Column<string>(type: "TEXT", nullable: true),
-                    AadharNo = table.Column<string>(type: "TEXT", nullable: true),
-                    PpNo = table.Column<string>(type: "TEXT", nullable: true),
-                    Ecnr = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
-                    City = table.Column<string>(type: "TEXT", nullable: true),
-                    Pin = table.Column<string>(type: "TEXT", nullable: true),
-                    District = table.Column<string>(type: "TEXT", nullable: true),
-                    Nationality = table.Column<string>(type: "TEXT", nullable: true),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    CompanyId = table.Column<int>(type: "INTEGER", nullable: true),
-                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    LastActive = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Introduction = table.Column<string>(type: "TEXT", nullable: true),
-                    Interests = table.Column<string>(type: "TEXT", nullable: true),
-                    AppUserIdNotEnforced = table.Column<bool>(type: "INTEGER", nullable: false),
-                    AppUserId = table.Column<string>(type: "TEXT", nullable: true),
-                    NotificationDesired = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CandidateStatus = table.Column<int>(type: "INTEGER", nullable: true),
-                    PhotoUrl = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Candidates", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,7 +61,8 @@ namespace infra.Data.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     SrNo = table.Column<int>(type: "INTEGER", nullable: false),
-                    Parameter = table.Column<string>(type: "TEXT", maxLength: 250, nullable: false)
+                    Parameter = table.Column<string>(type: "TEXT", maxLength: 250, nullable: false),
+                    IsMandatory = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -250,7 +210,7 @@ namespace infra.Data.Migrations
                     HRExecTaskId = table.Column<int>(type: "INTEGER", nullable: false),
                     ChecklistHRId = table.Column<int>(type: "INTEGER", nullable: true),
                     CandidateId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Ecnr = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Ecnr = table.Column<string>(type: "TEXT", nullable: true),
                     Charges = table.Column<int>(type: "INTEGER", nullable: false),
                     OrderItemId = table.Column<int>(type: "INTEGER", nullable: false),
                     OrderId = table.Column<int>(type: "INTEGER", nullable: false),
@@ -286,7 +246,7 @@ namespace infra.Data.Migrations
                     Status = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Sequence = table.Column<int>(type: "INTEGER", nullable: false),
                     EstimatedDaysToCompleteThisStage = table.Column<int>(type: "INTEGER", nullable: false),
-                    NextDeployStageSequence = table.Column<int>(type: "INTEGER", nullable: false)
+                    NextSequence = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -332,8 +292,10 @@ namespace infra.Data.Migrations
                     SenderDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     RecipientDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     SenderId = table.Column<int>(type: "INTEGER", nullable: false),
+                    SenderAppUserId = table.Column<string>(type: "TEXT", nullable: true),
                     PostAction = table.Column<int>(type: "INTEGER", nullable: false),
-                    RecipientId = table.Column<int>(type: "INTEGER", nullable: false)
+                    RecipientId = table.Column<int>(type: "INTEGER", nullable: false),
+                    RecipientAppUserId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -424,11 +386,7 @@ namespace infra.Data.Migrations
                     VoucherDated = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Amount = table.Column<long>(type: "INTEGER", nullable: false),
                     Narration = table.Column<string>(type: "TEXT", nullable: true),
-                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ReviewedById = table.Column<int>(type: "INTEGER", nullable: false),
-                    ReviewedByName = table.Column<string>(type: "TEXT", maxLength: 10, nullable: true),
-                    ReviewedOn = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Approved = table.Column<bool>(type: "INTEGER", nullable: false)
+                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -784,6 +742,19 @@ namespace infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "VendorFacilities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VendorFacilities", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AssessmentQBankItems",
                 columns: table => new
                 {
@@ -805,6 +776,836 @@ namespace infra.Data.Migrations
                         principalTable: "AssessmentQBank",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomerReviewItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CustomerReviewId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ReviewTransactionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CustomerReviewDataId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
+                    ApprovedBySup = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ApprovedById = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerReviewItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CustomerReviewItems_CustomerReviews_CustomerReviewId",
+                        column: x => x.CustomerReviewId,
+                        principalTable: "CustomerReviews",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AgencySpecialties",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProfessionId = table.Column<int>(type: "INTEGER", nullable: false),
+                    IndustryId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AgencySpecialties", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AgencySpecialties_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomerIndustries",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    IndustryId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerIndustries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CustomerIndustries_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomerOfficials",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    LogInCredential = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AppUserId = table.Column<string>(type: "TEXT", nullable: true),
+                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Gender = table.Column<string>(type: "TEXT", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", nullable: true),
+                    OfficialName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    KnownAs = table.Column<string>(type: "TEXT", nullable: true),
+                    Designation = table.Column<string>(type: "TEXT", nullable: true),
+                    Divn = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNo = table.Column<string>(type: "TEXT", nullable: true),
+                    Mobile = table.Column<string>(type: "TEXT", nullable: true),
+                    Email = table.Column<string>(type: "TEXT", nullable: true),
+                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    IsValid = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerOfficials", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CustomerOfficials_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    OrderNo = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CustomerName = table.Column<string>(type: "TEXT", nullable: true),
+                    BuyerEmail = table.Column<string>(type: "TEXT", nullable: true),
+                    OrderRef = table.Column<string>(type: "TEXT", nullable: true),
+                    OrderRefDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    SalesmanName = table.Column<string>(type: "TEXT", nullable: true),
+                    ProjectManagerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    MedicalProcessInchargeEmpId = table.Column<int>(type: "INTEGER", nullable: true),
+                    VisaProcessInchargeEmpId = table.Column<int>(type: "INTEGER", nullable: true),
+                    EmigProcessInchargeId = table.Column<int>(type: "INTEGER", nullable: true),
+                    TravelProcessInchargeId = table.Column<int>(type: "INTEGER", nullable: true),
+                    SalesmanId = table.Column<int>(type: "INTEGER", nullable: true),
+                    CompleteBy = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Country = table.Column<string>(type: "TEXT", nullable: true),
+                    CityOfWorking = table.Column<string>(type: "TEXT", nullable: false),
+                    ContractReviewId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ContractReviewStatusId = table.Column<int>(type: "INTEGER", nullable: false),
+                    EstimatedRevenue = table.Column<int>(type: "INTEGER", nullable: false),
+                    Status = table.Column<string>(type: "TEXT", nullable: true),
+                    ForwardedToHRDeptOn = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VendorSpecialties",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    VendorFacilityId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VendorSpecialties", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VendorSpecialties_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeAddresses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    AddressType = table.Column<string>(type: "TEXT", nullable: true),
+                    Add = table.Column<string>(type: "TEXT", nullable: true),
+                    StreetAdd = table.Column<string>(type: "TEXT", nullable: true),
+                    City = table.Column<string>(type: "TEXT", nullable: true),
+                    Pin = table.Column<string>(type: "TEXT", nullable: true),
+                    State = table.Column<string>(type: "TEXT", nullable: true),
+                    District = table.Column<string>(type: "TEXT", nullable: true),
+                    Country = table.Column<string>(type: "TEXT", nullable: true),
+                    IsMain = table.Column<bool>(type: "INTEGER", nullable: false),
+                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeAddresses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmployeeAddresses_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeHRSkills",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
+                    IndustryId = table.Column<int>(type: "INTEGER", nullable: false),
+                    SkillLevel = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeHRSkills", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmployeeHRSkills_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeOtherSkills",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
+                    SkillDataId = table.Column<int>(type: "INTEGER", nullable: false),
+                    SkillLevel = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsMain = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeOtherSkills", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmployeeOtherSkills_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeePhones",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
+                    MobileNo = table.Column<string>(type: "TEXT", nullable: true),
+                    IsOfficial = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsMain = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsValid = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeePhones", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmployeePhones_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeQualifications",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
+                    QualificationId = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsMain = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeQualifications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmployeeQualifications_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VoucherAttachments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    FinanceVoucherId = table.Column<int>(type: "INTEGER", nullable: false),
+                    AttachmentSizeInBytes = table.Column<int>(type: "INTEGER", nullable: false),
+                    FileName = table.Column<string>(type: "TEXT", nullable: false),
+                    Url = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    DateUploaded = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UploadedByEmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
+                    FinanceVoucherId1 = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VoucherAttachments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VoucherAttachments_FinanceVouchers_FinanceVoucherId",
+                        column: x => x.FinanceVoucherId,
+                        principalTable: "FinanceVouchers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_VoucherAttachments_FinanceVouchers_FinanceVoucherId1",
+                        column: x => x.FinanceVoucherId1,
+                        principalTable: "FinanceVouchers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VoucherEntries",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    FinanceVoucherId = table.Column<int>(type: "INTEGER", nullable: false),
+                    TransDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CoaId = table.Column<int>(type: "INTEGER", nullable: false),
+                    AccountName = table.Column<string>(type: "TEXT", nullable: true),
+                    Dr = table.Column<long>(type: "INTEGER", nullable: false),
+                    Cr = table.Column<long>(type: "INTEGER", nullable: false),
+                    Narration = table.Column<string>(type: "TEXT", nullable: true),
+                    DrEntryApprovedByEmployeeById = table.Column<int>(type: "INTEGER", nullable: false),
+                    DrEntryApprovedOn = table.Column<DateTime>(type: "TEXT", maxLength: 10, nullable: false),
+                    DrEntryApproved = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VoucherEntries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VoucherEntries_FinanceVouchers_FinanceVoucherId",
+                        column: x => x.FinanceVoucherId,
+                        principalTable: "FinanceVouchers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Connections",
+                columns: table => new
+                {
+                    ConnectionId = table.Column<string>(type: "TEXT", nullable: false),
+                    Username = table.Column<string>(type: "TEXT", nullable: true),
+                    GroupName = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Connections", x => x.ConnectionId);
+                    table.ForeignKey(
+                        name: "FK_Connections_Groups_GroupName",
+                        column: x => x.GroupName,
+                        principalTable: "Groups",
+                        principalColumn: "Name");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HelpItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    HelpId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Sequence = table.Column<int>(type: "INTEGER", nullable: false),
+                    HelpText = table.Column<string>(type: "TEXT", maxLength: 250, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HelpItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HelpItems_Helps_HelpId",
+                        column: x => x.HelpId,
+                        principalTable: "Helps",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InterviewItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    InterviewId = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrderItemId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CategoryName = table.Column<string>(type: "TEXT", nullable: true),
+                    Venue = table.Column<string>(type: "TEXT", nullable: true),
+                    InterviewDateFrom = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    InterviewDateUpto = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    InterviewMode = table.Column<string>(type: "TEXT", nullable: true),
+                    InterviewerName = table.Column<string>(type: "TEXT", nullable: true),
+                    InterviewStatus = table.Column<string>(type: "TEXT", nullable: true),
+                    ConcludingRemarks = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterviewItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InterviewItems_Interviews_InterviewId",
+                        column: x => x.InterviewId,
+                        principalTable: "Interviews",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderItemAssessmentQs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    OrderAssessmentItemId = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrderItemId = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrderId = table.Column<int>(type: "INTEGER", nullable: false),
+                    QuestionNo = table.Column<int>(type: "INTEGER", nullable: false),
+                    Subject = table.Column<string>(type: "TEXT", nullable: true),
+                    Question = table.Column<string>(type: "TEXT", nullable: true),
+                    MaxPoints = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsMandatory = table.Column<bool>(type: "INTEGER", nullable: false),
+                    OrderItemAssessmentId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItemAssessmentQs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderItemAssessmentQs_OrderItemAssessments_OrderItemAssessmentId",
+                        column: x => x.OrderItemAssessmentId,
+                        principalTable: "OrderItemAssessments",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TaskItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ApplicationTaskId = table.Column<int>(type: "INTEGER", nullable: false),
+                    TransactionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    TaskTypeId = table.Column<int>(type: "INTEGER", nullable: false),
+                    TaskTypeName = table.Column<string>(type: "TEXT", nullable: true),
+                    TaskStatus = table.Column<string>(type: "TEXT", nullable: false),
+                    TaskItemDescription = table.Column<string>(type: "TEXT", maxLength: 250, nullable: false),
+                    OrderId = table.Column<int>(type: "INTEGER", nullable: true),
+                    OrderItemId = table.Column<int>(type: "INTEGER", nullable: true),
+                    OrderNo = table.Column<int>(type: "INTEGER", nullable: true),
+                    CandidateId = table.Column<int>(type: "INTEGER", nullable: true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserName = table.Column<string>(type: "TEXT", nullable: true),
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: true),
+                    NextFollowupOn = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    NextFollowupById = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TaskItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TaskItems_Tasks_ApplicationTaskId",
+                        column: x => x.ApplicationTaskId,
+                        principalTable: "Tasks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserHistories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Gender = table.Column<string>(type: "TEXT", nullable: true),
+                    Age = table.Column<string>(type: "TEXT", nullable: true),
+                    UserHistoryHeaderId = table.Column<int>(type: "INTEGER", nullable: true),
+                    Checked = table.Column<bool>(type: "INTEGER", nullable: true),
+                    Source = table.Column<string>(type: "TEXT", nullable: true),
+                    CategoryRef = table.Column<string>(type: "TEXT", nullable: true),
+                    ResumeId = table.Column<string>(type: "TEXT", nullable: true),
+                    Nationality = table.Column<string>(type: "TEXT", nullable: true),
+                    Address = table.Column<string>(type: "TEXT", nullable: true),
+                    CurrentLocation = table.Column<string>(type: "TEXT", nullable: true),
+                    City = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    PersonType = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    PersonId = table.Column<int>(type: "INTEGER", nullable: true),
+                    EmailId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    AlternateEmailId = table.Column<string>(type: "TEXT", nullable: true),
+                    MobileNo = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
+                    AlternatePhoneNo = table.Column<string>(type: "TEXT", nullable: true),
+                    Education = table.Column<string>(type: "TEXT", nullable: true),
+                    CTC = table.Column<string>(type: "TEXT", nullable: true),
+                    WorkExperience = table.Column<string>(type: "TEXT", maxLength: 25, nullable: true),
+                    ApplicationNo = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Concluded = table.Column<bool>(type: "INTEGER", nullable: true),
+                    Status = table.Column<string>(type: "TEXT", nullable: true),
+                    StatusDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    StatusByUserId = table.Column<int>(type: "INTEGER", nullable: true),
+                    UserName = table.Column<string>(type: "TEXT", nullable: true),
+                    ConcludedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    ConcludedById = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserHistories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserHistories_UserHistoryHeaders_UserHistoryHeaderId",
+                        column: x => x.UserHistoryHeaderId,
+                        principalTable: "UserHistoryHeaders",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DLForwardToAgents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    OrderId = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrderNo = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    customerName = table.Column<string>(type: "TEXT", nullable: true),
+                    CustomerCity = table.Column<string>(type: "TEXT", nullable: true),
+                    ProjectManagerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CustomerOfficialId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DLForwardToAgents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DLForwardToAgents_CustomerOfficials_CustomerOfficialId",
+                        column: x => x.CustomerOfficialId,
+                        principalTable: "CustomerOfficials",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_DLForwardToAgents_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HelpSubItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    HelpId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Sequence = table.Column<int>(type: "INTEGER", nullable: false),
+                    HelpText = table.Column<string>(type: "TEXT", nullable: true),
+                    HelpItemId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HelpSubItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HelpSubItems_HelpItems_HelpItemId",
+                        column: x => x.HelpItemId,
+                        principalTable: "HelpItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InterviewItemCandidates",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    InterviewItemId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CandidateId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CandidateName = table.Column<string>(type: "TEXT", nullable: true),
+                    ApplicationNo = table.Column<int>(type: "INTEGER", nullable: false),
+                    PassportNo = table.Column<string>(type: "TEXT", nullable: true),
+                    ScheduledFrom = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ScheduledUpto = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    InterviewMode = table.Column<string>(type: "TEXT", nullable: true),
+                    ReportedDateTime = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    InterviewedDateTime = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    AttendanceStatusId = table.Column<int>(type: "INTEGER", nullable: true),
+                    SelectionStatusId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ConcludingRemarks = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterviewItemCandidates", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InterviewItemCandidates_InterviewItems_InterviewItemId",
+                        column: x => x.InterviewItemId,
+                        principalTable: "InterviewItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserHistoryItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IncomingOutgoing = table.Column<string>(type: "TEXT", nullable: true),
+                    UserHistoryId = table.Column<int>(type: "INTEGER", nullable: false),
+                    PhoneNo = table.Column<string>(type: "TEXT", nullable: true),
+                    Subject = table.Column<string>(type: "TEXT", nullable: true),
+                    CategoryRef = table.Column<string>(type: "TEXT", nullable: true),
+                    PersonId = table.Column<int>(type: "INTEGER", nullable: false),
+                    PersonType = table.Column<string>(type: "TEXT", nullable: true),
+                    PersonName = table.Column<string>(type: "TEXT", nullable: true),
+                    DateOfContact = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    LoggedInUserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    LoggedInUserName = table.Column<string>(type: "TEXT", nullable: true),
+                    ContactResultId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ContactResultName = table.Column<string>(type: "TEXT", nullable: true),
+                    GistOfDiscussions = table.Column<string>(type: "TEXT", nullable: true),
+                    ComposeSMS = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserHistoryItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserHistoryItems_UserHistories_UserHistoryId",
+                        column: x => x.UserHistoryId,
+                        principalTable: "UserHistories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DLForwardCategories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    OrderId = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrderItemId = table.Column<int>(type: "INTEGER", nullable: false),
+                    DLForwardToAgentId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CategoryName = table.Column<string>(type: "TEXT", nullable: true),
+                    Charges = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DLForwardCategories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DLForwardCategories_DLForwardToAgents_DLForwardToAgentId",
+                        column: x => x.DLForwardToAgentId,
+                        principalTable: "DLForwardToAgents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InterviewItemCandidatesFollowup",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    InterviewItemCandidateId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ContactedOn = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ContactedById = table.Column<int>(type: "INTEGER", nullable: false),
+                    MobileNoCalled = table.Column<string>(type: "TEXT", maxLength: 10, nullable: true),
+                    AttendanceStatusId = table.Column<int>(type: "INTEGER", nullable: false),
+                    FollowupConcluded = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterviewItemCandidatesFollowup", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InterviewItemCandidatesFollowup_InterviewItemCandidates_InterviewItemCandidateId",
+                        column: x => x.InterviewItemCandidateId,
+                        principalTable: "InterviewItemCandidates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DLForwardCategoryOfficials",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    DLForwardCategoryId = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrderItemId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CustomerOfficialId = table.Column<int>(type: "INTEGER", nullable: false),
+                    AgentName = table.Column<string>(type: "TEXT", nullable: true),
+                    DateTimeForwarded = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DateOnlyForwarded = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    EmailIdForwardedTo = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNoForwardedTo = table.Column<string>(type: "TEXT", nullable: true),
+                    WhatsAppNoForwardedTo = table.Column<string>(type: "TEXT", nullable: true),
+                    LoggedInEmployeeId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DLForwardCategoryOfficials", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DLForwardCategoryOfficials_DLForwardCategories_DLForwardCategoryId",
+                        column: x => x.DLForwardCategoryId,
+                        principalTable: "DLForwardCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CandidateAssessmentItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CandidateAssessmentId = table.Column<int>(type: "INTEGER", nullable: false),
+                    QuestionNo = table.Column<int>(type: "INTEGER", nullable: false),
+                    AssessmentParameter = table.Column<string>(type: "TEXT", nullable: true),
+                    Question = table.Column<string>(type: "TEXT", nullable: true),
+                    IsMandatory = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Assessed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    MaxPoints = table.Column<int>(type: "INTEGER", nullable: false),
+                    Points = table.Column<int>(type: "INTEGER", nullable: false),
+                    Remarks = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CandidateAssessmentItems", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CandidateAssessments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    OrderItemId = table.Column<int>(type: "INTEGER", nullable: false),
+                    AssessedById = table.Column<int>(type: "INTEGER", nullable: false),
+                    AssessedByName = table.Column<string>(type: "TEXT", nullable: true),
+                    CandidateId = table.Column<int>(type: "INTEGER", nullable: false),
+                    requireInternalReview = table.Column<bool>(type: "INTEGER", nullable: false),
+                    HrChecklistId = table.Column<int>(type: "INTEGER", nullable: false),
+                    AssessedOn = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    AssessResult = table.Column<string>(type: "TEXT", nullable: false),
+                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
+                    CvRefId = table.Column<int>(type: "INTEGER", nullable: false),
+                    TaskIdDocControllerAdmin = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CandidateAssessments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Candidates",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserType = table.Column<string>(type: "TEXT", nullable: true),
+                    ApplicationNo = table.Column<int>(type: "INTEGER", nullable: false),
+                    Gender = table.Column<string>(type: "TEXT", maxLength: 1, nullable: false),
+                    FirstName = table.Column<string>(type: "VARCHAR", unicode: false, maxLength: 75, nullable: false),
+                    SecondName = table.Column<string>(type: "VARCHAR", unicode: false, maxLength: 75, nullable: true),
+                    FamilyName = table.Column<string>(type: "VARCHAR", unicode: false, maxLength: 75, nullable: true),
+                    KnownAs = table.Column<string>(type: "TEXT", nullable: true),
+                    ReferredBy = table.Column<int>(type: "INTEGER", nullable: true),
+                    Source = table.Column<string>(type: "TEXT", nullable: true),
+                    DOB = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    PlaceOfBirth = table.Column<string>(type: "TEXT", nullable: true),
+                    AadharNo = table.Column<string>(type: "TEXT", nullable: true),
+                    PpNo = table.Column<string>(type: "TEXT", nullable: true),
+                    Ecnr = table.Column<string>(type: "TEXT", nullable: true),
+                    Address = table.Column<string>(type: "TEXT", nullable: true),
+                    City = table.Column<string>(type: "TEXT", nullable: true),
+                    Pin = table.Column<string>(type: "TEXT", nullable: true),
+                    District = table.Column<string>(type: "TEXT", nullable: true),
+                    Nationality = table.Column<string>(type: "TEXT", nullable: true),
+                    Email = table.Column<string>(type: "TEXT", nullable: true),
+                    CompanyId = table.Column<int>(type: "INTEGER", nullable: true),
+                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    LastActive = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    AppUserIdNotEnforced = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AppUserId = table.Column<string>(type: "TEXT", nullable: true),
+                    NotificationDesired = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CandidateStatus = table.Column<int>(type: "INTEGER", nullable: true),
+                    PhotoUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    CandidateId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Candidates", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CVRefs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CVReviewId = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrderItemId = table.Column<int>(type: "INTEGER", nullable: false),
+                    HRExecId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrderId = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrderNo = table.Column<int>(type: "INTEGER", nullable: false),
+                    CustomerName = table.Column<string>(type: "TEXT", nullable: true),
+                    CategoryName = table.Column<string>(type: "TEXT", nullable: true),
+                    CandidateId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Ecnr = table.Column<string>(type: "TEXT", nullable: true),
+                    ApplicationNo = table.Column<int>(type: "INTEGER", nullable: false),
+                    CandidateName = table.Column<string>(type: "TEXT", nullable: true),
+                    ReferredOn = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Sequence = table.Column<int>(type: "INTEGER", nullable: false),
+                    NextSequence = table.Column<int>(type: "INTEGER", nullable: false),
+                    DeployStageDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Charges = table.Column<int>(type: "INTEGER", nullable: false),
+                    PaymentIntentId = table.Column<string>(type: "TEXT", nullable: true),
+                    RefStatus = table.Column<int>(type: "INTEGER", nullable: false),
+                    RefStatusDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DeployStageId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CVRefs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CVRefs_Candidates_CandidateId",
+                        column: x => x.CandidateId,
+                        principalTable: "Candidates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CVRefs_DeployStages_DeployStageId",
+                        column: x => x.DeployStageId,
+                        principalTable: "DeployStages",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1003,567 +1804,33 @@ namespace infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomerReviewItems",
+                name: "Deployments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CustomerReviewId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ReviewTransactionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CustomerReviewDataId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    ApprovedBySup = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ApprovedById = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerReviewItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CustomerReviewItems_CustomerReviews_CustomerReviewId",
-                        column: x => x.CustomerReviewId,
-                        principalTable: "CustomerReviews",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AgencySpecialties",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProfessionId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IndustryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AgencySpecialties", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AgencySpecialties_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CustomerIndustries",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IndustryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerIndustries", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CustomerIndustries_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CustomerOfficials",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    LogInCredential = table.Column<bool>(type: "INTEGER", nullable: false),
-                    AppUserId = table.Column<string>(type: "TEXT", nullable: true),
-                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Gender = table.Column<string>(type: "TEXT", nullable: false),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
-                    OfficialName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    KnownAs = table.Column<string>(type: "TEXT", nullable: true),
-                    Designation = table.Column<string>(type: "TEXT", nullable: true),
-                    Divn = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNo = table.Column<string>(type: "TEXT", nullable: true),
-                    Mobile = table.Column<string>(type: "TEXT", nullable: true),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
-                    IsValid = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CustomerId1 = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerOfficials", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CustomerOfficials_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CustomerOfficials_Customers_CustomerId1",
-                        column: x => x.CustomerId1,
-                        principalTable: "Customers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    OrderNo = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CustomerName = table.Column<string>(type: "TEXT", nullable: true),
-                    BuyerEmail = table.Column<string>(type: "TEXT", nullable: true),
-                    OrderRef = table.Column<string>(type: "TEXT", nullable: true),
-                    OrderRefDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    SalesmanName = table.Column<string>(type: "TEXT", nullable: true),
-                    ProjectManagerId = table.Column<int>(type: "INTEGER", nullable: false),
-                    MedicalProcessInchargeEmpId = table.Column<int>(type: "INTEGER", nullable: true),
-                    VisaProcessInchargeEmpId = table.Column<int>(type: "INTEGER", nullable: true),
-                    EmigProcessInchargeId = table.Column<int>(type: "INTEGER", nullable: true),
-                    TravelProcessInchargeId = table.Column<int>(type: "INTEGER", nullable: true),
-                    SalesmanId = table.Column<int>(type: "INTEGER", nullable: true),
-                    CompleteBy = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Country = table.Column<string>(type: "TEXT", nullable: true),
-                    CityOfWorking = table.Column<string>(type: "TEXT", nullable: false),
-                    ContractReviewId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ContractReviewStatusId = table.Column<int>(type: "INTEGER", nullable: false),
-                    EstimatedRevenue = table.Column<int>(type: "INTEGER", nullable: false),
-                    Status = table.Column<string>(type: "TEXT", nullable: true),
-                    ForwardedToHRDeptOn = table.Column<DateTime>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CVRefs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CVReviewId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrderItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    HRExecId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrderId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrderNo = table.Column<int>(type: "INTEGER", nullable: false),
-                    CustomerName = table.Column<string>(type: "TEXT", nullable: true),
-                    CategoryName = table.Column<string>(type: "TEXT", nullable: true),
-                    CandidateId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Ecnr = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ApplicationNo = table.Column<int>(type: "INTEGER", nullable: false),
-                    CandidateName = table.Column<string>(type: "TEXT", nullable: true),
-                    ReferredOn = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DeployStageId = table.Column<int>(type: "INTEGER", nullable: true),
-                    NextStageId = table.Column<int>(type: "INTEGER", nullable: true),
-                    DeployStageDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    Charges = table.Column<int>(type: "INTEGER", nullable: false),
-                    PaymentIntentId = table.Column<string>(type: "TEXT", nullable: true),
-                    RefStatus = table.Column<int>(type: "INTEGER", nullable: false),
-                    RefStatusDate = table.Column<DateTime>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CVRefs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CVRefs_Candidates_CandidateId",
-                        column: x => x.CandidateId,
-                        principalTable: "Candidates",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CVRefs_DeployStages_DeployStageId",
-                        column: x => x.DeployStageId,
-                        principalTable: "DeployStages",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EmployeeAddresses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    AddressType = table.Column<string>(type: "TEXT", nullable: true),
-                    Add = table.Column<string>(type: "TEXT", nullable: true),
-                    StreetAdd = table.Column<string>(type: "TEXT", nullable: true),
-                    City = table.Column<string>(type: "TEXT", nullable: true),
-                    Pin = table.Column<string>(type: "TEXT", nullable: true),
-                    State = table.Column<string>(type: "TEXT", nullable: true),
-                    District = table.Column<string>(type: "TEXT", nullable: true),
-                    Country = table.Column<string>(type: "TEXT", nullable: true),
-                    IsMain = table.Column<bool>(type: "INTEGER", nullable: false),
-                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmployeeAddresses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EmployeeAddresses_Employees_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EmployeeHRSkills",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IndustryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SkillLevel = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmployeeHRSkills", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EmployeeHRSkills_Employees_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EmployeeOtherSkills",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SkillDataId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SkillLevel = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsMain = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmployeeOtherSkills", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EmployeeOtherSkills_Employees_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EmployeePhones",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    MobileNo = table.Column<string>(type: "TEXT", nullable: true),
-                    IsOfficial = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsMain = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsValid = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmployeePhones", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EmployeePhones_Employees_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EmployeeQualifications",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    QualificationId = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsMain = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmployeeQualifications", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EmployeeQualifications_Employees_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VoucherAttachments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    FinanceVoucherId = table.Column<int>(type: "INTEGER", nullable: false),
-                    AttachmentSizeInBytes = table.Column<int>(type: "INTEGER", nullable: false),
-                    FileName = table.Column<string>(type: "TEXT", nullable: false),
-                    Url = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    DateUploaded = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UploadedByEmployeeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    FinanceVoucherId1 = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VoucherAttachments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_VoucherAttachments_FinanceVouchers_FinanceVoucherId",
-                        column: x => x.FinanceVoucherId,
-                        principalTable: "FinanceVouchers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_VoucherAttachments_FinanceVouchers_FinanceVoucherId1",
-                        column: x => x.FinanceVoucherId1,
-                        principalTable: "FinanceVouchers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VoucherEntries",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    FinanceVoucherId = table.Column<int>(type: "INTEGER", nullable: false),
-                    TransDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CoaId = table.Column<int>(type: "INTEGER", nullable: false),
-                    AccountName = table.Column<string>(type: "TEXT", nullable: true),
-                    Dr = table.Column<long>(type: "INTEGER", nullable: false),
-                    Cr = table.Column<long>(type: "INTEGER", nullable: false),
-                    Narration = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VoucherEntries", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_VoucherEntries_FinanceVouchers_FinanceVoucherId",
-                        column: x => x.FinanceVoucherId,
-                        principalTable: "FinanceVouchers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Connections",
-                columns: table => new
-                {
-                    ConnectionId = table.Column<string>(type: "TEXT", nullable: false),
-                    Username = table.Column<string>(type: "TEXT", nullable: true),
-                    GroupName = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Connections", x => x.ConnectionId);
-                    table.ForeignKey(
-                        name: "FK_Connections_Groups_GroupName",
-                        column: x => x.GroupName,
-                        principalTable: "Groups",
-                        principalColumn: "Name");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "HelpItems",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    HelpId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Sequence = table.Column<int>(type: "INTEGER", nullable: false),
-                    HelpText = table.Column<string>(type: "TEXT", maxLength: 250, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HelpItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_HelpItems_Helps_HelpId",
-                        column: x => x.HelpId,
-                        principalTable: "Helps",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "InterviewItems",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    InterviewId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrderItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CategoryName = table.Column<string>(type: "TEXT", nullable: true),
-                    Venue = table.Column<string>(type: "TEXT", nullable: true),
-                    InterviewDateFrom = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    InterviewDateUpto = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    InterviewMode = table.Column<string>(type: "TEXT", nullable: true),
-                    InterviewerName = table.Column<string>(type: "TEXT", nullable: true),
-                    InterviewStatus = table.Column<string>(type: "TEXT", nullable: true),
-                    ConcludingRemarks = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InterviewItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_InterviewItems_Interviews_InterviewId",
-                        column: x => x.InterviewId,
-                        principalTable: "Interviews",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OrderItemAssessmentQs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    OrderAssessmentItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrderItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrderId = table.Column<int>(type: "INTEGER", nullable: false),
-                    QuestionNo = table.Column<int>(type: "INTEGER", nullable: false),
-                    Subject = table.Column<string>(type: "TEXT", nullable: true),
-                    Question = table.Column<string>(type: "TEXT", nullable: true),
-                    MaxMarks = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsMandatory = table.Column<bool>(type: "INTEGER", nullable: false),
-                    OrderItemAssessmentId = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrderItemAssessmentQs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrderItemAssessmentQs_OrderItemAssessments_OrderItemAssessmentId",
-                        column: x => x.OrderItemAssessmentId,
-                        principalTable: "OrderItemAssessments",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TaskItems",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ApplicationTaskId = table.Column<int>(type: "INTEGER", nullable: false),
+                    DeployCVRefId = table.Column<int>(type: "INTEGER", nullable: false),
                     TransactionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TaskTypeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    TaskTypeName = table.Column<string>(type: "TEXT", nullable: true),
-                    TaskStatus = table.Column<string>(type: "TEXT", nullable: false),
-                    TaskItemDescription = table.Column<string>(type: "TEXT", maxLength: 250, nullable: false),
-                    OrderId = table.Column<int>(type: "INTEGER", nullable: true),
-                    OrderItemId = table.Column<int>(type: "INTEGER", nullable: true),
-                    OrderNo = table.Column<int>(type: "INTEGER", nullable: true),
-                    CandidateId = table.Column<int>(type: "INTEGER", nullable: true),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserName = table.Column<string>(type: "TEXT", nullable: true),
-                    Quantity = table.Column<int>(type: "INTEGER", nullable: true),
-                    NextFollowupOn = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    NextFollowupById = table.Column<int>(type: "INTEGER", nullable: true)
+                    Sequence = table.Column<int>(type: "INTEGER", nullable: false),
+                    NextSequence = table.Column<int>(type: "INTEGER", nullable: false),
+                    NextStageDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CVRefId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TaskItems", x => x.Id);
+                    table.PrimaryKey("PK_Deployments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TaskItems_Tasks_ApplicationTaskId",
-                        column: x => x.ApplicationTaskId,
-                        principalTable: "Tasks",
+                        name: "FK_Deployments_CVRefs_CVRefId",
+                        column: x => x.CVRefId,
+                        principalTable: "CVRefs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserHistories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Gender = table.Column<string>(type: "TEXT", nullable: true),
-                    Age = table.Column<string>(type: "TEXT", nullable: true),
-                    UserHistoryHeaderId = table.Column<int>(type: "INTEGER", nullable: true),
-                    Checked = table.Column<bool>(type: "INTEGER", nullable: true),
-                    Source = table.Column<string>(type: "TEXT", nullable: true),
-                    CategoryRef = table.Column<string>(type: "TEXT", nullable: true),
-                    CategoryName = table.Column<string>(type: "TEXT", nullable: true),
-                    ResumeId = table.Column<string>(type: "TEXT", nullable: true),
-                    Nationality = table.Column<string>(type: "TEXT", nullable: true),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
-                    CurrentLocation = table.Column<string>(type: "TEXT", nullable: true),
-                    City = table.Column<string>(type: "TEXT", nullable: true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    PersonType = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
-                    EmailId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    AlternateEmailId = table.Column<string>(type: "TEXT", nullable: true),
-                    MobileNo = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
-                    AlternatePhoneNo = table.Column<string>(type: "TEXT", nullable: true),
-                    Education = table.Column<string>(type: "TEXT", nullable: true),
-                    CTC = table.Column<string>(type: "TEXT", nullable: true),
-                    WorkExperience = table.Column<string>(type: "TEXT", maxLength: 25, nullable: true),
-                    ApplicationNo = table.Column<int>(type: "INTEGER", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Concluded = table.Column<bool>(type: "INTEGER", nullable: true),
-                    Status = table.Column<string>(type: "TEXT", nullable: true),
-                    StatusDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    StatusByUserId = table.Column<int>(type: "INTEGER", nullable: true),
-                    UserName = table.Column<string>(type: "TEXT", nullable: true),
-                    ConcludedOn = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    ConcludedById = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserHistories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserHistories_UserHistoryHeaders_UserHistoryHeaderId",
-                        column: x => x.UserHistoryHeaderId,
-                        principalTable: "UserHistoryHeaders",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DLForwardToAgents",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    OrderId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrderNo = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
-                    customerName = table.Column<string>(type: "TEXT", nullable: true),
-                    CustomerCity = table.Column<string>(type: "TEXT", nullable: true),
-                    ProjectManagerId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CustomerOfficialId = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DLForwardToAgents", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DLForwardToAgents_CustomerOfficials_CustomerOfficialId",
-                        column: x => x.CustomerOfficialId,
-                        principalTable: "CustomerOfficials",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_DLForwardToAgents_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
+                        name: "FK_Deployments_CVRefs_DeployCVRefId",
+                        column: x => x.DeployCVRefId,
+                        principalTable: "CVRefs",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1572,12 +1839,12 @@ namespace infra.Data.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CVRefId = table.Column<int>(type: "INTEGER", nullable: false),
+                    DeployCVRefId = table.Column<int>(type: "INTEGER", nullable: false),
                     TransactionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    StageId = table.Column<int>(type: "INTEGER", nullable: false),
-                    NextStageId = table.Column<int>(type: "INTEGER", nullable: false),
-                    NextEstimatedStageDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CVRefId1 = table.Column<int>(type: "INTEGER", nullable: true)
+                    Sequence = table.Column<int>(type: "INTEGER", nullable: false),
+                    NextSequence = table.Column<int>(type: "INTEGER", nullable: false),
+                    NextStageDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CVRefId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1585,12 +1852,6 @@ namespace infra.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Deploys_CVRefs_CVRefId",
                         column: x => x.CVRefId,
-                        principalTable: "CVRefs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Deploys_CVRefs_CVRefId1",
-                        column: x => x.CVRefId1,
                         principalTable: "CVRefs",
                         principalColumn: "Id");
                 });
@@ -1629,113 +1890,6 @@ namespace infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "HelpSubItems",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    HelpId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Sequence = table.Column<int>(type: "INTEGER", nullable: false),
-                    HelpText = table.Column<string>(type: "TEXT", nullable: true),
-                    HelpItemId = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HelpSubItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_HelpSubItems_HelpItems_HelpItemId",
-                        column: x => x.HelpItemId,
-                        principalTable: "HelpItems",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "InterviewItemCandidates",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    InterviewItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CandidateId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CandidateName = table.Column<string>(type: "TEXT", nullable: true),
-                    ApplicationNo = table.Column<int>(type: "INTEGER", nullable: false),
-                    PassportNo = table.Column<string>(type: "TEXT", nullable: true),
-                    ScheduledFrom = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ScheduledUpto = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    InterviewMode = table.Column<string>(type: "TEXT", nullable: true),
-                    ReportedDateTime = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    InterviewedDateTime = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    AttendanceStatusId = table.Column<int>(type: "INTEGER", nullable: true),
-                    SelectionStatusId = table.Column<int>(type: "INTEGER", nullable: true),
-                    ConcludingRemarks = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InterviewItemCandidates", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_InterviewItemCandidates_InterviewItems_InterviewItemId",
-                        column: x => x.InterviewItemId,
-                        principalTable: "InterviewItems",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserHistoryItems",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserHistoryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PhoneNo = table.Column<string>(type: "TEXT", nullable: true),
-                    Subject = table.Column<string>(type: "TEXT", nullable: true),
-                    CategoryRef = table.Column<string>(type: "TEXT", nullable: true),
-                    PersonId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PersonType = table.Column<string>(type: "TEXT", nullable: true),
-                    DateOfContact = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    LoggedInUserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    LoggedInUserName = table.Column<string>(type: "TEXT", nullable: true),
-                    ContactResultId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ContactResultName = table.Column<string>(type: "TEXT", nullable: true),
-                    GistOfDiscussions = table.Column<string>(type: "TEXT", nullable: true),
-                    ComposeSMS = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserHistoryItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserHistoryItems_UserHistories_UserHistoryId",
-                        column: x => x.UserHistoryId,
-                        principalTable: "UserHistories",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DLForwardCategories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    OrderId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrderItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    DLForwardToAgentId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CategoryName = table.Column<string>(type: "TEXT", nullable: true),
-                    Charges = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DLForwardCategories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DLForwardCategories_DLForwardToAgents_DLForwardToAgentId",
-                        column: x => x.DLForwardToAgentId,
-                        principalTable: "DLForwardToAgents",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Employments",
                 columns: table => new
                 {
@@ -1748,6 +1902,7 @@ namespace infra.Data.Migrations
                     SalaryCurrency = table.Column<string>(type: "TEXT", nullable: true),
                     Salary = table.Column<int>(type: "INTEGER", nullable: false),
                     ContractPeriodInMonths = table.Column<int>(type: "INTEGER", nullable: false),
+                    WeeklyHours = table.Column<int>(type: "INTEGER", nullable: false),
                     HousingProvidedFree = table.Column<bool>(type: "INTEGER", nullable: false),
                     HousingAllowance = table.Column<int>(type: "INTEGER", nullable: false),
                     FoodProvidedFree = table.Column<bool>(type: "INTEGER", nullable: false),
@@ -1760,17 +1915,20 @@ namespace infra.Data.Migrations
                     OfferAcceptedOn = table.Column<DateTime>(type: "TEXT", nullable: false),
                     OfferAttachmentUrl = table.Column<string>(type: "TEXT", nullable: true),
                     OfferAcceptanceUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
                     CategoryName = table.Column<string>(type: "TEXT", nullable: true),
                     OrderItemId = table.Column<int>(type: "INTEGER", nullable: false),
                     OrderId = table.Column<int>(type: "INTEGER", nullable: false),
                     OrderNo = table.Column<int>(type: "INTEGER", nullable: false),
                     CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
                     CustomerName = table.Column<string>(type: "TEXT", nullable: true),
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
                     CandidateId = table.Column<int>(type: "INTEGER", nullable: false),
                     ApplicationNo = table.Column<int>(type: "INTEGER", nullable: false),
                     CandidateName = table.Column<string>(type: "TEXT", nullable: true),
-                    CompanyName = table.Column<string>(type: "TEXT", nullable: true)
+                    AgentName = table.Column<string>(type: "TEXT", nullable: true),
+                    Approved = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ApprovedByEmpId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ApprovedOn = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1781,102 +1939,6 @@ namespace infra.Data.Migrations
                         principalTable: "SelectionDecisions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "InterviewItemCandidatesFollowup",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    InterviewItemCandidateId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ContactedOn = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ContactedById = table.Column<int>(type: "INTEGER", nullable: false),
-                    MobileNoCalled = table.Column<string>(type: "TEXT", maxLength: 10, nullable: true),
-                    AttendanceStatusId = table.Column<int>(type: "INTEGER", nullable: false),
-                    FollowupConcluded = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InterviewItemCandidatesFollowup", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_InterviewItemCandidatesFollowup_InterviewItemCandidates_InterviewItemCandidateId",
-                        column: x => x.InterviewItemCandidateId,
-                        principalTable: "InterviewItemCandidates",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DLForwardCategoryOfficials",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    DLForwardCategoryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrderItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CustomerOfficialId = table.Column<int>(type: "INTEGER", nullable: false),
-                    AgentName = table.Column<string>(type: "TEXT", nullable: true),
-                    DateTimeForwarded = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DateOnlyForwarded = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    EmailIdForwardedTo = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNoForwardedTo = table.Column<string>(type: "TEXT", nullable: true),
-                    WhatsAppNoForwardedTo = table.Column<string>(type: "TEXT", nullable: true),
-                    LoggedInEmployeeId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DLForwardCategoryOfficials", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DLForwardCategoryOfficials_DLForwardCategories_DLForwardCategoryId",
-                        column: x => x.DLForwardCategoryId,
-                        principalTable: "DLForwardCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CandidateAssessmentItems",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CandidateAssessmentId = table.Column<int>(type: "INTEGER", nullable: false),
-                    QuestionNo = table.Column<int>(type: "INTEGER", nullable: false),
-                    AssessmentParameter = table.Column<string>(type: "TEXT", nullable: true),
-                    Question = table.Column<string>(type: "TEXT", nullable: true),
-                    IsMandatory = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Assessed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    MaxPoints = table.Column<int>(type: "INTEGER", nullable: false),
-                    Points = table.Column<int>(type: "INTEGER", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CandidateAssessmentItems", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CandidateAssessments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    OrderItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    AssessedById = table.Column<int>(type: "INTEGER", nullable: false),
-                    AssessedByName = table.Column<string>(type: "TEXT", nullable: true),
-                    CandidateId = table.Column<int>(type: "INTEGER", nullable: false),
-                    requireInternalReview = table.Column<bool>(type: "INTEGER", nullable: false),
-                    HrChecklistId = table.Column<int>(type: "INTEGER", nullable: false),
-                    AssessedOn = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    AssessResult = table.Column<string>(type: "TEXT", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: true),
-                    CvRefId = table.Column<int>(type: "INTEGER", nullable: false),
-                    TaskIdDocControllerAdmin = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CandidateAssessments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -2136,15 +2198,15 @@ namespace infra.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_AssessmentStandardQs_QNo",
-                table: "AssessmentStandardQs",
-                column: "QNo",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AssessmentStandardQs_Question",
                 table: "AssessmentStandardQs",
                 column: "Question",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AssessmentStandardQs_QuestionNo",
+                table: "AssessmentStandardQs",
+                column: "QuestionNo",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -2176,6 +2238,11 @@ namespace infra.Data.Migrations
                 column: "ApplicationNo",
                 unique: true,
                 filter: "[ApplicationNo] > 0");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Candidates_CandidateId",
+                table: "Candidates",
+                column: "CandidateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Candidates_PpNo",
@@ -2270,11 +2337,6 @@ namespace infra.Data.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerOfficials_CustomerId1",
-                table: "CustomerOfficials",
-                column: "CustomerId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CustomerReviewItems_CustomerReviewId",
                 table: "CustomerReviewItems",
                 column: "CustomerReviewId");
@@ -2284,6 +2346,11 @@ namespace infra.Data.Migrations
                 table: "Customers",
                 columns: new[] { "CustomerName", "City" },
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CVRefs_CandidateId",
+                table: "CVRefs",
+                column: "CandidateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CVRefs_CandidateId_OrderItemId",
@@ -2308,14 +2375,19 @@ namespace infra.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Deploys_CVRefId",
-                table: "Deploys",
+                name: "IX_Deployments_CVRefId",
+                table: "Deployments",
                 column: "CVRefId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Deploys_CVRefId1",
+                name: "IX_Deployments_DeployCVRefId",
+                table: "Deployments",
+                column: "DeployCVRefId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Deploys_CVRefId",
                 table: "Deploys",
-                column: "CVRefId1");
+                column: "CVRefId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DeployStages_Sequence",
@@ -2751,6 +2823,11 @@ namespace infra.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_VendorSpecialties_CustomerId",
+                table: "VendorSpecialties",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_VoucherAttachments_FinanceVoucherId",
                 table: "VoucherAttachments",
                 column: "FinanceVoucherId");
@@ -2788,6 +2865,14 @@ namespace infra.Data.Migrations
                 table: "CandidateAssessments",
                 column: "OrderItemId",
                 principalTable: "OrderItems",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Candidates_CVRefs_CandidateId",
+                table: "Candidates",
+                column: "CandidateId",
+                principalTable: "CVRefs",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
@@ -2846,6 +2931,10 @@ namespace infra.Data.Migrations
                 name: "FK_Remunerations_OrderItems_OrderItemId1",
                 table: "Remunerations");
 
+            migrationBuilder.DropForeignKey(
+                name: "FK_Candidates_CVRefs_CandidateId",
+                table: "Candidates");
+
             migrationBuilder.DropTable(
                 name: "AgencySpecialties");
 
@@ -2887,6 +2976,9 @@ namespace infra.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "CVReviews");
+
+            migrationBuilder.DropTable(
+                name: "Deployments");
 
             migrationBuilder.DropTable(
                 name: "Deploys");
@@ -3009,6 +3101,12 @@ namespace infra.Data.Migrations
                 name: "UserQualifications");
 
             migrationBuilder.DropTable(
+                name: "VendorFacilities");
+
+            migrationBuilder.DropTable(
+                name: "VendorSpecialties");
+
+            migrationBuilder.DropTable(
                 name: "VoucherAttachments");
 
             migrationBuilder.DropTable(
@@ -3084,9 +3182,6 @@ namespace infra.Data.Migrations
                 name: "OrderItems");
 
             migrationBuilder.DropTable(
-                name: "CVRefs");
-
-            migrationBuilder.DropTable(
                 name: "Categories");
 
             migrationBuilder.DropTable(
@@ -3100,6 +3195,9 @@ namespace infra.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Remunerations");
+
+            migrationBuilder.DropTable(
+                name: "CVRefs");
 
             migrationBuilder.DropTable(
                 name: "Candidates");

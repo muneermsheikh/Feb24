@@ -27,7 +27,7 @@ namespace api.Controllers
 
           }
 
-           [Authorize] //Roles ="Admin, HRManager, HRSupervisor, HRTrainee")]
+          [Authorize] //Roles ="Admin, HRManager, HRSupervisor, HRTrainee")]
           [HttpPost("{candidateid}/{orderitemid}")]
           public async Task<ActionResult<bool>> AddNewChecklist(int candidateid, int orderitemid)
           {

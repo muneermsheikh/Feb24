@@ -14,7 +14,7 @@ namespace core.Interfaces
         
         //orderAssessment
         Task<OrderItemAssessment> GetOrAddOrderAssessmentItem (int OrderItemId);
-        Task<ICollection<OrderItemAssessment>> GetOrderAssessment (int orderId);
+        Task<ICollection<OrderItemAssessmentQ>> GetOrderAssessmentQs(int orderId);
         Task<bool> EditOrderAssessmentItem(OrderItemAssessment assessmentItem);
         Task<bool> EditOrderAssessmentQs(ICollection<OrderItemAssessmentQ> assessmentQs);
         Task<bool> EditOrderAssessmentQ(OrderItemAssessmentQ assessmentQ);

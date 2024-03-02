@@ -63,6 +63,10 @@ namespace api.Helpers
                     .ForMember(d => d.NewStatus, o => o.MapFrom(s => ""))
                     .ForMember(d => d.Remarks, o => o.MapFrom(s => ""));
                
+               CreateMap<Interview, CandidateBriefDto>()
+                    .ForMember(d => d.Checked, o => o.MapFrom(s => false));
+                    
+
                CreateMap<ProspectiveCandidate, ProspectiveSummaryDto>();
                     
                CreateMap<Remuneration, RemunerationDto>();

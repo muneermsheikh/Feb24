@@ -48,7 +48,7 @@ namespace api.Controllers
                if(deployPosts.Count==0) return BadRequest(new ApiResponse(402, "No input provided"));
                foreach(var dto in deployPosts)
                {
-                    if(dto.DeployCVRefId == 0 || dto.Sequence==0 ) return BadRequest(new ApiResponse(402, "Deploy Id or Status not provided"));
+                    if(dto.CVRefId == 0 || dto.Sequence==0 ) return BadRequest(new ApiResponse(402, "Deploy Id or Status not provided"));
                     if(dto.TransactionDate.Year < 2000) dto.TransactionDate = DateTime.Now;
                }
 

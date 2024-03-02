@@ -38,81 +38,21 @@ namespace infra.Data
                     await context.SaveChangesAsync();
                 }
                 
-                if (!context.Deployments.Any()) {
-                    var jsnData2 = File.ReadAllText("../infra/data/SeedData/DeploySeedData.json");
-                    var fData2 = JsonSerializer.Deserialize<List<Deployment>>(jsnData2);
-                    foreach(var item in fData2) {
-                        context.Deployments.Add(item);
-                    }
-
-                    await context.SaveChangesAsync();
-                }
-                
-                if (!context.Helps.Any()) {
-                    var jsonData = File.ReadAllText("../infra/data/SeedData/HelpSeedData.json");
-                    var fileData = JsonSerializer.Deserialize<List<Help>>(jsonData);
+                if(!context.Customers.Any()) {
+                    var jsonData = File.ReadAllText("../infra/data/SeedData/CustomerSeedData.json");
+                    var fileData = JsonSerializer.Deserialize<List<Customer>>(jsonData);
                     foreach(var item in fileData) {
-                        context.Helps.Add(item);
-                    }
-                    await context.SaveChangesAsync();
-                }
-                
-
-                if(!context.FinanceVouchers.Any()) 
-                {
-                    var jsonD = File.ReadAllText("../infra/data/SeedData/FinanceVoucherSeedData.json");
-                    var fileD = JsonSerializer.Deserialize<List<FinanceVoucher>>(jsonD);
-                    foreach(var em in fileD) {
-                        context.FinanceVouchers.Add(em);
+                        context.Customers.Add(item);
                     }
                     await context.SaveChangesAsync();
                 }
 
-                if(!context.VoucherEntries.Any())  
-                {
-                    var jsonD = File.ReadAllText("../infra/data/SeedData/VoucherEntrySeedData.json");
-                    var fileD = JsonSerializer.Deserialize<List<VoucherEntry>>(jsonD);
-                    foreach(var em in fileD) {
-                        context.VoucherEntries.Add(em);
-                    }
-                    await context.SaveChangesAsync();
-                }
-
-
-                if (!context.ContactResults.Any()) {
-                    var jsonData = File.ReadAllText("../infra/data/SeedData/ContactResultSeedData.json");
-                    var fileData = JsonSerializer.Deserialize<List<ContactResult>>(jsonData);
+                if(!context.CustomerOfficials.Any()) {
+                    var jsonData = File.ReadAllText("../infra/data/SeedData/CustomerOfficialSeedData.json");
+                    var fileData = JsonSerializer.Deserialize<List<CustomerOfficial>>(jsonData);
                     foreach(var item in fileData) {
-                        context.ContactResults.Add(item);
+                        context.CustomerOfficials.Add(item);
                     }
-                    await context.SaveChangesAsync();
-                }
-                
-                if(!context.Categories.Any()) {
-                    var jsonData = File.ReadAllText("../infra/data/SeedData/CategorySeedData.json");
-                    var fileData = JsonSerializer.Deserialize<List<Category>>(jsonData);
-                    foreach(var item in fileData) {
-                        context.Categories.Add(item);
-                    }
-                    await context.SaveChangesAsync();
-                }
-
-                if(!context.Industries.Any()) {
-                    var jsonData = File.ReadAllText("../infra/data/SeedData/IndustrySeedData.json");
-                    var fileData = JsonSerializer.Deserialize<List<Industry>>(jsonData);
-                    foreach(var item in fileData) {
-                        context.Industries.Add(item);
-                    }
-                    await context.SaveChangesAsync();
-                }
-
-                if(!context.VendorFacilities.Any()) {
-                    var jsonData = File.ReadAllText("../infra/data/SeedData/FacilitySeedData.json");
-                    var fileData = JsonSerializer.Deserialize<List<VendorFacility>>(jsonData);
-                    foreach(var item in fileData) {
-                        context.VendorFacilities.Add(item);
-                    }
-                    await context.SaveChangesAsync();
                 }
 
                 if(!context.Qualifications.Any()) {
@@ -185,6 +125,110 @@ namespace infra.Data
                     foreach(var item in fileData) {
                         context.MessageTypes.Add(item);
                     }
+                    await context.SaveChangesAsync();
+                }
+
+                if(!context.Candidates.Any()) {
+                    var jsonData1 = File.ReadAllText("../infra/data/SeedData/UserSeedData.json");
+                    var fileData1 = JsonSerializer.Deserialize<List<Candidate>>(jsonData1);
+                    foreach(var item in fileData1) {
+                        context.Candidates.Add(item);
+                    }
+                    await context.SaveChangesAsync();
+                }
+
+                
+                if (!context.Helps.Any()) {
+                    var jsonData = File.ReadAllText("../infra/data/SeedData/HelpSeedData.json");
+                    var fileData = JsonSerializer.Deserialize<List<Help>>(jsonData);
+                    foreach(var item in fileData) {
+                        context.Helps.Add(item);
+                    }
+                    await context.SaveChangesAsync();
+                }
+                
+
+                if(!context.FinanceVouchers.Any()) 
+                {
+                    var jsonD = File.ReadAllText("../infra/data/SeedData/FinanceVoucherSeedData.json");
+                    var fileD = JsonSerializer.Deserialize<List<FinanceVoucher>>(jsonD);
+                    foreach(var em in fileD) {
+                        context.FinanceVouchers.Add(em);
+                    }
+                    await context.SaveChangesAsync();
+                }
+
+                if(!context.VoucherEntries.Any())  
+                {
+                    var jsonD = File.ReadAllText("../infra/data/SeedData/VoucherEntrySeedData.json");
+                    var fileD = JsonSerializer.Deserialize<List<VoucherEntry>>(jsonD);
+                    foreach(var em in fileD) {
+                        context.VoucherEntries.Add(em);
+                    }
+                    await context.SaveChangesAsync();
+                }
+
+
+                if (!context.ContactResults.Any()) {
+                    var jsonData = File.ReadAllText("../infra/data/SeedData/ContactResultSeedData.json");
+                    var fileData = JsonSerializer.Deserialize<List<ContactResult>>(jsonData);
+                    foreach(var item in fileData) {
+                        context.ContactResults.Add(item);
+                    }
+                    await context.SaveChangesAsync();
+                }
+                
+                if(!context.Categories.Any()) {
+                    var jsonData = File.ReadAllText("../infra/data/SeedData/CategorySeedData.json");
+                    var fileData = JsonSerializer.Deserialize<List<Category>>(jsonData);
+                    foreach(var item in fileData) {
+                        context.Categories.Add(item);
+                    }
+                    await context.SaveChangesAsync();
+                }
+                if(!context.Employees.Any()) {
+                    var jsonData = File.ReadAllText("../infra/data/SeedData/EmployeeSeedData.json");
+                    var fileData = JsonSerializer.Deserialize<List<Employee>>(jsonData);
+                    foreach(var item in fileData) {
+                        context.Employees.Add(item);
+                    }
+                    await context.SaveChangesAsync();
+                }
+
+                if(!context.SkillDatas.Any()) {
+                    var jsonData = File.ReadAllText("../infra/data/SeedData/SkillSeedData.json");
+                    var fileData = JsonSerializer.Deserialize<List<SkillData>>(jsonData);
+                    foreach(var item in fileData) {
+                        context.SkillDatas.Add(item);
+                    }
+                    await context.SaveChangesAsync();
+                }
+
+                if(!context.InterviewAttendancesStatus.Any()) {
+                    var jsonData = File.ReadAllText("../infra/data/SeedData/InterviewAttendanceStatusSeedData.json");
+                    var fileData = JsonSerializer.Deserialize<List<InterviewAttendanceStatus>>(jsonData);
+                    foreach(var item in fileData) {
+                        context.InterviewAttendancesStatus.Add(item);
+                    }
+                    await context.SaveChangesAsync();
+                }
+
+                if(!context.Industries.Any()) {
+                    var jsonData = File.ReadAllText("../infra/data/SeedData/IndustrySeedData.json");
+                    var fileData = JsonSerializer.Deserialize<List<Industry>>(jsonData);
+                    foreach(var item in fileData) {
+                        context.Industries.Add(item);
+                    }
+                    await context.SaveChangesAsync();
+                }
+
+                if(!context.VendorFacilities.Any()) {
+                    var jsonData = File.ReadAllText("../infra/data/SeedData/FacilitySeedData.json");
+                    var fileData = JsonSerializer.Deserialize<List<VendorFacility>>(jsonData);
+                    foreach(var item in fileData) {
+                        context.VendorFacilities.Add(item);
+                    }
+                    await context.SaveChangesAsync();
                 }
 
                 if(!context.ReviewItemDatas.Any()) {
@@ -215,60 +259,6 @@ namespace infra.Data
                     await context.SaveChangesAsync();
                 }
             
-                if(!context.SkillDatas.Any()) {
-                    var jsonData = File.ReadAllText("../infra/data/SeedData/SkillSeedData.json");
-                    var fileData = JsonSerializer.Deserialize<List<SkillData>>(jsonData);
-                    foreach(var item in fileData) {
-                        context.SkillDatas.Add(item);
-                    }
-                    await context.SaveChangesAsync();
-                }
-
-                if(!context.InterviewAttendancesStatus.Any()) {
-                    var jsonData = File.ReadAllText("../infra/data/SeedData/InterviewAttendanceStatusSeedData.json");
-                    var fileData = JsonSerializer.Deserialize<List<InterviewAttendanceStatus>>(jsonData);
-                    foreach(var item in fileData) {
-                        context.InterviewAttendancesStatus.Add(item);
-                    }
-                    await context.SaveChangesAsync();
-                }
-
-                if(!context.Employees.Any()) {
-                    var jsonData = File.ReadAllText("../infra/data/SeedData/EmployeeSeedData.json");
-                    var fileData = JsonSerializer.Deserialize<List<Employee>>(jsonData);
-                    foreach(var item in fileData) {
-                        context.Employees.Add(item);
-                    }
-                    await context.SaveChangesAsync();
-                }
-        
-                if(!context.Customers.Any()) {
-                    var jsonData = File.ReadAllText("../infra/data/SeedData/CustomerSeedData.json");
-                    var fileData = JsonSerializer.Deserialize<List<Customer>>(jsonData);
-                    foreach(var item in fileData) {
-                        context.Customers.Add(item);
-                    }
-                    await context.SaveChangesAsync();
-                }
-
-                if(!context.CustomerOfficials.Any()) {
-                    var jsonData = File.ReadAllText("../infra/data/SeedData/CustomerOfficialSeedData.json");
-                    var fileData = JsonSerializer.Deserialize<List<CustomerOfficial>>(jsonData);
-                    foreach(var item in fileData) {
-                        context.CustomerOfficials.Add(item);
-                    }
-                }
-                
-
-                if(!context.Candidates.Any()) {
-                    var jsonData1 = File.ReadAllText("../infra/data/SeedData/UserSeedData.json");
-                    var fileData1 = JsonSerializer.Deserialize<List<Candidate>>(jsonData1);
-                    foreach(var item in fileData1) {
-                        context.Candidates.Add(item);
-                    }
-                    await context.SaveChangesAsync();
-                }
-                
                 if(!context.ProspectiveCandidates.Any()) {
                     var js = File.ReadAllText("../infra/data/SeedData/ProspectiveCandidateSeedData.json");
                     var fData = JsonSerializer.Deserialize<List<ProspectiveCandidate>>(js);
@@ -286,6 +276,27 @@ namespace infra.Data
                     foreach(var item in filData) {
                         context.Orders.Add(item);
                     }
+                    await context.SaveChangesAsync();
+                }
+
+                if(!context.OrderItems.Any()) 
+                {
+                    var jsnData = File.ReadAllText("../infra/data/SeedData/OrderItemSeedData.json");
+                    var filData = JsonSerializer.Deserialize<List<Order>>(jsnData);
+                    foreach(var item in filData) {
+                        context.Orders.Add(item);
+                    }
+                    await context.SaveChangesAsync();
+                }
+
+
+                if (!context.CVRefs.Any()) {
+                    var jsonData = File.ReadAllText("../infra/data/SeedData/CVRefSeedData.json");
+                    var fileData = JsonSerializer.Deserialize<List<CVRef>>(jsonData);
+                    foreach(var item in fileData) {
+                        context.CVRefs.Add(item);
+                    }
+
                     await context.SaveChangesAsync();
                 }
 
@@ -330,6 +341,16 @@ namespace infra.Data
                     }
                 }
 
+                if (!context.Deployments.Any()) {
+                    var jsnData2 = File.ReadAllText("../infra/data/SeedData/DeploySeedData.json");
+                    var fData2 = JsonSerializer.Deserialize<List<Deployment>>(jsnData2);
+                    foreach(var item in fData2) {
+                        context.Deployments.Add(item);
+                    }
+
+                    await context.SaveChangesAsync();
+                }
+                
                 //if(context.ChangeTracker.HasChanges()) await context.SaveChangesAsync();
 
            

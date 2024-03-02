@@ -272,7 +272,7 @@ namespace infra.Services
                          var nextStage = await _context.DeployStages.Where(x => x.Sequence==(int)EnumDeployStatus.Selected).FirstOrDefaultAsync();
                          if(nextStage==null) return null;
                          var deployTrans = new Deployment {
-                              DeployCVRefId=cvref.CVRefId, TransactionDate=s.DecisionDate, Sequence=EnumDeployStatus.Selected, 
+                              CVRefId=cvref.CVRefId, TransactionDate=s.DecisionDate, Sequence=EnumDeployStatus.Selected, 
                               NextSequence=(EnumDeployStatus)nextStage.NextSequence, 
                               NextStageDate=s.DecisionDate.AddDays(nextStage.EstimatedDaysToCompleteThisStage),
                               CVRef=cvref.cvref

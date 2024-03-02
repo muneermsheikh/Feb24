@@ -146,7 +146,7 @@ namespace api.Controllers
      
           [Authorize]
           [HttpGet("paginatedtasksOfloggedinuser")]
-          public async Task<ActionResult<Pagination<ApplicationTaskDto>>> GetPendingTasksOfLoggedInUserId ([FromQuery]TaskParams tParams)
+          public async Task<ActionResult<Pagination<ApplicationTaskDto>>> GetPendingTasksOfLoggedInUserId([FromQuery]TaskParams tParams)
           {
                var user = await _userManager.FindByEmailFromClaimsPrincipal(User);
                if (user==null) return BadRequest(new ApiResponse(402, "No User Claim found"));

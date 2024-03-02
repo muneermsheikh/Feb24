@@ -15,7 +15,9 @@ namespace infra.Data.Config
                 o => (EnumCVRefStatus) Enum.Parse(typeof(EnumCVRefStatus), o)
                );
                */
-               //builder.HasIndex(p => p.OrderItemId);
+               builder.HasIndex(p => p.CandidateId);
+               builder.HasIndex(p => p.OrderItemId);
+               builder.HasMany(s => s.Candidates).WithOne().OnDelete(DeleteBehavior.Cascade);
                builder.HasIndex(p => new{p.CandidateId, p.OrderItemId}).IsUnique();
                builder.HasMany(o => o.OrderItems).WithOne().OnDelete(DeleteBehavior.NoAction);
                builder.HasIndex(p => p.OrderItemId);

@@ -31,6 +31,18 @@ namespace infra.Services
             _context = context;
         }
 
+        public async Task<ChecklistHR> AddNewChecklistHR(int candidateId, int orderItemId, int LoggedInEmployeeId)
+        {
+            //check if the candidate has aleady been checklisted for the order item
+            var checkedOn = await _context.ChecklistHRs.Where(x => x.CandidateId == candidateId && x.OrderItemId == orderItemId)
+                .Select(x => x.CheckedOn.Date).FirstOrDefaultAsync();
+            if (checkedOn.Year > 2000) throw new Exception("Checklist on the candidate for the same requirement has been done on " + checkedOn);
+                
+            var hr = await AddChecklistHR(candidateId, orderItemId, LoggedInEmployeeId);
+            
+            return hr;
+        }
+
         private List<string> ChecklistErrors(ChecklistHR checklistHR) {
 
             var errorStrings = new List<string>();
@@ -63,21 +75,9 @@ namespace infra.Services
             return hrTask;
         }
 
-        public async Task<ChecklistHR> AddNewChecklistHR(int candidateId, int orderItemId, int LoggedInEmployeeId)
-        {
-            //check if the candidate has aleady been checklisted for the order item
-            var checkedOn = await _context.ChecklistHRs.Where(x => x.CandidateId == candidateId && x.OrderItemId == orderItemId)
-                .Select(x => x.CheckedOn.Date).FirstOrDefaultAsync();
-            if (checkedOn.Year > 2000) throw new Exception("Checklist on the candidate for the same requirement has been done on " + checkedOn);
-                
-            var hr = await AddChecklistHR(candidateId, orderItemId, LoggedInEmployeeId);
-            
-            return hr;
-        }
-
         public async Task<List<string>> EditChecklistHR(ChecklistHRDto model, LoggedInUserDto loggedInUserDto)
         {
-            
+
             var chklst = _mapper.Map<ChecklistHRDto, ChecklistHR>(model);
             var errorList = ChecklistErrors(chklst);
             if(errorList==null || errorList.Count > 0) return errorList;
@@ -181,19 +181,7 @@ namespace infra.Services
                     p => p.CandidateId==model.CandidateId && p.OrderItemId==model.OrderItemId)
                 .Include(p => p.ChecklistHRItems)
                 .AsNoTracking()
-                .SingleOrDefaultAsync();
-
-            if (existing == null)
-            {
-                throw new Exception("Checklist record you want edited does not exist");
-
-                /* if (loggedInDto.LoggedInEmployeeId == 0) loggedInDto.LoggedInEmployeeId = await _empService.GetEmployeeIdFromAppUserIdAsync(loggedInDto.LoggedInAppUserId);
-                var hrexecid = await _context.OrderItems.Where(x => x.Id == model.OrderItemId).Select(x => x.HrExecId).FirstOrDefaultAsync();
-                if (model.CandidateId==0 || model.OrderItemId == 0) throw new Exception("Candidate or Order Item detail not provided");
-                if (hrexecid != loggedInDto.LoggedInEmployeeId) throw new Exception("The LoggedIn user should be the one tasked to work on this category");
-                existing = await CreateChecklistHR(isEdit, model.CandidateId, model.OrderItemId, autoSubmit, loggedInDto);
-                */
-            }
+                .SingleOrDefaultAsync() ?? throw new Exception("Checklist record you want edited does not exist");
 
             //var dto = new ChecklistHRDto();
 
@@ -210,7 +198,8 @@ namespace infra.Services
 
             }
             */
-            
+
+
             return existing;
         }
 

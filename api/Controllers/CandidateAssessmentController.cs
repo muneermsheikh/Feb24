@@ -51,6 +51,23 @@ namespace api.Controllers
                return assessed;
           }
 
+          [Authorize]    //(Roles ="HRManager, HRSupervisor, HRExecutive, HRTrainee")]
+          [HttpPut]
+          public async Task<ActionResult<bool>> EditCVAssessment(CandidateAssessment candidateAssessment)
+          {
+               var userdto = await GetLoggedInUserDto();
+               var loggedInEmpId = userdto.LoggedInEmployeeId;
+
+               if (await _candidateAssessService.EditCandidateAssessment(candidateAssessment, loggedInEmpId, userdto.LoggedIAppUsername)==null)
+               {
+                    return BadRequest(new ApiResponse(400, "failed to edit the candidate assessment"));
+               }
+               else
+               {
+                    return Ok(true);
+               }
+          }
+
           [Authorize]    //(Roles ="Admin, HRManager, HRSupervisor, HRExecutive, HRTrainee")]
           [HttpGet("assessobject/{requireReview}/{candidateId}/{orderItemId}")]
           //[Authorize(Policy = "HRExecutiveRole, HRSupervisorRole, HRManagerRole")]
@@ -91,23 +108,6 @@ namespace api.Controllers
                return await _empService.GetEmployeeIdFromEmail(email);
           }
           
-          [Authorize]    //(Roles ="HRManager, HRSupervisor, HRExecutive, HRTrainee")]
-          [HttpPut]
-          public async Task<ActionResult<bool>> EditCVAssessment(CandidateAssessment candidateAssessment)
-          {
-               var userdto = await GetLoggedInUserDto();
-               var loggedInEmpId = userdto.LoggedInEmployeeId;
-
-               if (await _candidateAssessService.EditCandidateAssessment(candidateAssessment, loggedInEmpId, userdto.LoggedIAppUsername)==null)
-               {
-                    return BadRequest(new ApiResponse(400, "failed to edit the candidate assessment"));
-               }
-               else
-               {
-                    return Ok(true);
-               }
-          }
-
           [Authorize]    //(Roles = "HRExecutive, HRSupervisor, HRManager")]
           [HttpPut("assess")]
           public async Task<ActionResult<string>> EditCandidateAssessment(CandidateAssessment candidateAssessment)

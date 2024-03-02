@@ -53,10 +53,10 @@ namespace api.Controllers
           }
 
           //[Authorize]
-          [HttpGet("orderassessment/{orderid}")]
+          [HttpGet("orderassessmentQs/{orderid}")]
           public async Task<ActionResult<ICollection<OrderItemAssessment>>> GetOrderAssessment(int orderid)
           {
-               var itemassessment = await _orderAssessmentService.GetOrderAssessment(orderid);
+               var itemassessment = await _orderAssessmentService.GetOrderAssessmentQs(orderid);
                if (itemassessment == null) return BadRequest(new ApiResponse(400, "no assessment questions found matching the order id"));
                
                return Ok(itemassessment);

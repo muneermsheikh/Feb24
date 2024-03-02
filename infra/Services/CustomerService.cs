@@ -422,7 +422,7 @@ namespace infra.Services
           {
                var qry = await (from c in _context.Customers where c.CustomerType.ToLower() == customerType.ToLower()
                     select new CustomerIdAndNameDto {
-                         Id=c.Id, CustomerName = c.CustomerName, Name = c.CustomerName, City = c.City, Country=c.Country
+                         Id=c.Id, CustomerName = c.CustomerName, City = c.City, Country=c.Country
                     }) .ToListAsync();
 
                return qry;

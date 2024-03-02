@@ -12,7 +12,7 @@ namespace core.Interfaces
         Task<Interview> AddInterviewCategories(int orderId);
         Task<bool>DeleteInterviewItem(InterviewItem interviewItem);
         Task<ICollection<CandidateBriefDto>> GetCandidatesMatchingInterviewCategory(InterviewSpecParams interviewParams);
-        Task<PagedList<InterviewBriefDto>> GetInterviews (InterviewSpecParams interviewSpecParams);
+        Task<Pagination<InterviewBriefDto>> GetInterviews (InterviewSpecParams interviewSpecParams);
         Task<Interview> GetInterviewById (int Id);
         //GetOrCreateInterviewByOrderId
         //if the Interview data exists in DB, returns the same

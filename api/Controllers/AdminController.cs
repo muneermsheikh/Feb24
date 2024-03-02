@@ -24,14 +24,6 @@ namespace api.Controllers
                _userManager = userManager;
           }
 
-          [Authorize(Roles = "Admin")]
-          [HttpGet("photos-to-moderate")]
-          public ActionResult GetPhotosForModeration()
-          {
-               return Ok("Admins or moderators can see this");
-          }
-
-          
           [Authorize(Roles="Admin, HRManager" )]
           [HttpPost("edit-roles/{useremail}")]
           public async Task<ActionResult> EditRoles(string useremail, [FromQuery] string roles)

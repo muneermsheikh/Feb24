@@ -11,14 +11,14 @@ using infra.Data;
 namespace infra.Data.Migrations
 {
     [DbContext(typeof(ATSContext))]
-    [Migration("20230731025648_StddAssessmentQ_QNo_to_QuestionNo")]
-    partial class StddAssessmentQQNotoQuestionNo
+    [Migration("20240222113528_initialcreate")]
+    partial class initialcreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.2");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
 
             modelBuilder.Entity("core.Dtos.CVsRefCountDto", b =>
                 {
@@ -1420,6 +1420,8 @@ namespace infra.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CandidateId");
 
                     b.HasIndex("DeployStageId");
 
@@ -3369,6 +3371,9 @@ namespace infra.Data.Migrations
                     b.Property<int>("ApplicationNo")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("CandidateId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("CandidateStatus")
                         .HasColumnType("INTEGER");
 
@@ -3456,6 +3461,8 @@ namespace infra.Data.Migrations
                     b.HasIndex("ApplicationNo")
                         .IsUnique()
                         .HasFilter("[ApplicationNo] > 0");
+
+                    b.HasIndex("CandidateId");
 
                     b.HasIndex("PpNo")
                         .IsUnique()
@@ -4238,6 +4245,14 @@ namespace infra.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("core.Entities.Users.Candidate", b =>
+                {
+                    b.HasOne("core.Entities.HR.CVRef", null)
+                        .WithMany("Candidates")
+                        .HasForeignKey("CandidateId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("core.Entities.Users.EmployeeAddress", b =>
                 {
                     b.HasOne("core.Entities.Admin.Employee", null)
@@ -4399,6 +4414,8 @@ namespace infra.Data.Migrations
 
             modelBuilder.Entity("core.Entities.HR.CVRef", b =>
                 {
+                    b.Navigation("Candidates");
+
                     b.Navigation("Deployments");
 
                     b.Navigation("OrderItems");

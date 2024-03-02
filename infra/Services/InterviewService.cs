@@ -213,7 +213,7 @@ namespace infra.Services
           }
           
           
-          public async Task<PagedList<InterviewBriefDto>> GetInterviews(InterviewSpecParams specParams)
+          public async Task<Pagination<InterviewBriefDto>> GetInterviews(InterviewSpecParams specParams)
           {
                int totalItems = 0;
                var qry = _context.Interviews.AsQueryable();
@@ -238,11 +238,17 @@ namespace infra.Services
 
                if (totalItems==0) return null;
                
-               var data = await qry.ToListAsync();
-
-               var paged = await PagedList<InterviewBriefDto>.CreateAsync(
+               //var data = await qry.ToListAsync();
+               var dto = await qry.Skip((specParams.PageIndex-1)*specParams.PageSize).Take(specParams.PageSize).ToListAsync();
+               _mapper.Map<ICollection<InterviewBriefDto>>(dto);
+               
+               /*var paged = await PagedList<InterviewBriefDto>.CreateAsync(
                     qry.ProjectTo<InterviewBriefDto>(_mapper.ConfigurationProvider)
                     ,specParams.PageIndex, specParams.PageSize);
+               */
+               
+               var paged = new Pagination<InterviewBriefDto>(specParams.PageIndex, specParams.PageSize, totalItems, (IReadOnlyList<InterviewBriefDto>)dto);
+
                return paged;
           }
 

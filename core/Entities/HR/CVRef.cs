@@ -58,8 +58,8 @@ namespace core.Entities.HR
         public DateTime RefStatusDate {get; set;}
         public DeployStage DeployStage {get; set;}
         public Candidate Candidate {get; set;}
-        
-        //public ICollection<Candidate> Candidates {get; set;}
+        [ForeignKey("CandidateId")]
+        public ICollection<Candidate> Candidates {get; set;}
         [ForeignKey("OrderItemId")]
         public ICollection<OrderItem> OrderItems { get; set; }
         public List<Deployment> Deployments {get; set;}

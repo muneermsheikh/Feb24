@@ -1,10 +1,9 @@
 using core.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
 
 namespace infra.Identity
 {
-     public class AppIdentityDbContextSeed
+    public class AppIdentityDbContextSeed
     {
         public static async Task SeedUsersAsyc(UserManager<AppUser> userManager)
         {
@@ -14,15 +13,19 @@ namespace infra.Identity
                     DisplayName = "Munir",
                     Email = "munir.sheikh@live.com",
                     UserName = "munir.sheikh@live.com",
+                    Created = new DateTime(),
+                    Gender = "M",
+                    UserType = "Employee",
                     Address = new Address {
                         FirstName  ="Munir",
                         FamilyName = "Sheikh",
                         City = "Mumbai",
                         Pin = "400018"
-                    }
+                    },
                 };
 
                 await userManager.CreateAsync(user, "Pa$$w0rd");
+                
             }
         }
     }

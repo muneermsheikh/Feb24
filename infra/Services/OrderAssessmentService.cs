@@ -206,10 +206,11 @@ namespace infra.Services
                throw new System.NotImplementedException();
           }
 
-          public async Task<ICollection<OrderItemAssessment>> GetOrderAssessment(int orderId)
+          public async Task<ICollection<OrderItemAssessmentQ>> GetOrderAssessmentQs(int orderId)
           {
-               return await _context.OrderItemAssessments.Where(x => x.OrderId == orderId)
-                    .Include(x => x.OrderItemAssessmentQs).ToListAsync();
+              return await _context.OrderItemAssessmentQs.Where(x => x.OrderId == orderId)
+                    .OrderBy(x => new {x.OrderItemId, x.QuestionNo}).ToListAsync();
+               
           }
      }
 }
