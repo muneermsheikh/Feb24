@@ -25,13 +25,22 @@ namespace infra.Services
           {
                var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Email, user.Email),
+                    /* new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.GivenName, user.DisplayName)
+                    */
+                    new Claim(JwtRegisteredClaimNames.NameId, user.Id),
+                    new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
                 };
-               if(user.UserRoles != null) {
+
+               var roles = await _userManager.GetRolesAsync(user);
+
+               claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
+               /* if(user.UserRoles != null) {
                     var roles = await _userManager.GetRolesAsync(user);
                     claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
                }
+               */
 
                var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 

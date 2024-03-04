@@ -43,8 +43,7 @@ var services = scope.ServiceProvider;
 var context = services.GetRequiredService<ATSContext>();
 var identityContext = services.GetRequiredService<AppIdentityDbContext>();
 var userManager = services.GetRequiredService<UserManager<AppUser>>();
-
-//var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
 
 var logger = services.GetRequiredService<ILogger<Program>>();
 
@@ -54,7 +53,7 @@ try
     await identityContext.Database.MigrateAsync();
 
     await ATSContextSeed.SeedAsync(context);
-    await AppIdentityDbContextSeed.SeedUsersAsyc(userManager);
+    await AppIdentityDbContextSeed.SeedUsersAsyc(userManager, roleManager);
     
 } catch (System.Exception ex)
 {

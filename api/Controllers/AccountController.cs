@@ -284,16 +284,19 @@ namespace api.Controllers
                     return dtoToReturn;
                }
 
+               
                // if(string.IsNullOrEmpty(registerDto.UserRole)) registerDto.UserRole="Candidate";
                //if(!await _roleManager.RoleExistsAsync("Candidate")) {
                     //var succeeded = await _roleManager.CreateAsync(new AppRole{Name="Candidate"}); }    
                //
                //   **role** 
-               //var roleResult = await _userManager.AddToRoleAsync(user, registerDto.UserRole);
-               //if (!roleResult.Succeeded) {
-                    //dtoToReturn.ErrorString = roleResult.Errors.ToString();
-                    //return dtoToReturn; }
-               //
+              
+               var roleResult = await _userManager.AddToRoleAsync(user, registerDto.UserType);
+
+               if (!roleResult.Succeeded) {
+                    dtoToReturn.ErrorString = roleResult.Errors.ToString();
+                    return dtoToReturn; }
+               
                registerDto.DisplayName = registerDto.DisplayName ?? user.DisplayName;
                registerDto.PlaceOfBirth = registerDto.PlaceOfBirth ?? "";
                
@@ -316,7 +319,7 @@ namespace api.Controllers
                } else {
                     //user.loggedInEmployeeId=candidateCreated.Id;
                     user.loggedInEmployeeId=loggedInEmployeeId;
-                    userDtoToReturn.ObjectId=candidateCreated.Id;
+                    userDtoToReturn.ObjectId=candidateCreated.Id.ToString();
                     
                     await _userManager.UpdateAsync(user);
                }

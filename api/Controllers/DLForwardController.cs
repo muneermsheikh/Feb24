@@ -26,7 +26,7 @@ namespace api.Controllers
                _dlfwdService = dlfwdService;
           }
 
-          [Authorize]  //(Roles = "DocumentControllerAdmin, HRSupervisor, HRExecutive, HRTrainee" )]
+          [Authorize (Policy = "RequireDLForwardRole")]
           [HttpPost]
           public async Task<ActionResult<string>> ForwardDLToAgents(DLForwardToAgent dlforward)
           {
@@ -41,12 +41,14 @@ namespace api.Controllers
                return BadRequest(new ApiResponse(404, errorString));
           }
 
+          [Authorize (Policy = "RequireDLForwardRole")]
           [HttpGet("activeDL")]
           public async Task<ICollection<DLForwardToAgent>> GetDLForwardsForActiveDL()
           {
                return await _dlfwdService.DLForwardsForActiveDLs();
           }
 
+          [Authorize (Policy = "RequireDLForwardRole")]
           [HttpGet("byorderid/{orderid}")]
           public async Task<ActionResult<ICollection<DLForwardToAgent>>> GetDLForwardsForAnOrderId(int orderid)
           {
@@ -59,6 +61,7 @@ namespace api.Controllers
                return Ok(dtos);
           }
 
+          [Authorize (Policy = "RequireDLForwardRole")]
           [HttpGet("associatesforwardedForOrderId/{orderid}")]
           public async Task<ActionResult<DLForwardedDateDto>> DLCategoriesForwardedToAgents (int orderid)
           {
@@ -69,7 +72,7 @@ namespace api.Controllers
                return Ok(forwarded);
           }
      
-          [Authorize]  //(Roles="DocumentControllerAdmin, Admin")]
+          [Authorize (Policy = "RequireDLForwardRole")]
           [HttpPost("addtaskdltohr/{orderid}")]
           public async Task<ActionResult<ApplicationTask>> NewDLTaskForHRDept(int orderid)
           {

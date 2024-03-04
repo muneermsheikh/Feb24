@@ -10,6 +10,7 @@ using core.Dtos;
 using AutoMapper;
 using core.Dtos.Admin;
 using core.Dtos.Deploy;
+using core.Entities.Identity;
 
 
 namespace api.Helpers
@@ -75,6 +76,7 @@ namespace api.Helpers
                CreateMap<JDDto, JobDescription>();
                
                CreateMap<SelectionDecision, SelectionDecisionToReturnDto>();
+               CreateMap<AppUser, UserDto>();
                
                /*
                CreateMap<RegisterDto, Candidate>()

@@ -405,30 +405,39 @@ namespace infra.Services
           public async Task<Pagination<UserDto>> GetAppUsersPaginated(UserParams userParams)
           {
                var qry = _userManager.Users
-                    .Where(x => x.UserType== userParams.UserType)
+                    //.Where(x => x.UserType== userParams.UserType)
                     .Include(r => r.UserRoles)
                     .ThenInclude(r => r.Role)
                     .OrderBy(u => u.UserName)
                     .Select(u => new UserDto
                     {
+                         ObjectId = u.Id,
                          loggedInEmployeeId=u.loggedInEmployeeId,
                          Username = u.UserName,
                          DisplayName = u.DisplayName,
+                         Email = u.Email
                          //Roles = u.UserRoles.Select(r => r.Role.Name).ToList()
                     })
                 .AsQueryable();
 
+               //if(!string.IsNullOrEmpty(userParams.UserType)) qry = qry.Where(x => x.User==userParams.DisplayName);
                if(!string.IsNullOrEmpty(userParams.DisplayName)) qry = qry.Where(x => x.DisplayName==userParams.DisplayName);
                if(!string.IsNullOrEmpty(userParams.Username)) qry = qry.Where(x => x.Username==userParams.Username);
                var TotalCount = await qry.CountAsync();
                if (TotalCount==0) return null;
-               
-               var take = userParams.PageSize;
-               var skip= (userParams.PageIndex-1) * userParams.PageSize;
-               
-               var temp = await qry.Take(take).Skip(skip).ToListAsync();
+ 
                //var users = await qry.Take(userParams.PageSize).Skip((userParams.PageIndex-1)*userParams.PageSize).ToListAsync();
                var users = await qry.Skip((userParams.PageIndex-1)*userParams.PageSize).Take(userParams.PageSize) .ToListAsync();
+               
+               //populate roles
+               foreach(var user in users)
+               {
+                    if(user != null) 
+                    {
+                          user.Roles = await _userManager.GetRolesAsync(await _userManager.FindByIdAsync(user.ObjectId));
+                    }
+               };
+
                return new Pagination<UserDto>(userParams.PageIndex, userParams.PageSize, TotalCount, users);
           }
      }

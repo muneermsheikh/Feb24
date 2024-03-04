@@ -1,0 +1,67 @@
+[
+    {   "UserType" : "Employee", "KnownAs": "Mateen", "Gender": "M",
+        "DisplayName": "Lisa", "LoggedInEmployeeId":1, "UserName": "mateen@gmail.com",
+        "Email": "mateen@gmail.com", "PhoneNumber": "983498529" 
+    },
+    {   "UserType" : "Employee", "KnownAs": "Sanjay", "Gender": "M",
+        "DisplayName": "Sanjay", "LoggedInEmployeeId":2, "UserName": "sanjaypatil@gmail.com",
+        "Email": "sanjaypatil@gmail.com", "PhoneNumber": "39485939422" 
+    },
+    {   "UserType" : "Employee", "KnownAs": "Shahid", "Gender": "M",
+        "DisplayName": "Shahid", "LoggedInEmployeeId":3, "UserName": "shahid@gmail.com",
+        "Email": "shahid@gmail.com", "PhoneNumber": "3958923422103" 
+    },
+    {   "UserType" : "Employee", "KnownAs": "Kadir", "Gender": "M",
+        "DisplayName": "Kadir", "LoggedInEmployeeId":4, "UserName": "kadirkhan@gmail.com",
+        "Email": "kadirkhan@gmail.com", "PhoneNumber": "3958231110503" 
+    },
+    {   "UserType" : "Employee", "KnownAs": "Munir", "Gender": "M",
+        "DisplayName": "Munir", "LoggedInEmployeeId":5, "UserName": "munir.sheikh@live.com",
+        "Email": "munir.sheikh@live.com", "PhoneNumber": "3039306323" 
+    },
+    
+    {   "UserType" : "Candidate", "KnownAs": "Lisa", "Gender": "F",
+        "DisplayName": "Lisa", "LoggedInEmployeeId":0, "UserName": "Lisa@gmail.com",
+        "Email": "lisa@gmail.com", "PhoneNumber": "39485939422" 
+    },
+    {   "UserType" : "Candidate", "KnownAs": "Karen", "Gender": "F",
+        "DisplayName": "Karen", "LoggedInEmployeeId":0, "UserName": "karenisa1@gmail.com",
+        "Email": "Karen@gmail.com", "PhoneNumber": "39485922422" 
+    },
+    {  "UserType" : "Candidate", "KnownAs": "Margon", "Gender": "F",
+        "DisplayName": "Margon", "LoggedInEmployeeId":0, "UserName": "Margon@gmail.com",
+        "Email": "Margon@gmail.com", "PhoneNumber": "39481239422" 
+    },
+    {   "UserType" : "Candidate", "KnownAs": "Lois", "Gender": "F",
+        "DisplayName": "Lois", "LoggedInEmployeeId":0, "UserName": "Lois2@gmail.com",
+        "Email": "lois2@gmail.com", "PhoneNumber": "342341234111" 
+    },
+    {   "UserType" : "Candidate", "KnownAs": "Ruthie", "Gender": "F",
+        "DisplayName": "Rothie", "LoggedInEmployeeId":0, "UserName": "ruthie@gmail.com",
+        "Email": "ruthie@gmail.com", "PhoneNumber": "1234156662234" 
+    },
+    {   "UserType" : "Candidate", "KnownAs": "Todd", "Gender": "M",
+        "DisplayName": "Todd", "LoggedInEmployeeId":0, "UserName": "todd@gmail.com",
+        "Email": "todd@gmail.com", "PhoneNumber": "2345223" 
+    },
+    {   "UserType" : "Candidate", "KnownAs": "Porter", "Gender": "M",
+        "DisplayName": "Porter", "LoggedInEmployeeId":0, "UserName": "porter@gmail.com",
+        "Email": "porter@gmail.com", "PhoneNumber": "33521123563" 
+    },
+    {   "UserType" : "Candidate", "KnownAs": "Mayo", "Gender": "M",
+        "DisplayName": "Mayo", "LoggedInEmployeeId":0, "UserName": "mayo@gmail.com",
+        "Email": "mayo@gmail.com", "PhoneNumber": "10111345523" 
+    },
+    {   "UserType" : "Candidate", "KnownAs": "Skinner", "Gender": "M",
+        "DisplayName": "Lisa", "LoggedInEmployeeId":0, "UserName": "skinner@gmail.com",
+        "Email": "skinner@gmail.com", "PhoneNumber": "101093452345" 
+    },
+    {   "UserType" : "Candidate", "KnownAs": "Davis", "Gender": "M",
+        "DisplayName": "Davis", "LoggedInEmployeeId":0, "UserName": "davis@gmail.com",
+        "Email": "lisa1@gmail.com", "PhoneNumber": "1011039422" 
+    },
+    {   "UserType" : "Employee", "KnownAs": "Kadir", "Gender": "M",
+        "DisplayName": "Kadir", "LoggedInEmployeeId":0, "UserName": "kadir@gmail.com",
+        "Email": "kadir@gmail.com", "PhoneNumber": "101112349422" 
+    }
+]

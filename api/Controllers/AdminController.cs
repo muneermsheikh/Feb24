@@ -1,9 +1,12 @@
+using System.Linq;
 using api.Errors;
+using AutoMapper;
 using core.Dtos;
 using core.Entities.Identity;
 using core.Interfaces;
 using core.Params;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,12 +18,13 @@ namespace api.Controllers
           private readonly UserManager<AppUser> _userManager;
           private readonly RoleManager<AppRole> _roleManager;
           private readonly IUserService _userService;
-          public AdminController(UserManager<AppUser> userManager, 
+    
+        public AdminController(UserManager<AppUser> userManager, 
                RoleManager<AppRole> roleManager, 
                IUserService userService)
           {
                _userService = userService;
-               _roleManager = roleManager;
+              _roleManager = roleManager;
                _userManager = userManager;
           }
 
@@ -164,25 +168,28 @@ namespace api.Controllers
                return result.Succeeded;
           }
 
-          //[Authorize(Roles = "Admin")]
+          [Authorize(Policy = "RequireAdminRole")]
           //[Authorize (Policy = "RequireAdminRole")]
           [HttpGet("users-with-roles")]
           public async Task<ActionResult> GetUsersWithRoles()
           {
-               var users = await _userManager.Users
-                .Include(r => r.UserRoles)
-                .ThenInclude(r => r.Role)
-                .OrderBy(u => u.UserName)
-                .Select(u => new
-                {
-                    u.Id,
-                    Username = u.UserName,
-                    DisplayName = u.DisplayName,
-                    Roles = u.UserRoles.Select(r => r.Role.Name).ToList()
-                })
-                .ToListAsync();
+               
+               var qryUsers = await  _userManager.Users
+                    .OrderBy(u => u.UserName)
+                     .Select(u => new UserDto{
+                         ObjectId = u.Id,
+                         Email = u.Email,
+                         Username = u.DisplayName
+                    })
+                    
+                    .ToListAsync();
 
-               return Ok(users);
+               foreach(var user in qryUsers)
+               {
+                    user.Roles = await _userManager.GetRolesAsync(await _userManager.FindByIdAsync(user.ObjectId));
+               }
+
+               return Ok(qryUsers);
           }
 
           [HttpGet("Users-with-roles-paginated")]
@@ -196,9 +203,9 @@ namespace api.Controllers
                return Ok(paginated);
           }
 
-        [Authorize(Roles= "Admin")]
-        [HttpPost("edit-roles")]
-        public async Task<ActionResult> EditUserRoles([FromQuery]string roles)
+        [Authorize(Policy= "RequireAdminRole")]
+        [HttpPost("edit-roles/{email}/{roles}")]
+        public async Task<ActionResult> EditUserRoles(string email, string roles)
         {
             var selectedRoles = roles.Split(",").ToArray();
                var username = selectedRoles[0];

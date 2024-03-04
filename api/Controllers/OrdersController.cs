@@ -35,7 +35,7 @@ namespace api.Controllers
           }
 
           
-          //(Policy = "OrdersViewReportRole")]
+          [Authorize(Policy = "RequireOrdersViewRole")]
           [HttpGet]
           public async Task<ActionResult<Pagination<OrderToReturnDto>>> GetOrdersAll(OrdersSpecParams orderParams)
           {
@@ -45,6 +45,7 @@ namespace api.Controllers
                return Ok(orders);
           }
           
+          [Authorize(Policy = "RequireOrdersViewRole")]
           [HttpGet("ordersbriefpaginated")]
           public async Task<ActionResult<Pagination<OrderToReturnDto>>> GetOrdersBriefAll([FromQuery]OrdersSpecParams orderParams)
           {
@@ -55,18 +56,21 @@ namespace api.Controllers
                return Ok(orders);
           }
 
+          [Authorize(Policy = "RequireOrdersViewRole")]
           [HttpGet("openorderitemlist")]
           public async Task<ICollection<OrderItemBriefDto>> GetCurrentOpeningsDto()
           {
                return await _orderService.GetOpenOrderItemsNotPaged();
           }
 
+          [Authorize(Policy = "RequireOrdersViewRole")]
           [HttpGet("openorderitemsmatchingcandidate")]
           public async Task<ICollection<OrderItemBriefDto>> GetCurrentOpeningsDtoForCandidate(int candidateId)
           {
                return await _orderService.GetOpenOrderItemsNotPaged();
           }
 
+          [Authorize(Policy = "RequireOrdersViewRole")]
           [HttpGet("orderitemsbyorderid/{orderid}")]
           public async Task<ActionResult<ICollection<OrderItemBriefDto>>> GetOrderItemsByOrderId (int orderid)
           {
@@ -76,7 +80,8 @@ namespace api.Controllers
 
                return NotFound();
           }
-
+          
+          [Authorize(Policy = "RequireOrdersViewRole")]
           [HttpGet("orderbriefdto/{orderid}")]
           public async Task<ActionResult<OrderBriefDtoR>> GetOrderBrief (int orderid)
           {
@@ -87,7 +92,7 @@ namespace api.Controllers
                return NotFound();
           }
 
-          
+          [Authorize(Policy = "RequireOrdersViewRole")]
           [HttpGet("itemdtobyid/{orderitemid}")]
           public async Task<ActionResult<ICollection<OrderItemBriefDto>>> GetOrderItemBriefByOrderItemId (int orderitemid)
           {
@@ -98,6 +103,7 @@ namespace api.Controllers
                return NotFound();
           }
 
+          [Authorize(Policy = "RequireOrdersViewRole")]
           [HttpGet("byidwithitems/{id}")]
           public async Task<ActionResult<Order>> GetOrderByIdWithItemsAsync (int id)
           {
@@ -108,6 +114,7 @@ namespace api.Controllers
                return NotFound();
           }
 
+          [Authorize(Policy = "RequireOrdersViewRole")]
           [HttpGet("byidswithitems")]
           public async Task<ActionResult<OrderBriefDtoR>> GetOrdersByIdsWithItemsAsync (ICollection<int> orderids)
           {
@@ -118,6 +125,7 @@ namespace api.Controllers
                return NotFound();
           }
 
+          [Authorize(Policy = "RequireOrdersViewRole")]
           [HttpGet("byid/{id}")]
           public async Task<ActionResult<Order>> GetOrderByIdWithItemsJDRemunertionAsyc (int id)
           {
@@ -128,12 +136,14 @@ namespace api.Controllers
                return NotFound();
           }
 
+          [Authorize(Policy = "RequireOrdersViewRole")]
           [HttpGet("ordercities")]
           public async Task<ICollection<CustomerCity>> GetOrderCities ()
           {
                return (ICollection<CustomerCity>)await _orderService.GetOrderCityNames();
           }
 
+          [Authorize(Policy = "RequireOrdersViewRole")]
           [HttpGet("refcodefromorderitemid/{orderitemid}")]
           public async Task<string> GetOrderRefCodeFromOrderItemId(int orderitemid)
           {
@@ -143,7 +153,7 @@ namespace api.Controllers
           }
 
 
-          [Authorize]    //(Roles = "Admin, HRManager, HRSupervisor")]
+          [Authorize(Policy = "RequireOrdersCreateRole")]
           [HttpPost]
           public async Task<ActionResult<Order>> CreateOrder(OrderToCreateDto dto)
           {
@@ -155,7 +165,7 @@ namespace api.Controllers
                return Ok(order);
           }
 
-          [Authorize]    //(Roles = "Admin, HRManager, HRSupervisor")]
+          [Authorize (Policy = "RequireOrdersCreateRole")]    //(Roles = "Admin, HRManager, HRSupervisor")]
           [HttpPost("orders")]
           public async Task<ActionResult<ICollection<Order>>> CreateOrders(ICollection<OrderToCreateDto> dtos)
           {
@@ -168,7 +178,7 @@ namespace api.Controllers
                return Ok(order);
           }
 
-          [Authorize]    //(Roles = "Admin, HRManager, HRSupervisor")]
+          [Authorize (Policy = "RequireOrdersCreateRole")]    //(Roles = "Admin, HRManager, HRSupervisor")]
           [HttpPut]
           public async Task<ActionResult<bool>> EditOrder(Order order)
           {
@@ -177,8 +187,7 @@ namespace api.Controllers
           }
 
 
-          
-          [Authorize]    //(Roles = "Admin, DocumentControllerAdmin")]
+          [Authorize (Policy = "RequireOrdersCreateRole")]    //(Roles = "Admin, DocumentControllerAdmin")]
           [HttpDelete("order/{orderid}")]
           public async Task<bool> DeleteOrder(int orderid)
           {
@@ -186,7 +195,7 @@ namespace api.Controllers
           }
 
           
-          [Authorize]    //(Roles = "Admin, HRManager, HRSupervisor, HRExecutive, DocumentControllerAdmin")]
+          [Authorize (Policy = "RequireOrdersCreateRole")]    //(Roles = "Admin, HRManager, HRSupervisor, HRExecutive, DocumentControllerAdmin")]
           [HttpPut("updatedlfwd")]
           public async Task<bool> UpdateOrderDLForwardedToHR(IdAndDate idanddate)
           {
@@ -194,7 +203,7 @@ namespace api.Controllers
           }
 
           //remunerations
-          [Authorize]    //(Roles = "Admin, HRManager, HRSupervisor, DocumentControllerAdmin")]
+          [Authorize (Policy = "RequireOrdersCreateRole")]    //(Roles = "Admin, HRManager, HRSupervisor, DocumentControllerAdmin")]
           [HttpPost("remun")]
           public async Task<ActionResult<Remuneration>> CreateRemuneration(Remuneration remuneration)
           {
@@ -205,6 +214,7 @@ namespace api.Controllers
                return Ok(remun);
           }
 
+          [Authorize (Policy = "RequireOrdersViewRole")]
           [HttpGet("jd/{orderitemid}")]
           public async Task<ActionResult<JDDto>> GetOrCreateJD(int orderitemid)
           {
@@ -216,7 +226,7 @@ namespace api.Controllers
 
           }
 
-          [Authorize]    //(Roles = "Admin, HRManager, HRSupervisor, DocumentControllerAdmin")]
+          [Authorize (Policy = "RequireOrdersViewRole")]    //(Roles = "Admin, HRManager, HRSupervisor, DocumentControllerAdmin")]
           [HttpGet("remuneration/{orderitemid}")]
           public async Task<ActionResult<RemunerationFullDto>> GetOrCreateRemuneration(int orderitemid)
           {
@@ -229,8 +239,7 @@ namespace api.Controllers
 
           }
 
-
-          [Authorize]    //(Roles = "Admin, HRManager, HRSupervisor")]
+          [Authorize (Policy = "OrddersCreateRole")]    //(Roles = "Admin, HRManager, HRSupervisor")]
           [HttpPut("jd")]
           public async Task<ActionResult<bool>> UpdateJD (JDDto jddto)
           {
@@ -238,7 +247,7 @@ namespace api.Controllers
           }
 
           
-          [Authorize]    //(Roles = "Admin, HRManager, HRSupervisor")]
+          [Authorize (Policy = "RequireOrdersCreateRole")]    //(Roles = "Admin, HRManager, HRSupervisor")]
           [HttpPut("remuneration")]
           public async Task<ActionResult<bool>> UpdateRemuneration (RemunerationFullDto dto)
           {

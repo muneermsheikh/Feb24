@@ -63,7 +63,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("AccountName")
                         .IsUnique();
 
-                    b.ToTable("COAs");
+                    b.ToTable("COAs", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.AccountsNFinance.FinanceVoucher", b =>
@@ -105,7 +105,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("VoucherNo")
                         .IsUnique();
 
-                    b.ToTable("FinanceVouchers");
+                    b.ToTable("FinanceVouchers", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.AccountsNFinance.VoucherEntry", b =>
@@ -153,7 +153,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("TransDate");
 
-                    b.ToTable("VoucherEntries");
+                    b.ToTable("VoucherEntries", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.AgencySpecialty", b =>
@@ -178,7 +178,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("AgencySpecialties");
+                    b.ToTable("AgencySpecialties", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.ContactResult", b =>
@@ -200,7 +200,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("Name", "ResultId")
                         .IsUnique();
 
-                    b.ToTable("ContactResults");
+                    b.ToTable("ContactResults", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.CustomerReview", b =>
@@ -223,7 +223,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CustomerReviews");
+                    b.ToTable("CustomerReviews", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.CustomerReviewData", b =>
@@ -237,7 +237,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CustomerReviewDatas");
+                    b.ToTable("CustomerReviewDatas", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.CustomerReviewItem", b =>
@@ -271,7 +271,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("CustomerReviewId");
 
-                    b.ToTable("CustomerReviewItems");
+                    b.ToTable("CustomerReviewItems", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.DLForwardCategory", b =>
@@ -305,7 +305,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("OrderItemId")
                         .IsUnique();
 
-                    b.ToTable("DLForwardCategories");
+                    b.ToTable("DLForwardCategories", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.DLForwardCategoryOfficial", b =>
@@ -349,7 +349,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("DLForwardCategoryId", "DateOnlyForwarded", "CustomerOfficialId")
                         .IsUnique();
 
-                    b.ToTable("DLForwardCategoryOfficials");
+                    b.ToTable("DLForwardCategoryOfficials", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.DLForwardToAgent", b =>
@@ -389,7 +389,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.ToTable("DLForwardToAgents");
+                    b.ToTable("DLForwardToAgents", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.Employee", b =>
@@ -466,7 +466,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.EmployeeHRSkill", b =>
@@ -492,7 +492,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("EmployeeId", "CategoryId", "IndustryId")
                         .IsUnique();
 
-                    b.ToTable("EmployeeHRSkills");
+                    b.ToTable("EmployeeHRSkills", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.EmployeeOtherSkill", b =>
@@ -518,7 +518,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("EmployeeId", "SkillDataId")
                         .IsUnique();
 
-                    b.ToTable("EmployeeOtherSkills");
+                    b.ToTable("EmployeeOtherSkills", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.EmployeeQualification", b =>
@@ -541,7 +541,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("EmployeeId", "QualificationId")
                         .IsUnique();
 
-                    b.ToTable("EmployeeQualifications");
+                    b.ToTable("EmployeeQualifications", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.Help", b =>
@@ -560,7 +560,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("Topic")
                         .IsUnique();
 
-                    b.ToTable("Helps");
+                    b.ToTable("Helps", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.HelpItem", b =>
@@ -587,7 +587,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("Sequence", "HelpId")
                         .IsUnique();
 
-                    b.ToTable("HelpItems");
+                    b.ToTable("HelpItems", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.HelpSubItem", b =>
@@ -612,7 +612,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("HelpItemId");
 
-                    b.ToTable("HelpSubItems");
+                    b.ToTable("HelpSubItems", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.UserHistory", b =>
@@ -732,7 +732,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("UserHistoryHeaderId");
 
-                    b.ToTable("UserHistories");
+                    b.ToTable("UserHistories", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.UserHistoryHeader", b =>
@@ -776,7 +776,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserHistoryHeaders");
+                    b.ToTable("UserHistoryHeaders", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.UserHistoryItem", b =>
@@ -834,7 +834,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("UserHistoryId");
 
-                    b.ToTable("UserHistoryItems");
+                    b.ToTable("UserHistoryItems", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.VendorFacility", b =>
@@ -848,7 +848,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VendorFacilities");
+                    b.ToTable("VendorFacilities", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Admin.VendorSpecialty", b =>
@@ -870,7 +870,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("VendorSpecialties");
+                    b.ToTable("VendorSpecialties", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Attachments.FileOnFileSystem", b =>
@@ -902,7 +902,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FilesOnFileSystem");
+                    b.ToTable("FilesOnFileSystem", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Attachments.FileUpload", b =>
@@ -937,7 +937,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FileUploads");
+                    b.ToTable("FileUploads", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Attachments.VoucherAttachment", b =>
@@ -976,7 +976,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("FinanceVoucherId1");
 
-                    b.ToTable("VoucherAttachments");
+                    b.ToTable("VoucherAttachments", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Customer", b =>
@@ -1052,7 +1052,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("CustomerName", "City")
                         .IsUnique();
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.CustomerIndustry", b =>
@@ -1075,7 +1075,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("CustomerId", "IndustryId")
                         .IsUnique();
 
-                    b.ToTable("CustomerIndustries");
+                    b.ToTable("CustomerIndustries", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.CustomerOfficial", b =>
@@ -1133,7 +1133,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("CustomerOfficials");
+                    b.ToTable("CustomerOfficials", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.EmailandSMS.EmailMessage", b =>
@@ -1211,7 +1211,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmailMessages");
+                    b.ToTable("EmailMessages", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.EmailandSMS.MessageComposeSource", b =>
@@ -1234,7 +1234,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MessageComposeSources");
+                    b.ToTable("MessageComposeSources", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.EmailandSMS.MessageType", b =>
@@ -1248,7 +1248,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MessageTypes");
+                    b.ToTable("MessageTypes", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.EmailandSMS.PhoneMessage", b =>
@@ -1281,7 +1281,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PhoneMessages");
+                    b.ToTable("PhoneMessages", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.EmailandSMS.SMSMessage", b =>
@@ -1313,7 +1313,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SMSMessages");
+                    b.ToTable("SMSMessages", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.AssessmentStandardQ", b =>
@@ -1344,7 +1344,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("QuestionNo")
                         .IsUnique();
 
-                    b.ToTable("AssessmentStandardQs");
+                    b.ToTable("AssessmentStandardQs", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.CVRef", b =>
@@ -1427,7 +1427,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("CandidateId", "OrderItemId")
                         .IsUnique();
 
-                    b.ToTable("CVRefs");
+                    b.ToTable("CVRefs", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.CVRefRestriction", b =>
@@ -1462,7 +1462,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CVRefRestrictions");
+                    b.ToTable("CVRefRestrictions", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.CVRvw", b =>
@@ -1551,7 +1551,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("CandidateId", "OrderItemId")
                         .IsUnique();
 
-                    b.ToTable("CVReviews");
+                    b.ToTable("CVReviews", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.CandidateAssessment", b =>
@@ -1601,7 +1601,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("CandidateId", "OrderItemId")
                         .IsUnique();
 
-                    b.ToTable("CandidateAssessments");
+                    b.ToTable("CandidateAssessments", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.CandidateAssessmentItem", b =>
@@ -1641,7 +1641,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("CandidateAssessmentId");
 
-                    b.ToTable("CandidateAssessmentItems");
+                    b.ToTable("CandidateAssessmentItems", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.ChecklistHR", b =>
@@ -1690,7 +1690,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("CandidateId", "OrderItemId")
                         .IsUnique();
 
-                    b.ToTable("ChecklistHRs");
+                    b.ToTable("ChecklistHRs", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.ChecklistHRItem", b =>
@@ -1726,7 +1726,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("ChecklistHRId");
 
-                    b.ToTable("ChecklistHRItems");
+                    b.ToTable("ChecklistHRItems", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.Employment", b =>
@@ -1845,7 +1845,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("SelectionDecisionId")
                         .IsUnique();
 
-                    b.ToTable("Employments");
+                    b.ToTable("Employments", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.Interview", b =>
@@ -1908,7 +1908,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("OrderNo")
                         .IsUnique();
 
-                    b.ToTable("Interviews");
+                    b.ToTable("Interviews", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.InterviewAttendanceStatus", b =>
@@ -1927,7 +1927,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("Status")
                         .IsUnique();
 
-                    b.ToTable("InterviewAttendancesStatus");
+                    b.ToTable("InterviewAttendancesStatus", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.InterviewItem", b =>
@@ -1976,7 +1976,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("OrderItemId")
                         .IsUnique();
 
-                    b.ToTable("InterviewItems");
+                    b.ToTable("InterviewItems", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.InterviewItemCandidate", b =>
@@ -2033,7 +2033,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("CandidateId", "InterviewItemId")
                         .IsUnique();
 
-                    b.ToTable("InterviewItemCandidates");
+                    b.ToTable("InterviewItemCandidates", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.InterviewItemCandidateFollowup", b =>
@@ -2065,7 +2065,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("InterviewItemCandidateId");
 
-                    b.ToTable("InterviewItemCandidatesFollowup");
+                    b.ToTable("InterviewItemCandidatesFollowup", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.ProspectiveCandidate", b =>
@@ -2166,7 +2166,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("ResumeId")
                         .IsUnique();
 
-                    b.ToTable("ProspectiveCandidates");
+                    b.ToTable("ProspectiveCandidates", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.SelectionDecision", b =>
@@ -2225,7 +2225,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("CVRefId")
                         .IsUnique();
 
-                    b.ToTable("SelectionDecisions");
+                    b.ToTable("SelectionDecisions", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.HR.SelectionStatus", b =>
@@ -2242,7 +2242,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SelectionStatuses");
+                    b.ToTable("SelectionStatuses", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Industry", b =>
@@ -2261,7 +2261,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Industries");
+                    b.ToTable("Industries", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.MasterEntities.AssessmentQBank", b =>
@@ -2281,7 +2281,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("CategoryId")
                         .IsUnique();
 
-                    b.ToTable("AssessmentQBank");
+                    b.ToTable("AssessmentQBank", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.MasterEntities.AssessmentQBankItem", b =>
@@ -2315,7 +2315,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("AssessmentQBankId", "QNo")
                         .IsUnique();
 
-                    b.ToTable("AssessmentQBankItems");
+                    b.ToTable("AssessmentQBankItems", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.MasterEntities.Category", b =>
@@ -2334,7 +2334,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.MasterEntities.ChecklistHRData", b =>
@@ -2362,7 +2362,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("SrNo")
                         .IsUnique();
 
-                    b.ToTable("ChecklistHRDatas");
+                    b.ToTable("ChecklistHRDatas", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.MasterEntities.DeployStage", b =>
@@ -2393,7 +2393,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("Status")
                         .IsUnique();
 
-                    b.ToTable("DeployStages");
+                    b.ToTable("DeployStages", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.MasterEntities.Qualification", b =>
@@ -2412,7 +2412,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Qualifications");
+                    b.ToTable("Qualifications", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.MasterEntities.ReviewItemData", b =>
@@ -2443,7 +2443,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("SrNo")
                         .IsUnique();
 
-                    b.ToTable("ReviewItemDatas");
+                    b.ToTable("ReviewItemDatas", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.MasterEntities.ReviewItemStatus", b =>
@@ -2462,7 +2462,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("ItemStatus")
                         .IsUnique();
 
-                    b.ToTable("ReviewItemStatuses");
+                    b.ToTable("ReviewItemStatuses", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.MasterEntities.ReviewStatus", b =>
@@ -2481,7 +2481,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("Status")
                         .IsUnique();
 
-                    b.ToTable("ReviewStatuses");
+                    b.ToTable("ReviewStatuses", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.MasterEntities.SkillData", b =>
@@ -2500,7 +2500,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("SkillName")
                         .IsUnique();
 
-                    b.ToTable("SkillDatas");
+                    b.ToTable("SkillDatas", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Messages.Connection", b =>
@@ -2518,7 +2518,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("GroupName");
 
-                    b.ToTable("Connections");
+                    b.ToTable("Connections", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Messages.Group", b =>
@@ -2528,7 +2528,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Name");
 
-                    b.ToTable("Groups");
+                    b.ToTable("Groups", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Orders.ContractReview", b =>
@@ -2573,7 +2573,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("OrderNo")
                         .IsUnique();
 
-                    b.ToTable("ContractReviews");
+                    b.ToTable("ContractReviews", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Orders.ContractReviewItem", b =>
@@ -2625,7 +2625,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("OrderItemId")
                         .IsUnique();
 
-                    b.ToTable("ContractReviewItems");
+                    b.ToTable("ContractReviewItems", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Orders.JobDescription", b =>
@@ -2673,7 +2673,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("OrderItemId1");
 
-                    b.ToTable("JobDescriptions");
+                    b.ToTable("JobDescriptions", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Orders.Order", b =>
@@ -2753,7 +2753,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Orders.OrderItem", b =>
@@ -2877,7 +2877,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("RemunerationId")
                         .IsUnique();
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Orders.OrderItemAssessment", b =>
@@ -2906,7 +2906,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OrderItemAssessments");
+                    b.ToTable("OrderItemAssessments", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Orders.OrderItemAssessmentQ", b =>
@@ -2946,7 +2946,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("OrderItemAssessmentId");
 
-                    b.ToTable("OrderItemAssessmentQs");
+                    b.ToTable("OrderItemAssessmentQs", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Orders.Remuneration", b =>
@@ -3028,7 +3028,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("OrderItemId1");
 
-                    b.ToTable("Remunerations");
+                    b.ToTable("Remunerations", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Orders.ReviewItem", b =>
@@ -3074,7 +3074,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("ContractReviewItemId", "SrNo")
                         .IsUnique();
 
-                    b.ToTable("ReviewItems");
+                    b.ToTable("ReviewItems", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Process.Deploy", b =>
@@ -3105,7 +3105,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("CVRefId");
 
-                    b.ToTable("Deploys");
+                    b.ToTable("Deploys", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Process.DeployStatus", b =>
@@ -3137,7 +3137,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("StatusName")
                         .IsUnique();
 
-                    b.ToTable("DeployStatus");
+                    b.ToTable("DeployStatus", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Process.Deployment", b =>
@@ -3173,7 +3173,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("CVRefId", "Sequence")
                         .IsUnique();
 
-                    b.ToTable("Deployments");
+                    b.ToTable("Deployments", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Tasks.ApplicationTask", b =>
@@ -3267,7 +3267,7 @@ namespace infra.Data.Migrations
                         .IsUnique()
                         .HasFilter("CandidateId > 0");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("Tasks", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Tasks.TaskItem", b =>
@@ -3333,7 +3333,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("UserId")
                         .HasFilter("[UserId] > 0");
 
-                    b.ToTable("TaskItems");
+                    b.ToTable("TaskItems", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Tasks.TaskType", b =>
@@ -3347,7 +3347,7 @@ namespace infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TaskTypes");
+                    b.ToTable("TaskTypes", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Users.Candidate", b =>
@@ -3468,7 +3468,7 @@ namespace infra.Data.Migrations
                         .IsUnique()
                         .HasFilter("[PpNo] != '' AND [PpNo] IS NOT NULL");
 
-                    b.ToTable("Candidates");
+                    b.ToTable("Candidates", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Users.EmployeeAddress", b =>
@@ -3511,7 +3511,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("EmployeeAddresses");
+                    b.ToTable("EmployeeAddresses", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Users.EmployeePhone", b =>
@@ -3539,7 +3539,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("EmployeePhones");
+                    b.ToTable("EmployeePhones", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Users.EntityAddress", b =>
@@ -3585,7 +3585,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("CandidateId");
 
-                    b.ToTable("EntityAddresses");
+                    b.ToTable("EntityAddresses", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Users.Photo", b =>
@@ -3610,7 +3610,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("CandidateId");
 
-                    b.ToTable("Photos");
+                    b.ToTable("Photos", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Users.UserAttachment", b =>
@@ -3647,7 +3647,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("CandidateId");
 
-                    b.ToTable("UserAttachments");
+                    b.ToTable("UserAttachments", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Users.UserExp", b =>
@@ -3690,7 +3690,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("CandidateId");
 
-                    b.ToTable("UserExps");
+                    b.ToTable("UserExps", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Users.UserPassport", b =>
@@ -3730,7 +3730,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("PassportNo")
                         .IsUnique();
 
-                    b.ToTable("UserPassports");
+                    b.ToTable("UserPassports", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Users.UserPhone", b =>
@@ -3760,7 +3760,7 @@ namespace infra.Data.Migrations
 
                     b.HasIndex("CandidateId");
 
-                    b.ToTable("UserPhones");
+                    b.ToTable("UserPhones", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Users.UserProfession", b =>
@@ -3792,7 +3792,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("CandidateId", "CategoryId", "IndustryId")
                         .IsUnique();
 
-                    b.ToTable("UserProfessions");
+                    b.ToTable("UserProfessions", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.Users.UserQualification", b =>
@@ -3818,7 +3818,7 @@ namespace infra.Data.Migrations
                     b.HasIndex("CandidateId", "QualificationId")
                         .IsUnique();
 
-                    b.ToTable("UserQualifications");
+                    b.ToTable("UserQualifications", (string)null);
                 });
 
             modelBuilder.Entity("core.Entities.AccountsNFinance.VoucherEntry", b =>

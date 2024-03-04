@@ -5,7 +5,7 @@ namespace core.Dtos
     public class UserDto
     {
         public int loggedInEmployeeId {get; set;}
-        public int ObjectId {get; set;}
+        public string ObjectId {get; set;}
         public string Username {get; set;}
         public string Email { get; set; }
         public string DisplayName { get; set; }
@@ -15,3 +15,4 @@ namespace core.Dtos
         public ICollection<string> Roles {get; set;}
     }
 }
+

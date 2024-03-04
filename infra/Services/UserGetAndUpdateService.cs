@@ -75,7 +75,7 @@ namespace infra.Services
                     orderby c.ApplicationNo 
                     select new CandidateBriefDto{
                          Id = c.Id, FullName = c.FullName, City = c.City, ApplicationNo = c.ApplicationNo, 
-                         ReferredById=(int)c.ReferredBy    //, ReferredByName= customers.CustomerName
+                         ReferredById=c.ReferredBy ?? 9   //, ReferredByName= customers.CustomerName
                     }).AsQueryable();
 
                if(prm.ProfessionId.HasValue) {
